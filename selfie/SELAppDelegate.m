@@ -7,15 +7,23 @@
 //
 
 #import "SELAppDelegate.h"
+#import "HockeySDK.h"
 
 @implementation SELAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    
+    // Parse Setup
+    [Parse setApplicationId:@"jjcVHlw8UwWC2FkXZhL7JNLqDiXJlyBnKVAIsrbO"
+                  clientKey:@"oivL7zqMRzHAv0fBKJkUuxnQch3tNkQ91t3WMJr1"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    // Hockey
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"3241e632dca0024ef62a108871e68a5c"];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+    
     return YES;
 }
 
@@ -46,4 +54,11 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
+    
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:newDeviceToken];
+    [currentInstallation saveInBackground];
+}
 @end
