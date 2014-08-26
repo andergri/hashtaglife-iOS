@@ -8,6 +8,7 @@
 
 #import "SELCameraOverlayView.h"
 #import <AVFoundation/AVFoundation.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface SELCameraOverlayView ()
 
@@ -38,7 +39,7 @@
         self.backgroundColor = [UIColor clearColor];
         
         //Capture View
-        UIView *captureView = [[UIButton alloc] initWithFrame:CGRectMake(120, self.frame.size.height - 90, 80, 80)];
+        UIView *captureView = [[UIButton alloc] initWithFrame:CGRectMake(120, self.frame.size.height - 100, 80, 80)];
         captureView.layer.cornerRadius = roundf(captureView.frame.size.width/2.0);
         captureView.layer.borderColor = [UIColor whiteColor].CGColor;
         captureView.layer.borderWidth = 4.0f;
@@ -49,6 +50,7 @@
         flashButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 55, 55)];
         [self addSubview:flashButton];
         [flashButton addTarget:self action:@selector(flashState) forControlEvents:UIControlEventTouchUpInside];
+        self.pickerRefrenece.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
         
         //Switch Camera Images
         flashImage = [[UIImage imageNamed:@"off-flash"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -73,14 +75,14 @@
         
         
         //Capture Button
-        UIButton *captureButton = [[UIButton alloc] initWithFrame:CGRectMake(128, self.frame.size.height - 82, 64, 64)];
+        UIButton *captureButton = [[UIButton alloc] initWithFrame:CGRectMake(128, self.frame.size.height - 92, 64, 64)];
         captureButton.layer.cornerRadius = roundf(captureButton.frame.size.width/2.0);
         captureButton.backgroundColor = [UIColor whiteColor];
         [self addSubview:captureButton];
         [captureButton addTarget:self action:@selector(takeSelfie) forControlEvents:UIControlEventTouchUpInside];
         
         //Exit Button
-        UIButton *exitButton = [[UIButton alloc] initWithFrame:CGRectMake(25, self.frame.size.height - 74, 50, 50)];
+        UIButton *exitButton = [[UIButton alloc] initWithFrame:CGRectMake(25, self.frame.size.height - 84, 50, 50)];
         exitButton.layer.cornerRadius = roundf(exitButton.frame.size.width/2.0);
         exitButton.backgroundColor = [UIColor whiteColor];
         [self addSubview:exitButton];
@@ -93,6 +95,21 @@
         backImageView.contentMode = UIViewContentModeCenter;
         [backImageView setTintColor:[color getPrimaryColor]];
         [exitButton addSubview:backImageView];
+        
+        //Choose image Button
+        UIButton *chooseButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 70, self.frame.size.height - 84, 50, 50)];
+        chooseButton.layer.cornerRadius = roundf(chooseButton.frame.size.width/2.0);
+        chooseButton.backgroundColor = [UIColor whiteColor];
+        [self addSubview:chooseButton];
+        [chooseButton addTarget:self action:@selector(chooseImage) forControlEvents:UIControlEventTouchUpInside];
+        
+        //Choose image Button UI
+        UIImage *chooseImage = [[UIImage imageNamed:@"image"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIImageView *chooseImageView = [[UIImageView alloc] initWithImage:chooseImage];
+        chooseImageView.frame = CGRectMake(10.5, 10.5, chooseImage.size.width, chooseImage.size.height);
+        chooseImageView.contentMode = UIViewContentModeCenter;
+        [chooseImageView setTintColor:[color getPrimaryColor]];
+        [chooseButton addSubview:chooseImageView];
 
     }
     return self;
@@ -141,6 +158,29 @@
 
 - (void) exitCamera {
     [self.pickerRefrenece dismissViewControllerAnimated:NO completion:nil];
+}
+
+- (void) chooseImage {
+    if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO
+         && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)) {
+        return;
+    }
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]
+        && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary] containsObject:(NSString *)kUTTypeImage]) {
+        
+        self.pickerRefrenece.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        self.pickerRefrenece.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
+        
+    } else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]
+               && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum] containsObject:(NSString *)kUTTypeImage]) {
+        
+        self.pickerRefrenece.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        self.pickerRefrenece.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
+        
+    } else {
+        return;
+    }
 }
 
 @end

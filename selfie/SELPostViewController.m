@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *exitButton;
 - (IBAction)exitAction:(id)sender;
 - (IBAction)backAction:(id)sender;
+@property PFObject *pendingObject;
 
 @end
 
@@ -34,6 +35,7 @@
 @synthesize image;
 @synthesize delegate;
 @synthesize color;
+@synthesize pendingObject;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,6 +52,7 @@
     // Do any additional setup after loading the view from its nib.
     
     // init
+    pendingObject = nil;
     hashtags = [[NSMutableArray alloc] init];
     [self.tableView setDelegate:self];
     self.tableView.dataSource = self;
@@ -83,6 +86,9 @@
     self.textField.leftViewMode = UITextFieldViewModeAlways;
     self.textField.layer.masksToBounds=YES;
     self.textField.bounds = CGRectInset(self.textField.frame, -10.0f, 0.0f);
+    
+    // exit button
+    self.exitButton.frame = CGRectMake(0, self.view.frame.size.height - 70, self.exitButton.frame.size.width, self.exitButton.frame.size.height);
     
     // ok button back button
     self.okButton.layer.cornerRadius = roundf(self.okButton.frame.size.width/2.0);
@@ -126,7 +132,7 @@
     self.imageView.frame = self.view.frame;
     self.chooseHashtagView.frame = self.view.frame;
     self.chooseImageView.frame = self.view.frame;
-    self.exitButton.frame = CGRectMake(0, self.view.frame.size.height - 80, self.exitButton.frame.size.width, self.exitButton.frame.size.height);
+    self.exitButton.frame = CGRectMake(0, self.view.frame.size.height - 70, self.exitButton.frame.size.width, self.exitButton.frame.size.height);
     self.buttonContainerView.frame = CGRectMake(0, self.view.frame.size.height - 85, self.buttonContainerView.frame.size.width, self.buttonContainerView.frame.size.height);
     
     // Do any additional setup after loading the view from its nib.
@@ -141,6 +147,11 @@
     
     
     NSLog(@"image w %f h %f", self.imageView.image.size.width, self.imageView.image.size.height);
+        
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Post Screen"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+        
 }
 
 #pragma mark - TextField
@@ -153,15 +164,20 @@
         for(NSString * hash in hashes) {
             NSArray* hashesa = [hash componentsSeparatedByString:@"#"];
             for(NSString * hasha in hashesa) {
-                if ([self checkHashtag:hasha] && hasha.length > 0 && hashtags.count < 5) {
-                    [hashtags insertObject:hasha atIndex:0];
+                if ([self checkHashtag:hasha]){
+                
+                    if((hasha.length > 0.0) && (hashtags.count < 5.0)) {
+                        
+                        [self setPlaceholder];
+                        [hashtags insertObject:hasha atIndex:0];
+                    }
                 }
             }
         }
         textField.text = @"";
     }
     [self.tableView reloadData];
-    [self.textField resignFirstResponder];
+    //[self.textField resignFirstResponder];
 }
 
 - (BOOL) checkHashtag: (NSString *)hash{
@@ -169,7 +185,7 @@
     hash = [hash stringByReplacingOccurrencesOfString:@"#" withString:@""];
     hash = [hash stringByReplacingOccurrencesOfString:@" " withString:@""];
 
-    if(hashtags.count > 5){
+    if(hashtags.count > 4.0){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ooops!" message:@"Only 5 Hashtags allowed." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         return FALSE;
@@ -195,7 +211,8 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
+    [self textFieldDidEndEditing:textField];
+    //[textField resignFirstResponder];
     return YES;
 }
 
@@ -264,6 +281,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         [self.hashtags removeObjectAtIndex:indexPath.item];
+        [self setPlaceholder];
         [tableView reloadData];
     }
 }
@@ -272,7 +290,7 @@
 {
     if (hashtags.count == 0)
         return 0.0f;
-    return 80.0f;
+    return 70.0f;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -298,24 +316,52 @@
 
 #pragma - mark save for parse
 
+- (void) startSaving{
+
+    // Save Selfie
+    NSData *imageData = UIImagePNGRepresentation(image);
+    PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
+    
+    // Save Selfie
+    pendingObject = nil;
+    pendingObject = [PFObject objectWithClassName:@"Selfie"];
+    pendingObject[@"likes"] = @1;
+    pendingObject[@"flags"] = @0;
+    pendingObject[@"visits"] = @1;
+    pendingObject[@"from"] = [PFUser currentUser];
+    pendingObject[@"image"] = imageFile;
+    [pendingObject saveInBackground];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"Data"
+                    action:@"saving"
+                    label:@"image start"
+                    value:nil] build]];
+}
+
+- (void) deleteSaving{
+
+    [pendingObject deleteInBackground];
+    pendingObject = nil;
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"Data"
+                    action:@"saving"
+                    label:@"image delete"
+                    value:nil] build]];
+}
+
 -(void)saveSelfie {
     NSLog(@"saving Selfie ...");
     
     // Clean Data
     NSArray *cleanHashtags = (NSArray*) hashtags;
     
-    NSData *imageData = UIImagePNGRepresentation(image);
-    PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
-    
     // Save Selfie
-    PFObject *selfie = [PFObject objectWithClassName:@"Selfie"];
-    selfie[@"likes"] = @0;
-    selfie[@"flags"] = @0;
-    selfie[@"visits"] = @0;
-    selfie[@"from"] = [PFUser currentUser];
-    selfie[@"image"] = imageFile;
-    [selfie addUniqueObjectsFromArray:cleanHashtags forKey:@"hashtags"];
-    [selfie saveInBackground];
+    [pendingObject addUniqueObjectsFromArray:cleanHashtags forKey:@"hashtags"];
+    [pendingObject saveInBackground];
     
     // Add or incrment hashtag count
     for (NSString *cleanHashtag in cleanHashtags) {
@@ -347,6 +393,13 @@
         }];
     }
     [self closeView];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"Data"
+                    action:@"saving"
+                    label:@"image finished"
+                    value:nil] build]];
 }
 
 #pragma - mark naviation
@@ -362,6 +415,23 @@
 
 - (void)closeView{
     [self dismissViewControllerAnimated:NO completion:nil];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"UX"
+                    action:@"posting"
+                    label:@"submitted"
+                    value:nil] build]];
+}
+
+- (void)setPlaceholder{
+    if (hashtags.count == 4.0) {
+        self.textField.placeholder = [NSString stringWithFormat:@"Click 'Submit'"];
+    }else if (hashtags.count == 3.0) {
+        self.textField.placeholder = [NSString stringWithFormat:@"1 hashtag left"];
+    }else{
+        self.textField.placeholder = [NSString stringWithFormat:@"%lu hashtags left", (4 - hashtags.count)];
+    }
 }
 
 
@@ -380,6 +450,14 @@
     [self.hashtags removeAllObjects];
     [self.tableView reloadData];
     [self.textField becomeFirstResponder];
+    [self startSaving];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"UX"
+                    action:@"posting"
+                    label:@"ok image"
+                    value:nil] build]];
 }
 
 - (IBAction)exitAction:(id)sender{
@@ -387,12 +465,20 @@
     self.chooseImageView.hidden = NO;
     [self.hashtags removeAllObjects];
     [self.tableView reloadData];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder
+                    createEventWithCategory:@"UX"
+                    action:@"posting"
+                    label:@"exit image"
+                    value:nil] build]];
 }
 
 - (IBAction)backAction:(id)sender {
     self.chooseHashtagView.hidden = YES;
     self.chooseImageView.hidden = NO;
     // go to camera
+    [self deleteSaving];
     NSLog(@"picker class %@", [self.parentViewController class]);
 
     [self dismissViewControllerAnimated:NO completion:^{

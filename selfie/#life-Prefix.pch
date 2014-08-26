@@ -15,4 +15,8 @@
     #import <Foundation/Foundation.h>
     #import <Parse/Parse.h>
     #import <QuartzCore/QuartzCore.h>
+    #import <GAI.h>
+    #import "GAITrackedViewController.h"
+    #import "GAIDictionaryBuilder.h"
+    #import "GAIFields.h"
 #endif

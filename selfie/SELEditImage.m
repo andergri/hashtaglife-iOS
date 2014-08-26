@@ -89,27 +89,33 @@
     UIImageOrientation orient = image.imageOrientation;
     
     switch(orient) {
-            
-        case UIImageOrientationUp: //EXIF = 1
-            transform = CGAffineTransformIdentity;
+        case UIImageOrientationUp: //EXIF = 0 -- photo left
+            boundHeight = bounds.size.height;
+            bounds.size.height = bounds.size.width;
+            bounds.size.width = boundHeight;
+            transform = CGAffineTransformMakeTranslation(0.0, imageSize.height);
+            transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
             break;
             
-        case UIImageOrientationUpMirrored: //EXIF = 2
+        case UIImageOrientationUpMirrored:
             transform = CGAffineTransformMakeTranslation(imageSize.width, 0.0);
             transform = CGAffineTransformScale(transform, -1.0, 1.0);
             break;
             
-        case UIImageOrientationDown: //EXIF = 3
-            transform = CGAffineTransformMakeTranslation(imageSize.width, imageSize.height);
-            transform = CGAffineTransformRotate(transform, M_PI);
+        case UIImageOrientationDown: //EXIF = 1 -- photo right
+            boundHeight = bounds.size.height;
+            bounds.size.height = bounds.size.width;
+            bounds.size.width = boundHeight;
+            transform = CGAffineTransformMakeTranslation(0.0, imageSize.height);
+            transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
             break;
             
-        case UIImageOrientationDownMirrored: //EXIF = 4
+        case UIImageOrientationDownMirrored:
             transform = CGAffineTransformMakeTranslation(0.0, imageSize.height);
             transform = CGAffineTransformScale(transform, 1.0, -1.0);
             break;
             
-        case UIImageOrientationLeftMirrored: //EXIF = 5
+        case UIImageOrientationLeftMirrored:
             boundHeight = bounds.size.height;
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
@@ -118,7 +124,7 @@
             transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
             break;
             
-        case UIImageOrientationLeft: //EXIF = 6
+        case UIImageOrientationLeft: //EXIF = 2 -- photo down
             boundHeight = bounds.size.height;
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
@@ -126,7 +132,7 @@
             transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
             break;
             
-        case UIImageOrientationRightMirrored: //EXIF = 7
+        case UIImageOrientationRightMirrored:
             boundHeight = bounds.size.height;
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
@@ -134,7 +140,7 @@
             transform = CGAffineTransformRotate(transform, M_PI / 2.0);
             break;
             
-        case UIImageOrientationRight: //EXIF = 8
+        case UIImageOrientationRight: //EXIF = 3 -- photo normal
             boundHeight = bounds.size.height;
             bounds.size.height = bounds.size.width;
             bounds.size.width = boundHeight;
@@ -144,7 +150,7 @@
             
         default:
             [NSException raise:NSInternalInconsistencyException format:@"Invalid image orientation"];
-            
+     
     }
     
     UIGraphicsBeginImageContext(bounds.size);
@@ -166,9 +172,65 @@
     UIImage *imageCopy = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
+    CGFloat bwidth = CGImageGetWidth(imageCopy.CGImage);
+    CGFloat bheight = CGImageGetHeight(imageCopy.CGImage);
+    
+    if (bwidth > bheight) {
+        
+        CGImageRef imgRef = imageCopy.CGImage;
+        
+        CGFloat width = CGImageGetWidth(imgRef);
+        CGFloat height = CGImageGetHeight(imgRef);
+        
+        
+        CGAffineTransform transform = CGAffineTransformIdentity;
+        CGRect bounds = CGRectMake(0, 0, width, height);
+        if (width > kMaxResolution || height > kMaxResolution) {
+            CGFloat ratio = width/height;
+            if (ratio > 1) {
+                bounds.size.width = kMaxResolution;
+                bounds.size.height = bounds.size.width / ratio;
+            }
+            else {
+                bounds.size.height = kMaxResolution;
+                bounds.size.width = bounds.size.height * ratio;
+            }
+        }
+        
+        CGFloat scaleRatio = bounds.size.width / width;
+        CGSize imageSize = CGSizeMake(CGImageGetWidth(imgRef), CGImageGetHeight(imgRef));
+        CGFloat boundHeight;
+        UIImageOrientation orient = image.imageOrientation;
+        
+
+        boundHeight = bounds.size.height;
+        bounds.size.height = bounds.size.width;
+        bounds.size.width = boundHeight;
+        transform = CGAffineTransformMakeTranslation(imageSize.height, -(imageSize.width / 3));
+        transform = CGAffineTransformRotate(transform, M_PI / 2.0);
+        
+        UIGraphicsBeginImageContext(bounds.size);
+        
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        if (orient == UIImageOrientationRight || orient == UIImageOrientationLeft) {
+            CGContextScaleCTM(context, -scaleRatio, scaleRatio);
+            CGContextTranslateCTM(context, -height, 0);
+        }
+        else {
+            CGContextScaleCTM(context, scaleRatio, -scaleRatio);
+            CGContextTranslateCTM(context, 0, -height);
+        }
+        
+        CGContextConcatCTM(context, transform);
+        
+        CGContextDrawImage(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, width, height), imgRef);
+        imageCopy = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+    }
+    
     return imageCopy;
-     
-     
 }
 
 @end

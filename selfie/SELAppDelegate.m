@@ -8,6 +8,7 @@
 
 #import "SELAppDelegate.h"
 #import "HockeySDK.h"
+#import "GAI.h"
 
 @implementation SELAppDelegate
 
@@ -23,6 +24,12 @@
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"3241e632dca0024ef62a108871e68a5c"];
     [[BITHockeyManager sharedHockeyManager] startManager];
     [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+    
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].dispatchInterval = 20;
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-53643197-2"];
     
     return YES;
 }

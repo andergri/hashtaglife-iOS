@@ -23,6 +23,13 @@
 		0E3D1463197ADF8200F2693F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3D144B197ADF8200F2693F /* UIKit.framework */; };
 		0E3D146B197ADF8200F2693F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E3D1469197ADF8200F2693F /* InfoPlist.strings */; };
 		0E3D146D197ADF8200F2693F /* selfieTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3D146C197ADF8200F2693F /* selfieTests.m */; };
+		0E5B488719A563000017F448 /* SELRandomObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B488619A563000017F448 /* SELRandomObject.m */; };
+		0E5B488A19A565240017F448 /* SELImageCountObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B488919A565240017F448 /* SELImageCountObject.m */; };
+		0E5B488D19A5680A0017F448 /* SELLoadSelfiesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B488C19A5680A0017F448 /* SELLoadSelfiesObject.m */; };
+		0E5CFB3719A54C18009D2FF5 /* SELFlagObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5CFB3619A54C18009D2FF5 /* SELFlagObject.m */; };
+		0E5CFB3A19A54C2A009D2FF5 /* SELHeartObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5CFB3919A54C2A009D2FF5 /* SELHeartObject.m */; };
+		0E5CFB3D19A554E5009D2FF5 /* SELUserLikesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5CFB3C19A554E5009D2FF5 /* SELUserLikesObject.m */; };
+		0E5CFB4319A55BCD009D2FF5 /* SELCameraObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5CFB4219A55BCD009D2FF5 /* SELCameraObject.m */; };
 		0E765F211982157A005E47FC /* SELColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E765F201982157A005E47FC /* SELColorPicker.m */; };
 		0EA15B4919833BDC00A17A27 /* SELUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA15B4719833BDC00A17A27 /* SELUserViewController.m */; };
 		0EA15B4A19833BDC00A17A27 /* SELUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EA15B4819833BDC00A17A27 /* SELUserViewController.xib */; };
@@ -66,6 +73,20 @@
 		0E3D1468197ADF8200F2693F /* #lifeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "#lifeTests-Info.plist"; sourceTree = "<group>"; };
 		0E3D146A197ADF8200F2693F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0E3D146C197ADF8200F2693F /* selfieTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = selfieTests.m; sourceTree = "<group>"; };
+		0E5B488519A563000017F448 /* SELRandomObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELRandomObject.h; sourceTree = "<group>"; };
+		0E5B488619A563000017F448 /* SELRandomObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELRandomObject.m; sourceTree = "<group>"; };
+		0E5B488819A565240017F448 /* SELImageCountObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELImageCountObject.h; sourceTree = "<group>"; };
+		0E5B488919A565240017F448 /* SELImageCountObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELImageCountObject.m; sourceTree = "<group>"; };
+		0E5B488B19A5680A0017F448 /* SELLoadSelfiesObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELLoadSelfiesObject.h; sourceTree = "<group>"; };
+		0E5B488C19A5680A0017F448 /* SELLoadSelfiesObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELLoadSelfiesObject.m; sourceTree = "<group>"; };
+		0E5CFB3519A54C18009D2FF5 /* SELFlagObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELFlagObject.h; sourceTree = "<group>"; };
+		0E5CFB3619A54C18009D2FF5 /* SELFlagObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELFlagObject.m; sourceTree = "<group>"; };
+		0E5CFB3819A54C2A009D2FF5 /* SELHeartObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELHeartObject.h; sourceTree = "<group>"; };
+		0E5CFB3919A54C2A009D2FF5 /* SELHeartObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELHeartObject.m; sourceTree = "<group>"; };
+		0E5CFB3B19A554E5009D2FF5 /* SELUserLikesObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELUserLikesObject.h; sourceTree = "<group>"; };
+		0E5CFB3C19A554E5009D2FF5 /* SELUserLikesObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELUserLikesObject.m; sourceTree = "<group>"; };
+		0E5CFB4119A55BCD009D2FF5 /* SELCameraObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELCameraObject.h; sourceTree = "<group>"; };
+		0E5CFB4219A55BCD009D2FF5 /* SELCameraObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELCameraObject.m; sourceTree = "<group>"; };
 		0E765F1F1982157A005E47FC /* SELColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELColorPicker.h; sourceTree = "<group>"; };
 		0E765F201982157A005E47FC /* SELColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELColorPicker.m; sourceTree = "<group>"; };
 		0EA15B4619833BDC00A17A27 /* SELUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELUserViewController.h; sourceTree = "<group>"; };
@@ -144,6 +165,20 @@
 				0E3D1457197ADF8200F2693F /* SELAppDelegate.m */,
 				0EECB8A6197AEAD100995FEB /* SELMainViewController.h */,
 				0EECB8A7197AEAD100995FEB /* SELMainViewController.m */,
+				0E5CFB3519A54C18009D2FF5 /* SELFlagObject.h */,
+				0E5CFB3619A54C18009D2FF5 /* SELFlagObject.m */,
+				0E5CFB3819A54C2A009D2FF5 /* SELHeartObject.h */,
+				0E5CFB3919A54C2A009D2FF5 /* SELHeartObject.m */,
+				0E5CFB3B19A554E5009D2FF5 /* SELUserLikesObject.h */,
+				0E5CFB3C19A554E5009D2FF5 /* SELUserLikesObject.m */,
+				0E5CFB4119A55BCD009D2FF5 /* SELCameraObject.h */,
+				0E5CFB4219A55BCD009D2FF5 /* SELCameraObject.m */,
+				0E5B488519A563000017F448 /* SELRandomObject.h */,
+				0E5B488619A563000017F448 /* SELRandomObject.m */,
+				0E5B488819A565240017F448 /* SELImageCountObject.h */,
+				0E5B488919A565240017F448 /* SELImageCountObject.m */,
+				0E5B488B19A5680A0017F448 /* SELLoadSelfiesObject.h */,
+				0E5B488C19A5680A0017F448 /* SELLoadSelfiesObject.m */,
 				0EECB8A9197AEAF200995FEB /* SELHashtagTableViewController.h */,
 				0EECB8AA197AEAF200995FEB /* SELHashtagTableViewController.m */,
 				0E02CB95197B2EB60040F5EB /* SELPostViewController.h */,
@@ -331,9 +366,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E5CFB3A19A54C2A009D2FF5 /* SELHeartObject.m in Sources */,
+				0E5B488A19A565240017F448 /* SELImageCountObject.m in Sources */,
+				0E5CFB4319A55BCD009D2FF5 /* SELCameraObject.m in Sources */,
+				0E5B488719A563000017F448 /* SELRandomObject.m in Sources */,
+				0E5CFB3D19A554E5009D2FF5 /* SELUserLikesObject.m in Sources */,
 				0EECB8A8197AEAD100995FEB /* SELMainViewController.m in Sources */,
 				0EECB8AB197AEAF200995FEB /* SELHashtagTableViewController.m in Sources */,
+				0E5B488D19A5680A0017F448 /* SELLoadSelfiesObject.m in Sources */,
 				0EA15B4919833BDC00A17A27 /* SELUserViewController.m in Sources */,
+				0E5CFB3719A54C18009D2FF5 /* SELFlagObject.m in Sources */,
 				0E0B30B9197F77E600FDF2A6 /* SELCameraOverlayView.m in Sources */,
 				0E3D1454197ADF8200F2693F /* main.m in Sources */,
 				0E765F211982157A005E47FC /* SELColorPicker.m in Sources */,
@@ -466,7 +508,7 @@
 				INFOPLIST_FILE = "selfie/#life-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "#life";
-				PROVISIONING_PROFILE = "F08217B8-E2C0-417A-9626-F2B46AEECACE";
+				PROVISIONING_PROFILE = "92AACC03-5046-4ADD-BBE4-0A1FEB8963BA";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -484,7 +526,7 @@
 				INFOPLIST_FILE = "selfie/#life-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "#life";
-				PROVISIONING_PROFILE = "F08217B8-E2C0-417A-9626-F2B46AEECACE";
+				PROVISIONING_PROFILE = "92AACC03-5046-4ADD-BBE4-0A1FEB8963BA";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

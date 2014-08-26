@@ -45,7 +45,6 @@
     [colorArray addObject:[UIColor colorWithRed:224.0/255.0 green:130.0/255.0 blue:131.0/255.0 alpha:1.0]];
     [colorArray addObject:[UIColor colorWithRed:246.0/255.0 green:36.0/255.0 blue:89.0/255.0 alpha:1.0]];
     [colorArray addObject:[UIColor colorWithRed:226.0/255.0 green:106.0/255.0 blue:106.0/255.0 alpha:1.0]];
-    [colorArray addObject:[UIColor colorWithRed:220.0/255.0 green:198.0/255.0 blue:224.0/255.0 alpha:1.0]];
     [colorArray addObject:[UIColor colorWithRed:102.0/255.0 green:51.0/255.0 blue:153.0/255.0 alpha:1.0]];
     
     // Purple
@@ -58,7 +57,6 @@
     [colorArray addObject:[UIColor colorWithRed:190.0/255.0 green:144.0/255.0 blue:212.0/255.0 alpha:1.0]];
     [colorArray addObject:[UIColor colorWithRed:142.0/255.0 green:68.0/255.0 blue:173.0/255.0 alpha:1.0]];
     [colorArray addObject:[UIColor colorWithRed:155.0/255.0 green:89.0/255.0 blue:182.0/255.0 alpha:1.0]];
-    [colorArray addObject:[UIColor colorWithRed:228.0/255.0 green:241.0/255.0 blue:254.0/255.0 alpha:1.0]];
     [colorArray addObject:[UIColor colorWithRed:65.0/255.0 green:131.0/255.0 blue:215.0/255.0 alpha:1.0]];
     
     // Blue

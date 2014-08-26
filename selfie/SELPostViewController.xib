@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6154.17" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
     </dependencies>
     <objects>
@@ -24,14 +25,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view hidden="YES" appearanceType="aqua" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pAF-fL-iaU">
+                <view hidden="YES" appearanceType="aqua" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pAF-fL-iaU">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
-                        <view appearanceType="aqua" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Emf-at-3hQ">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                        <view appearanceType="aqua" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Emf-at-3hQ">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                             <subviews>
-                                <textField appearanceType="aqua" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add a hashtag" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="30s-VI-sbF">
-                                    <rect key="frame" x="12" y="25" width="296" height="49"/>
+                                <textField appearanceType="aqua" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add a few hashtags" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="30s-VI-sbF">
+                                    <rect key="frame" x="12" y="20" width="296" height="49"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="29"/>
@@ -40,14 +41,18 @@
                             </subviews>
                             <color key="backgroundColor" red="0.66666666669999997" green="0.01176470588" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <tableView appearanceType="aqua" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="80" sectionHeaderHeight="80" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="GLF-2V-0hx">
-                            <rect key="frame" x="0.0" y="85" width="320" height="493"/>
+                        <tableView appearanceType="aqua" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="70" sectionHeaderHeight="70" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="GLF-2V-0hx">
+                            <rect key="frame" x="0.0" y="75" width="320" height="493"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <inset key="separatorInset" minX="1" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </tableView>
-                        <button appearanceType="aqua" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G8E-s9-nBo">
-                            <rect key="frame" x="0.0" y="413" width="320" height="80"/>
+                        <button appearanceType="aqua" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G8E-s9-nBo">
+                            <rect key="frame" x="0.0" y="498" width="320" height="70"/>
                             <color key="backgroundColor" red="0.76454878829999995" green="0.040911477359999997" blue="0.070476709530000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="320" id="777-lC-UeB"/>
+                                <constraint firstAttribute="height" constant="70" id="yjQ-FA-xLR"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
                             <state key="normal" title="Back">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,8 +63,22 @@
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="G8E-s9-nBo" firstAttribute="bottom" secondItem="GLF-2V-0hx" secondAttribute="bottom" id="57Y-j0-Bco"/>
+                        <constraint firstItem="G8E-s9-nBo" firstAttribute="leading" secondItem="Emf-at-3hQ" secondAttribute="leading" id="GgJ-Z2-nnb"/>
+                        <constraint firstItem="G8E-s9-nBo" firstAttribute="trailing" secondItem="GLF-2V-0hx" secondAttribute="trailing" id="HEg-db-r5a"/>
+                        <constraint firstItem="G8E-s9-nBo" firstAttribute="trailing" secondItem="Emf-at-3hQ" secondAttribute="trailing" id="UEF-IF-Lk1"/>
+                        <constraint firstAttribute="bottom" secondItem="G8E-s9-nBo" secondAttribute="bottom" id="VT8-5n-dZp"/>
+                        <constraint firstItem="G8E-s9-nBo" firstAttribute="top" secondItem="pAF-fL-iaU" secondAttribute="top" constant="498" id="c1z-NV-QQ7"/>
+                        <constraint firstItem="GLF-2V-0hx" firstAttribute="top" secondItem="Emf-at-3hQ" secondAttribute="bottom" id="lRH-hp-4F6"/>
+                        <constraint firstAttribute="bottom" secondItem="Emf-at-3hQ" secondAttribute="bottom" constant="493" id="lSz-VR-Vbt"/>
+                        <constraint firstItem="G8E-s9-nBo" firstAttribute="leading" secondItem="pAF-fL-iaU" secondAttribute="leading" id="oCy-yB-bpU"/>
+                        <constraint firstAttribute="trailing" secondItem="G8E-s9-nBo" secondAttribute="trailing" id="qEw-Bj-x3T"/>
+                        <constraint firstItem="G8E-s9-nBo" firstAttribute="leading" secondItem="GLF-2V-0hx" secondAttribute="leading" id="qUR-Ps-peK"/>
+                        <constraint firstItem="Emf-at-3hQ" firstAttribute="top" secondItem="pAF-fL-iaU" secondAttribute="top" id="xfo-Yu-jPx"/>
+                    </constraints>
                 </view>
-                <view appearanceType="aqua" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lv5-Td-c5f">
+                <view appearanceType="aqua" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lv5-Td-c5f">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <imageView appearanceType="aqua" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v5h-Dp-0FT">
@@ -98,6 +117,14 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="pAF-fL-iaU" firstAttribute="bottom" secondItem="Lv5-Td-c5f" secondAttribute="bottom" id="21J-NN-a45"/>
+                <constraint firstItem="pAF-fL-iaU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Bvg-0h-cN7"/>
+                <constraint firstItem="pAF-fL-iaU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EZa-3Z-Iqt"/>
+                <constraint firstItem="pAF-fL-iaU" firstAttribute="leading" secondItem="Lv5-Td-c5f" secondAttribute="leading" id="PIi-N7-dKW"/>
+                <constraint firstItem="pAF-fL-iaU" firstAttribute="top" secondItem="Lv5-Td-c5f" secondAttribute="top" id="fkT-ll-2ZJ"/>
+                <constraint firstItem="pAF-fL-iaU" firstAttribute="trailing" secondItem="Lv5-Td-c5f" secondAttribute="trailing" id="goq-sC-KtK"/>
+            </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>

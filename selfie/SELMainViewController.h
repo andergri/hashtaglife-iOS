@@ -15,5 +15,6 @@
 @property SELColorPicker *color;
 -(void)dismissKeyboard;
 - (void)countLikes;
+- (void)showShare:(NSArray *)activityItems;
 
 @end

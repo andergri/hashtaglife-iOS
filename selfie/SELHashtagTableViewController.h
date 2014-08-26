@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SWTableViewCell.h"
 
-@interface SELHashtagTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SELHashtagTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, SWTableViewCellDelegate>
 
 - (void) searchForHashtag:(NSString *)query;
 @property (nonatomic, strong) NSMutableArray *hashtags;

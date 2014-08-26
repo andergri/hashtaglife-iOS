@@ -34,9 +34,9 @@
     [super viewDidLoad];
     
     [self.tableView setDelegate:self];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"HashtagTableViewCell"];
+    [self.tableView registerClass:[SWTableViewCell class] forCellReuseIdentifier:@"HashtagTableViewCell"];
     self.tableView.dataSource = self;
-    
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
     //refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -66,8 +66,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HashtagTableViewCell" forIndexPath:indexPath];
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HashtagTableViewCell" forIndexPath:indexPath];
     
+    SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"HashtagTableViewCell"];
+    
+    if (cell == nil) {
+        cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"HashtagTableViewCell"];
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.delegate = self;
     cell.textLabel.text = [@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item]];
     cell.textLabel.font = [UIFont systemFontOfSize:28];
     cell.textLabel.textColor = [UIColor whiteColor];
@@ -75,6 +83,23 @@
     NSArray *colorArray = [[((SELMainViewController *) self.parentViewController) color] getColorArray];
     int i = indexPath.item % 10;
     cell.backgroundColor = [colorArray objectAtIndex:i];
+    
+    
+    // Add utility buttons
+    NSMutableArray *leftUtilityButtons = [NSMutableArray new];
+    //NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+    
+    //[leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7] title:@"TXT"];
+    //[leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] title:@"MAIL"];
+    //[leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7] title:@"TWTR"];
+    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:249.0/255.0f green:191.0/255.0f blue:59.0/255.0f alpha:1.0] title:@"Share"];
+    
+    //[rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:249.0/255.0f green:191.0/255.0f blue:59.0/255.0f alpha:1.0] title:@"Share"];
+    //[rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] title:@"Delete"];
+    
+    cell.leftUtilityButtons = leftUtilityButtons;
+    //cell.rightUtilityButtons = rightUtilityButtons;
+    
     
     return cell;
 }
@@ -93,6 +118,38 @@
     NSLog(@"scrollViewWillBeginDragging");
     [(SELMainViewController *) self.parentViewController dismissKeyboard];
 }
+
+#pragma mark - SWTableViewDelegate
+
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index{
+    [cell hideUtilityButtonsAnimated:YES];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    switch (index) {
+        case 0:
+            [self share:indexPath.item];
+            break;
+        default:
+            break;
+    }
+}
+
+- (BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell
+{
+    // allow just one cell's utility button to be open at once
+    return YES;
+}
+
+- (void) share:(NSInteger)index{
+    // Sharing
+    NSString *hash = [hashtags objectAtIndex:index];
+    NSLog(@"hash %@", hash);
+    NSString *_postText = [NSString stringWithFormat:@"See my img @ http://life.uffda.me/%@", hash];
+    NSArray *activityItems = nil;
+    activityItems = @[_postText];
+    
+    [(SELMainViewController *) self.parentViewController showShare:activityItems];
+}
+
 
 /*
 // Override to support editing the table view.
