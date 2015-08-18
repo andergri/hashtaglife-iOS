@@ -7,13 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SELColorPicker.h"
 
-@interface SELFlagObject : NSObject
+@interface SELFlagObject : NSObject <UIActionSheetDelegate>
 
-- (void) initFlag:(UIView *)view;
+- (void) initFlag:(UIView *)view color:(SELColorPicker *)color;
+- (void) initBack:(UIView *)view color:(SELColorPicker *)color;
 - (void) hideFlag;
 - (void) showFlag;
+- (void) hideBack;
+- (void) showBack;
 - (void) tapFlag:(PFObject *) selfie;
 - (void) resetFlag;
-
 @end

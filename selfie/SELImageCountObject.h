@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SELColorPicker.h"
 
 @interface SELImageCountObject : NSObject
 
 
-- (void) initImageTally: (UIView *)view;
+- (void) initImageTally: (UIView *)view color:(SELColorPicker *)color;
 - (void) countImageTally:(PFObject *) selfie;
 - (void) hideTally;
 - (void) showTally;

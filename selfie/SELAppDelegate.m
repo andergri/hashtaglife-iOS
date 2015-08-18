@@ -7,29 +7,37 @@
 //
 
 #import "SELAppDelegate.h"
-#import "HockeySDK.h"
 #import "GAI.h"
+#import "JLNotificationPermission.h"
+#import "SELPageViewController.h"
 
 @implementation SELAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     // Parse Setup
     [Parse setApplicationId:@"jjcVHlw8UwWC2FkXZhL7JNLqDiXJlyBnKVAIsrbO"
                   clientKey:@"oivL7zqMRzHAv0fBKJkUuxnQch3tNkQ91t3WMJr1"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    // Hockey
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"3241e632dca0024ef62a108871e68a5c"];
-    [[BITHockeyManager sharedHockeyManager] startManager];
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-    
     // Optional: automatically send uncaught exceptions to Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     [GAI sharedInstance].dispatchInterval = 20;
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-53643197-2"];
+    
+    if (application.applicationState != UIApplicationStateBackground) {
+        // Track an app open here if we launch with a push, unless
+        // "content_available" was used to trigger a background push (introduced
+        // in iOS 7). In that case, we skip tracking here to avoid double
+        // counting the app-open.
+        BOOL preBackgroundPush = ![application respondsToSelector:@selector(backgroundRefreshStatus)];
+        BOOL oldPushHandlerOnly = ![self respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)];
+        BOOL noPushPayload = ![launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (preBackgroundPush || oldPushHandlerOnly || noPushPayload) {
+            [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+        }
+    }
     
     return YES;
 }
@@ -51,9 +59,27 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    
+    /**
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (currentInstallation.badge != 0) {
+        currentInstallation.badge = 0;
+        [currentInstallation saveEventually];
+    }
+    if([PFUser currentUser]){
+        if([currentInstallation objectForKey:@"user"] == nil){
+            currentInstallation[@"user"] = [PFUser currentUser];
+            [currentInstallation saveEventually];
+        }
+        if ([currentInstallation objectForKey:@"location"] == nil) {
+            if ([[PFUser currentUser] objectForKey:@"location"]) {
+                currentInstallation.channels = @[ @"global", ((PFObject*)[[PFUser currentUser] objectForKey:@"location"]).objectId ];
+                [currentInstallation setObject:[[PFUser currentUser] objectForKey:@"location"] forKey:@"location"];
+            }
+            [currentInstallation saveEventually];
+        }
+    }**/
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -61,11 +87,78 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
+/** REGISTER PUSH NOTIFICATIONS **/
+
+- (void)application:(UIApplication *)application
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
+    
+    [[JLNotificationPermission sharedInstance] notificationResult:nil error:error];
+}
+
+- (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken %@", [deviceToken description]);
+    [[JLNotificationPermission sharedInstance] notificationResult:deviceToken error:nil];
     
     // Store the deviceToken in the current installation and save it to Parse.
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken");
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation setDeviceTokenFromData:newDeviceToken];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    currentInstallation.channels = @[ @"global" ];
+    
+    if ([PFUser currentUser]) {
+        
+        currentInstallation[@"user"] = [PFUser currentUser];
+        if ([[PFUser currentUser] objectForKey:@"location"]) {
+            currentInstallation.channels = @[ @"global", ((PFObject*)[[PFUser currentUser] objectForKey:@"location"]).objectId ];
+            [currentInstallation setObject:[[PFUser currentUser] objectForKey:@"location"] forKey:@"location"];
+        }
+    }
+    
     [currentInstallation saveInBackground];
+    
+}
+
+
+/** HANDLE PUSH NOTIFICATIONS **/
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    //[PFPush handlePush:userInfo];
+    
+    if (application.applicationState == UIApplicationStateInactive) {
+        [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+    }
+}
+
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler {
+    // Push Selfie internal
+    
+    if (application.applicationState == UIApplicationStateInactive) {
+    
+        NSString *selfieId = [userInfo objectForKey:@"selfie"];
+        if (selfieId != nil) {
+            [self performSelector:@selector(postNotificationToPresentPushMessagesVC:)
+                       withObject:selfieId afterDelay:.5f];
+        }
+        
+        [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+    }else{
+        [PFPush handlePush:userInfo];
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        if (currentInstallation.badge != 0) {
+            currentInstallation.badge = 0;
+            [currentInstallation saveEventually];
+        }
+    }
+    handler(UIBackgroundFetchResultNoData);
+}
+
+-(void)postNotificationToPresentPushMessagesVC:(NSString*)selfieId  {
+    
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          selfieId forKey:@"selfieId"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HAS_PUSH_NOTIFICATION" object:self userInfo:dict];
 }
 @end

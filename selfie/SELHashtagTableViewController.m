@@ -9,9 +9,12 @@
 #import "SELHashtagTableViewController.h"
 #import "SELMainViewController.h"
 
+#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
+
 @interface SELHashtagTableViewController ()
 
 @property NSString* lastQuery;
+@property NSMutableArray *trendingHashtags;
 
 @end
 
@@ -19,6 +22,7 @@
 
 @synthesize hashtags;
 @synthesize lastQuery;
+@synthesize trendingHashtags;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,7 +38,7 @@
     [super viewDidLoad];
     
     [self.tableView setDelegate:self];
-    [self.tableView registerClass:[SWTableViewCell class] forCellReuseIdentifier:@"HashtagTableViewCell"];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"HashtagTableViewCell"];
     self.tableView.dataSource = self;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
@@ -44,7 +48,17 @@
     [self setRefreshControl:refreshControl];
     
     hashtags = [[NSMutableArray alloc] init];
-    [self popularHashtags];
+    trendingHashtags = [[NSMutableArray alloc] init];
+    //[self popularHashtags];
+    
+    [self.tableView setContentInset:UIEdgeInsetsMake(0,0,0,0)];
+   
+}
+
+- (void) viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,6 +74,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (lastQuery.length == 0) {
+        if(hashtags.count == 0) {
+            return 0;
+        }
+        return hashtags.count + 2;
+    }
     return hashtags.count;
 }
 
@@ -68,41 +88,197 @@
 {
     //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HashtagTableViewCell" forIndexPath:indexPath];
     
-    SWTableViewCell *cell = (SWTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"HashtagTableViewCell"];
+    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"HashtagTableViewCell"];
     
     if (cell == nil) {
-        cell = [[SWTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"HashtagTableViewCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"HashtagTableViewCell"];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.delegate = self;
-    cell.textLabel.text = [@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item]];
+    
+    
+    //cell.textLabel.text = [@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item]];
+    
+    NSMutableAttributedString *attributedString;
+    
+    if (lastQuery.length == 0) {
+        if (indexPath.item == 0) {
+            attributedString = [[NSMutableAttributedString alloc] initWithString:@"popular"];
+        }else if (indexPath.item == 1) {
+            attributedString = [[NSMutableAttributedString alloc] initWithString:@"recent"];
+       /** }else if (indexPath.item == 2) {
+            attributedString = [[NSMutableAttributedString alloc] initWithString:@"my photos"]; **/
+        }else if (indexPath.item == (hashtags.count + 2)) {
+            attributedString = [[NSMutableAttributedString alloc] initWithString:@"     "];
+        }else{
+            attributedString = [[NSMutableAttributedString alloc] initWithString:[@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item - 2]]];
+        }
+        
+    }else{
+        attributedString = [[NSMutableAttributedString alloc] initWithString:[@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item]]];
+    }
+    
     cell.textLabel.font = [UIFont systemFontOfSize:28];
     cell.textLabel.textColor = [UIColor whiteColor];
+    
+    [cell.textLabel.subviews.firstObject removeFromSuperview];
+    
+    if(lastQuery.length == 0 && indexPath.item < 5){
+        [attributedString addAttribute:NSKernAttributeName
+                                 value:@(1.5)
+                                 range:NSMakeRange(0, 1)];
+        cell.textLabel.attributedText = attributedString;
+        if (indexPath.item == 0) {
+            [cell.textLabel insertSubview:[self starLabel] aboveSubview:cell.textLabel];
+        }else if(indexPath.item == 1){
+            [cell.textLabel insertSubview:[self clockLabel] aboveSubview:cell.textLabel];
+       /** }else if(indexPath.item == 2){
+            [cell.textLabel insertSubview:[self profileLabel] aboveSubview:cell.textLabel];**/
+        }else{
+            [cell.textLabel insertSubview:[self arrowLabel] aboveSubview:cell.textLabel];
+        }
+    }else{
+        [attributedString addAttribute:NSKernAttributeName
+                                 value:@(1.5)
+                                 range:NSMakeRange(0, 1)];
+        cell.textLabel.attributedText = attributedString;
+    }
     
     NSArray *colorArray = [[((SELMainViewController *) self.parentViewController) color] getColorArray];
     int i = indexPath.item % 10;
     cell.backgroundColor = [colorArray objectAtIndex:i];
     
-    
-    // Add utility buttons
-    NSMutableArray *leftUtilityButtons = [NSMutableArray new];
-    //NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    
-    //[leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7] title:@"TXT"];
-    //[leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] title:@"MAIL"];
-    //[leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7] title:@"TWTR"];
-    [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:249.0/255.0f green:191.0/255.0f blue:59.0/255.0f alpha:1.0] title:@"Share"];
-    
-    //[rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:249.0/255.0f green:191.0/255.0f blue:59.0/255.0f alpha:1.0] title:@"Share"];
-    //[rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] title:@"Delete"];
-    
-    cell.leftUtilityButtons = leftUtilityButtons;
-    //cell.rightUtilityButtons = rightUtilityButtons;
-    
-    
     return cell;
 }
+
+- (UIView *)arrowLabel{
+    UIView *arrowLabel = [[UIView alloc]init];
+    arrowLabel.backgroundColor = [UIColor clearColor];
+    arrowLabel.frame = CGRectMake(self.view.frame.size.width - 94, 1, 120, 76);
+    arrowLabel.transform= CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-10));
+    
+    /**arrowLabel.text = [NSString stringWithUTF8String:"\u0362"];
+    arrowLabel.textColor = [UIColor whiteColor];
+    arrowLabel.font = [UIFont systemFontOfSize:31];
+    arrowLabel.textAlignment = NSTextAlignmentCenter;
+    arrowLabel.transform= CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(277.7));
+    **/
+    
+    UIImage *trendingImage = [[UIImage imageNamed:@"trending"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImageView *trendingImageView = [[UIImageView alloc] initWithImage:trendingImage];
+    trendingImageView.frame = CGRectMake(20, 20, trendingImage.size.width, trendingImage.size.height);
+    trendingImageView.contentMode = UIViewContentModeCenter;
+    [trendingImageView setTintColor:[UIColor colorWithWhite:1. alpha:1]];
+    [arrowLabel addSubview:trendingImageView];
+    
+    return arrowLabel;
+}
+
+- (UIView *)clockLabel{
+    
+    UIImage *clockImage = [[UIImage imageNamed:@"clock"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImageView *clockImageView = [[UIImageView alloc] initWithImage:clockImage];
+    clockImageView.frame = CGRectMake(258.5, 23, clockImage.size.width, clockImage.size.height);
+    clockImageView.contentMode = UIViewContentModeCenter;
+    [clockImageView setTintColor:[UIColor colorWithWhite:1. alpha:1]];
+    return clockImageView;
+}
+
+- (UIView *)starLabel{
+    UIImage *starImage = [[UIImage imageNamed:@"star"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImageView *starImageView = [[UIImageView alloc] initWithImage:starImage];
+    starImageView.frame = CGRectMake(260, 22, starImage.size.width, starImage.size.height);
+    starImageView.contentMode = UIViewContentModeCenter;
+    [starImageView setTintColor:[UIColor colorWithWhite:1. alpha:1]];
+    return starImageView;
+}
+
+- (UIView *)profileLabel{
+    UIImage *starImage = [[UIImage imageNamed:@"profile"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImageView *starImageView = [[UIImageView alloc] initWithImage:starImage];
+    starImageView.frame = CGRectMake(262.5, 23, starImage.size.width, starImage.size.height);
+    starImageView.contentMode = UIViewContentModeCenter;
+    [starImageView setTintColor:[UIColor colorWithWhite:1. alpha:1]];
+    return starImageView;
+}
+
+/**
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (lastQuery.length > 0)
+        return 0.0f;
+    return 72.0f;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    
+    if (lastQuery.length == 0) {
+        if (section == 0) {
+            return @"";
+        }else{
+            return @"";
+        }
+    }else{
+        return nil;
+    }
+}**/
+
+
+/**
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (lastQuery.length > 0)
+        return 0.0f;
+    return 72.0f;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    if (lastQuery.length == 0) {
+        if (section == 0) {
+            return @"";
+        }else{
+            return @"";
+        }
+    }else{
+        return nil;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    if (hashtags.count > 0) {
+        
+        UILabel *headerLabel = [[UILabel alloc]init];
+        headerLabel.tag = section;
+        headerLabel.userInteractionEnabled = YES;
+        NSArray *colorArray = [[((SELMainViewController *) self.parentViewController) color] getColorArray];
+        if (section == 0) {
+            headerLabel.backgroundColor = [colorArray objectAtIndex:0];
+            headerLabel.text = @"#popular";
+        }else{
+            headerLabel.backgroundColor = [colorArray objectAtIndex:1];
+            headerLabel.text = @"#fresh";
+        }
+        
+        headerLabel.textColor = [UIColor whiteColor];
+        headerLabel.font = [UIFont systemFontOfSize:28];
+        headerLabel.textAlignment = NSTextAlignmentLeft;
+        headerLabel.frame = CGRectMake(0, 0, tableView.tableHeaderView.frame.size.width, tableView.tableHeaderView.frame.size.height);
+        
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(catchHeaderSubmission:)];
+        tapGesture.cancelsTouchesInView = NO;
+        tapGesture.view.tag = section;
+        [headerLabel addGestureRecognizer:tapGesture];
+        
+        return headerLabel;
+    }else{
+        return nil;
+    }
+}
+**/
+
+
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
@@ -115,40 +291,36 @@
 #pragma - mark UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)activeScrollView{
-    NSLog(@"scrollViewWillBeginDragging");
     [(SELMainViewController *) self.parentViewController dismissKeyboard];
+    [(SELMainViewController *) self.parentViewController showCameraIcon:NO];
 }
 
-#pragma mark - SWTableViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+     [(SELMainViewController *) self.parentViewController showCameraIcon:YES];
+}
 
-- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index{
-    [cell hideUtilityButtonsAnimated:YES];
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    switch (index) {
-        case 0:
-            [self share:indexPath.item];
-            break;
-        default:
-            break;
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (!decelerate) {
+        [(SELMainViewController *) self.parentViewController showCameraIcon:YES];
+    }
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGPoint p = scrollView.contentOffset;
+    CGFloat height;
+    
+    if (lastQuery.length == 0) {
+        height = (float) 72.0;
+    }else{
+        height = (float) 0.0;
+    }
+    
+    if (p.y <= height && p.y >= 0) {
+        self.tableView.contentInset = UIEdgeInsetsMake(-p.y, 0, 0, 0);
+    } else if (p.y >= height) {
+        self.tableView.contentInset = UIEdgeInsetsMake(-height, 0, 0, 0);
     }
 }
 
-- (BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell
-{
-    // allow just one cell's utility button to be open at once
-    return YES;
-}
-
-- (void) share:(NSInteger)index{
-    // Sharing
-    NSString *hash = [hashtags objectAtIndex:index];
-    NSLog(@"hash %@", hash);
-    NSString *_postText = [NSString stringWithFormat:@"See my img @ http://life.uffda.me/%@", hash];
-    NSArray *activityItems = nil;
-    activityItems = @[_postText];
-    
-    [(SELMainViewController *) self.parentViewController showShare:activityItems];
-}
 
 
 /*
@@ -195,22 +367,33 @@
 
 - (void) searchForHashtag:(NSString *)query{
     
-    query = [query lowercaseString];
+    //query = [query lowercaseString];
     query = [query stringByReplacingOccurrencesOfString:@"#" withString:@""];
     query = [query stringByReplacingOccurrencesOfString:@" " withString:@""];
     lastQuery = query;
-    NSLog(@"this is a query test %@", query);
+    [self scrollViewDidScroll:nil];
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    NSLog(@"hashtag serach %@", query);
     if (query.length == 0) {
         [self popularHashtags];
         return;
     }
     
-    PFQuery *queryHashtag = [PFQuery queryWithClassName:@"Hashtag"];
-    [queryHashtag whereKey:@"name" containsString:query];
+    PFQuery *queryHashtag;
+    [[[PFUser currentUser] objectForKey:@"location" ] fetchIfNeeded];
+    if (([[PFUser currentUser] objectForKey:@"location"]) && ([[[[PFUser currentUser] objectForKey:@"location"] objectForKey:@"default"] boolValue])) {
+        queryHashtag = [PFQuery queryWithClassName:@"Tag"];
+        [queryHashtag whereKey:@"location" equalTo:[[PFUser currentUser] objectForKey:@"location"]];
+    }else{
+        queryHashtag = [PFQuery queryWithClassName:@"Hashtag"];
+    }
+    
+    [queryHashtag whereKey:@"name"  containsString:query];
+    [queryHashtag whereKey:@"count" greaterThan:@0];
     [queryHashtag orderByDescending:@"count"];
     [queryHashtag findObjectsInBackgroundWithBlock:^(NSArray *hashtagsResults, NSError *error) {
         if (!error) {
-            NSLog(@"Successfully retrieved %lu hashtags.", (unsigned long)hashtagsResults.count);
+            NSLog(@"SR %lu #'s", (unsigned long)hashtagsResults.count);
             [hashtags removeAllObjects];
             for (PFObject * tag in hashtagsResults) {
                 [hashtags addObject:tag[@"name"]];
@@ -225,13 +408,21 @@
 
 - (void) popularHashtags{
     
-    PFQuery *queryHashtag = [PFQuery queryWithClassName:@"Hashtag"];
-    //[queryHashtag whereKey:@"count" greaterThan:@0];
-    [queryHashtag orderByDescending:@"count"];
-    
-    [queryHashtag findObjectsInBackgroundWithBlock:^(NSArray *hashtagsResults, NSError *error) {
+    PFQuery *hashtagItem;
+    [[[PFUser currentUser] objectForKey:@"location" ] fetchIfNeeded];
+    if (([[PFUser currentUser] objectForKey:@"location"]) && ([[[[PFUser currentUser] objectForKey:@"location"] objectForKey:@"default"] boolValue])) {
+        hashtagItem = [PFQuery queryWithClassName:@"Tag"];
+        [hashtagItem whereKey:@"location" equalTo:[[PFUser currentUser] objectForKey:@"location"]];
+    }else{
+        hashtagItem = [PFQuery queryWithClassName:@"Hashtag"];
+    }
+    [hashtagItem whereKey:@"count" greaterThan:@0];
+    [hashtagItem whereKey:@"trending" greaterThan:@(-1)];
+    [hashtagItem orderByDescending:@"trending"];
+    hashtagItem.limit = 18;
+    [hashtagItem findObjectsInBackgroundWithBlock:^(NSArray *hashtagsResults, NSError *error) {
         if (!error) {
-            NSLog(@"Successfully retrieved %lu hashtags.", (unsigned long)hashtagsResults.count);
+            NSLog(@"SR %lu #'s", (unsigned long)hashtagsResults.count);
             [hashtags removeAllObjects];
             for (PFObject * tag in hashtagsResults) {
                 [hashtags addObject:tag[@"name"]];
@@ -241,13 +432,63 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+    /**
+    PFQuery *ahashtagItem = [PFQuery queryWithClassName:@"Trending"];
+    [ahashtagItem whereKey:@"active" equalTo:@YES];
+    [ahashtagItem orderByDescending:@"trending"];
+    [ahashtagItem addDescendingOrder:@"name"];
+    ahashtagItem.limit = 24;
+    [ahashtagItem findObjectsInBackgroundWithBlock:^(NSArray *hashtagsResults, NSError *error) {
+        if (!error) {
+            NSLog(@"SR %lu #'s", (unsigned long)hashtagsResults.count);
+            if(notPassedLocation && notPassedTrending){
+                [hashtags removeAllObjects];
+                notPassedTrending = NO;
+            }
+            for (PFObject * tag in hashtagsResults) {
+                if (![hashtags containsObject:tag[@"name"]]) {
+                    
+            
+            NSUInteger newIndex = [hashtags indexOfObject:tag[@"name"]
+                                             inSortedRange:(NSRange){0, [hashtags count]}
+                                                   options:NSBinarySearchingInsertionIndex
+                                              usingComparator:^(id obj1, id obj2) {
+                                                  BOOL isPunct1 = [[NSCharacterSet punctuationCharacterSet] characterIsMember:[(NSString*)obj1 characterAtIndex:0]];
+                                                  BOOL isPunct2 = [[NSCharacterSet punctuationCharacterSet] characterIsMember:[(NSString*)obj2 characterAtIndex:0]];
+                                                  if (isPunct1 && !isPunct2) {
+                                                      return NSOrderedAscending;
+                                                  } else if (!isPunct1 && isPunct2) {
+                                                      return NSOrderedDescending;
+                                                  }
+                                                  return [(NSString*)obj1 compare:obj2 options:NSDiacriticInsensitiveSearch|NSCaseInsensitiveSearch];         
+
+                                              }];
+                    
+            [hashtags insertObject:tag[@"name"] atIndex:newIndex];
+                
+                }
+            }
+            [trendingHashtags removeAllObjects];
+            for (PFObject * tag in hashtagsResults) {
+                if([hashtagsResults indexOfObject:tag] < 3){
+                    [hashtags removeObjectIdenticalTo:tag[@"name"]];
+                    [hashtags insertObject:tag[@"name"] atIndex:0];
+                    [trendingHashtags addObject:tag[@"name"]];
+                }
+            }
+            [self.tableView reloadData];
+        }else{
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    
+    **/
 }
 
 // Refresh
 - (void)refresh:(id)sender {
     [(UIRefreshControl *)sender endRefreshing];
     [self searchForHashtag:lastQuery];
-    [(SELMainViewController *) self.parentViewController countLikes];
 }
 
 @end

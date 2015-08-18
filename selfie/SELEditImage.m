@@ -18,8 +18,8 @@
     NSLog(@"origImg %f", originalImage.size.height);
     
     CGRect cropRect = CGRectMake(0, 0, size.width, size.height);
-    
-    CGRect transformedRect = [self TransformCGRectForUIImageOrientation:cropRect :originalImage.imageOrientation :originalImage.size];
+
+    CGRect transformedRect = [self TransformCGRectForUIImageOrientation:cropRect sourcea:originalImage.imageOrientation image:originalImage.size];
     
     CGImageRef resultImageRef = CGImageCreateWithImageInRect(originalImage.CGImage, transformedRect);
     
@@ -28,7 +28,7 @@
     return newImage;
 }
 
-+ (CGRect) TransformCGRectForUIImageOrientation: (CGRect) sourcea: (UIImageOrientation) orientation: (CGSize) imageSize {
++ (CGRect) TransformCGRectForUIImageOrientation: (CGRect)rect sourcea:(UIImageOrientation) orientation image:(CGSize)imageSize {
     
     switch (orientation) {
         case UIImageOrientationLeft: { // EXIF #8
@@ -36,25 +36,25 @@
                                                                              imageSize.height, 0.0);
             CGAffineTransform txCompound = CGAffineTransformRotate(txTranslate,
                                                                    M_PI_2);
-            return CGRectApplyAffineTransform(sourcea, txCompound);
+            return CGRectApplyAffineTransform(rect, txCompound);
         }
         case UIImageOrientationDown: { // EXIF #3
             CGAffineTransform txTranslate = CGAffineTransformMakeTranslation(
                                                                              imageSize.width, imageSize.height);
             CGAffineTransform txCompound = CGAffineTransformRotate(txTranslate,
                                                                    M_PI);
-            return CGRectApplyAffineTransform(sourcea, txCompound);
+            return CGRectApplyAffineTransform(rect, txCompound);
         }
         case UIImageOrientationRight: { // EXIF #6
             CGAffineTransform txTranslate = CGAffineTransformMakeTranslation(
                                                                              0.0, imageSize.width);
             CGAffineTransform txCompound = CGAffineTransformRotate(txTranslate,
                                                                    M_PI + M_PI_2);
-            return CGRectApplyAffineTransform(sourcea, txCompound);
+            return CGRectApplyAffineTransform(rect, txCompound);
         }
         case UIImageOrientationUp: // EXIF #1 - do nothing
         default: // EXIF 2,4,5,7 - ignore
-            return sourcea;
+            return rect;
     }
 }
 
@@ -79,11 +79,30 @@
         }
         else {
             bounds.size.height = kMaxResolution;
-            bounds.size.width = bounds.size.height * ratio;
+            bounds.size.width = (int)ceilf(bounds.size.height * ratio);
+        }
+    }else if(height < kMaxResolution){
+        CGFloat ratio = width/height;
+        if (ratio > 1) {
+            bounds.size.width = (int)ceilf(bounds.size.height * ratio);
+            bounds.size.height = kMaxResolution;
+        }
+        else {
+            bounds.size.height = kMaxResolution;
+            bounds.size.width = (int)ceilf(bounds.size.height * ratio);
         }
     }
     
     CGFloat scaleRatio = bounds.size.width / width;
+    
+  /**
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"A"
+                                                      message:[NSString stringWithFormat:@"kMax %d w %f h %f || bounds w %f h %f scale %f", kMaxResolution, width, height, bounds.size.width, bounds.size.height, scaleRatio]
+                                                     delegate:nil
+                                            cancelButtonTitle:@"k"
+                                            otherButtonTitles:nil];
+    [message show];
+    **/
     CGSize imageSize = CGSizeMake(CGImageGetWidth(imgRef), CGImageGetHeight(imgRef));
     CGFloat boundHeight;
     UIImageOrientation orient = image.imageOrientation;
@@ -174,6 +193,7 @@
     
     CGFloat bwidth = CGImageGetWidth(imageCopy.CGImage);
     CGFloat bheight = CGImageGetHeight(imageCopy.CGImage);
+    //CGRect imageRect = CGRectMake(0, 0, imageCopy.size.width, imageCopy.size.height);
     
     if (bwidth > bheight) {
         
@@ -198,9 +218,12 @@
         }
         
         CGFloat scaleRatio = bounds.size.width / width;
+        
+        
+        
         CGSize imageSize = CGSizeMake(CGImageGetWidth(imgRef), CGImageGetHeight(imgRef));
         CGFloat boundHeight;
-        UIImageOrientation orient = image.imageOrientation;
+        UIImageOrientation orient = imageCopy.imageOrientation;
         
 
         boundHeight = bounds.size.height;
@@ -213,13 +236,22 @@
         
         CGContextRef context = UIGraphicsGetCurrentContext();
         
+        /**
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"b"
+                                                          message:[NSString stringWithFormat:@"h %f bh %f w %f bw %f", height, bounds.size.height, width, bounds.size.width]
+                                                         delegate:nil
+                                                cancelButtonTitle:@"k"
+                                                otherButtonTitles:nil];
+        [message show];
+        **/
         if (orient == UIImageOrientationRight || orient == UIImageOrientationLeft) {
             CGContextScaleCTM(context, -scaleRatio, scaleRatio);
-            CGContextTranslateCTM(context, -height, 0);
+            CGContextTranslateCTM(context, -(height ), 0);
         }
         else {
             CGContextScaleCTM(context, scaleRatio, -scaleRatio);
-            CGContextTranslateCTM(context, 0, -height);
+            CGContextTranslateCTM(context, 0, -(height + ( 59.0 - (height  - 320))));
+
         }
         
         CGContextConcatCTM(context, transform);

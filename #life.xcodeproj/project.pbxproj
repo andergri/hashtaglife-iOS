@@ -11,6 +11,22 @@
 		0E02CB99197B2EB60040F5EB /* SELPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E02CB97197B2EB60040F5EB /* SELPostViewController.xib */; };
 		0E0B30B9197F77E600FDF2A6 /* SELCameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0B30B8197F77E600FDF2A6 /* SELCameraOverlayView.m */; };
 		0E0B30BC19806A9E00FDF2A6 /* SELEditImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0B30BB19806A9E00FDF2A6 /* SELEditImage.m */; };
+		0E0C312F1A0C1CB500A76B91 /* SELImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C312E1A0C1CB500A76B91 /* SELImagePickerViewController.m */; };
+		0E0FBF991AE0D46C004C3608 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FBF981AE0D46C004C3608 /* AudioToolbox.framework */; };
+		0E0FBF9B1AE0D496004C3608 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FBF9A1AE0D496004C3608 /* CFNetwork.framework */; };
+		0E0FBF9D1AE0D4C2004C3608 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FBF9C1AE0D4C2004C3608 /* CoreLocation.framework */; };
+		0E0FBF9F1AE0D508004C3608 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FBF9E1AE0D508004C3608 /* QuartzCore.framework */; };
+		0E0FBFA11AE0D518004C3608 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FBFA01AE0D518004C3608 /* Security.framework */; };
+		0E0FBFA51AE0D53F004C3608 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FBFA41AE0D53F004C3608 /* SystemConfiguration.framework */; };
+		0E0FBFA71AE0D579004C3608 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FBFA61AE0D579004C3608 /* libz.dylib */; };
+		0E0FBFA91AE0D5A5004C3608 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FBFA81AE0D5A5004C3608 /* libsqlite3.dylib */; };
+		0E0FBFAB1AE0D822004C3608 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FBFAA1AE0D822004C3608 /* CoreData.framework */; };
+		0E151A701A1C639F00C147CC /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E151A6F1A1C639F00C147CC /* AssetsLibrary.framework */; };
+		0E2DF36D19C7C5DF000A3C0A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E6DC87E19C7C59F00FEEB8A /* MobileCoreServices.framework */; };
+		0E2FD17F1ABE4F350076D098 /* SELPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2FD17E1ABE4F350076D098 /* SELPageViewController.m */; };
+		0E2FD1821ABE52E50076D098 /* SELSecondaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2FD1811ABE52E50076D098 /* SELSecondaryViewController.m */; };
+		0E2FD1871ABE59760076D098 /* SELSelifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2FD1851ABE59760076D098 /* SELSelifeViewController.m */; };
+		0E2FD1881ABE59760076D098 /* SELSelifeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E2FD1861ABE59760076D098 /* SELSelifeViewController.xib */; };
 		0E3D1448197ADF8200F2693F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3D1447197ADF8200F2693F /* Foundation.framework */; };
 		0E3D144A197ADF8200F2693F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3D1449197ADF8200F2693F /* CoreGraphics.framework */; };
 		0E3D144C197ADF8200F2693F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3D144B197ADF8200F2693F /* UIKit.framework */; };
@@ -23,19 +39,64 @@
 		0E3D1463197ADF8200F2693F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3D144B197ADF8200F2693F /* UIKit.framework */; };
 		0E3D146B197ADF8200F2693F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E3D1469197ADF8200F2693F /* InfoPlist.strings */; };
 		0E3D146D197ADF8200F2693F /* selfieTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3D146C197ADF8200F2693F /* selfieTests.m */; };
-		0E5B488719A563000017F448 /* SELRandomObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B488619A563000017F448 /* SELRandomObject.m */; };
+		0E48B7F61A11110500DAE782 /* SELClickableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E48B7F51A11110400DAE782 /* SELClickableObject.m */; };
+		0E5116411AD216500048820B /* SELPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E51163F1AD216500048820B /* SELPhotoViewController.m */; };
+		0E5132E51AE461A200679E4D /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5132E41AE461A200679E4D /* Accounts.framework */; };
+		0E5132E71AE461AE00679E4D /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5132E61AE461AE00679E4D /* Social.framework */; };
+		0E5570A619CFD85800BD0FAC /* SELHashtagsListObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5570A519CFD85800BD0FAC /* SELHashtagsListObject.m */; };
+		0E5A88EC1A8987C0000402A6 /* SELLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A88EA1A8987C0000402A6 /* SELLocationViewController.m */; };
+		0E5A88ED1A8987C0000402A6 /* SELLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5A88EB1A8987C0000402A6 /* SELLocationViewController.xib */; };
 		0E5B488A19A565240017F448 /* SELImageCountObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B488919A565240017F448 /* SELImageCountObject.m */; };
-		0E5B488D19A5680A0017F448 /* SELLoadSelfiesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B488C19A5680A0017F448 /* SELLoadSelfiesObject.m */; };
 		0E5CFB3719A54C18009D2FF5 /* SELFlagObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5CFB3619A54C18009D2FF5 /* SELFlagObject.m */; };
 		0E5CFB3A19A54C2A009D2FF5 /* SELHeartObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5CFB3919A54C2A009D2FF5 /* SELHeartObject.m */; };
-		0E5CFB3D19A554E5009D2FF5 /* SELUserLikesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5CFB3C19A554E5009D2FF5 /* SELUserLikesObject.m */; };
-		0E5CFB4319A55BCD009D2FF5 /* SELCameraObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5CFB4219A55BCD009D2FF5 /* SELCameraObject.m */; };
+		0E6E8D041B157F2400F720C7 /* SELMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6E8D031B157F2400F720C7 /* SELMovieViewController.m */; };
+		0E6E8D071B158E5D00F720C7 /* SELVideoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6E8D061B158E5D00F720C7 /* SELVideoObject.m */; };
+		0E6E8D0B1B16A99800F720C7 /* SELMoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6E8D0A1B16A99800F720C7 /* SELMoviePlayerViewController.m */; };
 		0E765F211982157A005E47FC /* SELColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E765F201982157A005E47FC /* SELColorPicker.m */; };
+		0E76B2E819D0DC0500E6358B /* SELHashtagLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E76B2E719D0DC0500E6358B /* SELHashtagLabel.m */; };
+		0E7DCF701ACF6B6200802D78 /* SELSuggestedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7DCF6E1ACF6B6200802D78 /* SELSuggestedTableViewController.m */; };
+		0E7DCF711ACF6B6200802D78 /* SELSuggestedTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E7DCF6F1ACF6B6200802D78 /* SELSuggestedTableViewController.xib */; };
+		0E8166F91A9CE60400C2C546 /* SELMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8166F71A9CE60400C2C546 /* SELMapViewController.m */; };
+		0E8166FA1A9CE60400C2C546 /* SELMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E8166F81A9CE60400C2C546 /* SELMapViewController.xib */; };
+		0E86266E1B4E386E0025E1E2 /* SELVotingOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E86266D1B4E386E0025E1E2 /* SELVotingOverlayViewController.m */; };
+		0E8626721B4E38C50025E1E2 /* SELVotingListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8626701B4E38C50025E1E2 /* SELVotingListTableViewController.m */; };
+		0E8626731B4E38C50025E1E2 /* SELVotingListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E8626711B4E38C50025E1E2 /* SELVotingListTableViewController.xib */; };
+		0E8C57BB1B70E13F004B3FE7 /* SELCurveTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C57BA1B70E13F004B3FE7 /* SELCurveTextView.m */; };
+		0E8C57BD1B721599004B3FE7 /* SELBadwords_en.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E8C57BC1B721599004B3FE7 /* SELBadwords_en.plist */; };
+		0E936CA51A669BEB005B6150 /* SELBannedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E936CA31A669BEB005B6150 /* SELBannedViewController.m */; };
+		0E936CA61A669BEB005B6150 /* SELBannedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E936CA41A669BEB005B6150 /* SELBannedViewController.xib */; };
+		0E9AB1C81ABF55CF002AF928 /* SELSecondaryTableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9AB1C71ABF55CF002AF928 /* SELSecondaryTableTableViewController.m */; };
 		0EA15B4919833BDC00A17A27 /* SELUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA15B4719833BDC00A17A27 /* SELUserViewController.m */; };
 		0EA15B4A19833BDC00A17A27 /* SELUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EA15B4819833BDC00A17A27 /* SELUserViewController.xib */; };
+		0EA7CCC91AF12919006F3B44 /* SELSuggestedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EA7CCC71AF12919006F3B44 /* SELSuggestedCollectionViewCell.xib */; };
+		0EB1ECCE1A1D33FF00D30EF6 /* SELGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB1ECCC1A1D33FF00D30EF6 /* SELGameViewController.m */; };
+		0EB1ECCF1A1D33FF00D30EF6 /* SELGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EB1ECCD1A1D33FF00D30EF6 /* SELGameViewController.xib */; };
+		0EBEDAD01B0BFF350087A01F /* SELCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBEDACF1B0BFF350087A01F /* SELCaptureViewController.m */; };
+		0EBEDAD51B0C0E4E0087A01F /* PBJFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBEDAD21B0C0E4E0087A01F /* PBJFocusView.m */; };
+		0EC863461B5970A90068A14F /* SELVoteList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0EC863451B5970A90068A14F /* SELVoteList.plist */; };
+		0ECD548D1A216681001A8D0E /* SELLocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD548B1A216681001A8D0E /* SELLocationTableViewController.m */; };
+		0ECD548E1A216681001A8D0E /* SELLocationTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD548C1A216681001A8D0E /* SELLocationTableViewController.xib */; };
+		0ECD54921A21A3E9001A8D0E /* SELAddLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD54901A21A3E9001A8D0E /* SELAddLocationViewController.m */; };
+		0ECD54931A21A3E9001A8D0E /* SELAddLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD54911A21A3E9001A8D0E /* SELAddLocationViewController.xib */; };
 		0ED0C9FB197AE5B200B181E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ED0C9FA197AE5B200B181E4 /* Main.storyboard */; };
+		0ED7FAC219B9FEFF00035FBD /* SELSelifeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7FAC119B9FEFF00035FBD /* SELSelifeObject.m */; };
+		0ED9F1511B13FD57009839DD /* SELVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9F1501B13FD57009839DD /* SELVideoPlayer.m */; };
+		0ED9F1551B141D5C009839DD /* SELOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9F1541B141D5C009839DD /* SELOverlayViewController.m */; };
+		0ED9F1581B142926009839DD /* SELLoadContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9F1571B142926009839DD /* SELLoadContent.m */; };
+		0ED9F15B1B142CC5009839DD /* SELContentManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9F15A1B142CC5009839DD /* SELContentManger.m */; };
+		0ED9F1601B14375F009839DD /* SELPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9F15E1B14375F009839DD /* SELPictureViewController.m */; };
+		0ED9F1611B14375F009839DD /* SELPictureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ED9F15F1B14375F009839DD /* SELPictureViewController.xib */; };
+		0ED9F1641B143B13009839DD /* SELProgressManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9F1631B143B13009839DD /* SELProgressManger.m */; };
+		0ED9F1671B14469F009839DD /* SELImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9F1661B14469F009839DD /* SELImageLoader.m */; };
+		0EDC2D441ABE808300600CD8 /* SELOnStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDC2D431ABE808300600CD8 /* SELOnStartViewController.m */; };
+		0EDC2D4D1ABE912200600CD8 /* SELBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDC2D4C1ABE912200600CD8 /* SELBarViewController.m */; };
+		0EE8040B1A9E4305001F7B7C /* SELExtraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE804091A9E4305001F7B7C /* SELExtraViewController.m */; };
+		0EE8040C1A9E4305001F7B7C /* SELExtraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE8040A1A9E4305001F7B7C /* SELExtraViewController.xib */; };
 		0EECB8A8197AEAD100995FEB /* SELMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EECB8A7197AEAD100995FEB /* SELMainViewController.m */; };
 		0EECB8AB197AEAF200995FEB /* SELHashtagTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EECB8AA197AEAF200995FEB /* SELHashtagTableViewController.m */; };
+		0EF636941B12776200323AB1 /* SELVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF636931B12776200323AB1 /* SELVideoView.m */; };
+		0EF636971B1279DB00323AB1 /* SELVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF636961B1279DB00323AB1 /* SELVideoPlayerController.m */; };
+		0EF6AB341AF219540004A449 /* SELSuggestedCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF6AB321AF219540004A449 /* SELSuggestedCollectionReusableView.xib */; };
 		E4481ACC44EA40FB8517BBE7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040A17560AC4EE880761B43 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +118,25 @@
 		0E0B30B8197F77E600FDF2A6 /* SELCameraOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELCameraOverlayView.m; sourceTree = "<group>"; };
 		0E0B30BA19806A9E00FDF2A6 /* SELEditImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELEditImage.h; sourceTree = "<group>"; };
 		0E0B30BB19806A9E00FDF2A6 /* SELEditImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELEditImage.m; sourceTree = "<group>"; };
+		0E0C312D1A0C1CB500A76B91 /* SELImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELImagePickerViewController.h; sourceTree = "<group>"; };
+		0E0C312E1A0C1CB500A76B91 /* SELImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELImagePickerViewController.m; sourceTree = "<group>"; };
+		0E0FBF981AE0D46C004C3608 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0E0FBF9A1AE0D496004C3608 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		0E0FBF9C1AE0D4C2004C3608 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0E0FBF9E1AE0D508004C3608 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0E0FBFA01AE0D518004C3608 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0E0FBFA41AE0D53F004C3608 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0E0FBFA61AE0D579004C3608 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		0E0FBFA81AE0D5A5004C3608 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		0E0FBFAA1AE0D822004C3608 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0E151A6F1A1C639F00C147CC /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		0E2FD17D1ABE4F350076D098 /* SELPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELPageViewController.h; sourceTree = "<group>"; };
+		0E2FD17E1ABE4F350076D098 /* SELPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELPageViewController.m; sourceTree = "<group>"; };
+		0E2FD1801ABE52E50076D098 /* SELSecondaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELSecondaryViewController.h; sourceTree = "<group>"; };
+		0E2FD1811ABE52E50076D098 /* SELSecondaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELSecondaryViewController.m; sourceTree = "<group>"; };
+		0E2FD1841ABE59760076D098 /* SELSelifeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELSelifeViewController.h; sourceTree = "<group>"; };
+		0E2FD1851ABE59760076D098 /* SELSelifeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELSelifeViewController.m; sourceTree = "<group>"; };
+		0E2FD1861ABE59760076D098 /* SELSelifeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELSelifeViewController.xib; sourceTree = "<group>"; };
 		0E3D1444197ADF8200F2693F /* #life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "#life.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E3D1447197ADF8200F2693F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0E3D1449197ADF8200F2693F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -73,32 +153,108 @@
 		0E3D1468197ADF8200F2693F /* #lifeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "#lifeTests-Info.plist"; sourceTree = "<group>"; };
 		0E3D146A197ADF8200F2693F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0E3D146C197ADF8200F2693F /* selfieTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = selfieTests.m; sourceTree = "<group>"; };
-		0E5B488519A563000017F448 /* SELRandomObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELRandomObject.h; sourceTree = "<group>"; };
-		0E5B488619A563000017F448 /* SELRandomObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELRandomObject.m; sourceTree = "<group>"; };
+		0E48B7F41A11110400DAE782 /* SELClickableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELClickableObject.h; sourceTree = "<group>"; };
+		0E48B7F51A11110400DAE782 /* SELClickableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELClickableObject.m; sourceTree = "<group>"; };
+		0E51163E1AD216500048820B /* SELPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELPhotoViewController.h; sourceTree = "<group>"; };
+		0E51163F1AD216500048820B /* SELPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELPhotoViewController.m; sourceTree = "<group>"; };
+		0E5132E41AE461A200679E4D /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		0E5132E61AE461AE00679E4D /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		0E5570A419CFD85800BD0FAC /* SELHashtagsListObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELHashtagsListObject.h; sourceTree = "<group>"; };
+		0E5570A519CFD85800BD0FAC /* SELHashtagsListObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELHashtagsListObject.m; sourceTree = "<group>"; };
+		0E5A88E91A8987C0000402A6 /* SELLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELLocationViewController.h; sourceTree = "<group>"; };
+		0E5A88EA1A8987C0000402A6 /* SELLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELLocationViewController.m; sourceTree = "<group>"; };
+		0E5A88EB1A8987C0000402A6 /* SELLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELLocationViewController.xib; sourceTree = "<group>"; };
 		0E5B488819A565240017F448 /* SELImageCountObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELImageCountObject.h; sourceTree = "<group>"; };
 		0E5B488919A565240017F448 /* SELImageCountObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELImageCountObject.m; sourceTree = "<group>"; };
-		0E5B488B19A5680A0017F448 /* SELLoadSelfiesObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELLoadSelfiesObject.h; sourceTree = "<group>"; };
-		0E5B488C19A5680A0017F448 /* SELLoadSelfiesObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELLoadSelfiesObject.m; sourceTree = "<group>"; };
 		0E5CFB3519A54C18009D2FF5 /* SELFlagObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELFlagObject.h; sourceTree = "<group>"; };
 		0E5CFB3619A54C18009D2FF5 /* SELFlagObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELFlagObject.m; sourceTree = "<group>"; };
 		0E5CFB3819A54C2A009D2FF5 /* SELHeartObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELHeartObject.h; sourceTree = "<group>"; };
 		0E5CFB3919A54C2A009D2FF5 /* SELHeartObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELHeartObject.m; sourceTree = "<group>"; };
-		0E5CFB3B19A554E5009D2FF5 /* SELUserLikesObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELUserLikesObject.h; sourceTree = "<group>"; };
-		0E5CFB3C19A554E5009D2FF5 /* SELUserLikesObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELUserLikesObject.m; sourceTree = "<group>"; };
-		0E5CFB4119A55BCD009D2FF5 /* SELCameraObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELCameraObject.h; sourceTree = "<group>"; };
-		0E5CFB4219A55BCD009D2FF5 /* SELCameraObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELCameraObject.m; sourceTree = "<group>"; };
+		0E6DC87E19C7C59F00FEEB8A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		0E6E8D021B157F2400F720C7 /* SELMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELMovieViewController.h; sourceTree = "<group>"; };
+		0E6E8D031B157F2400F720C7 /* SELMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELMovieViewController.m; sourceTree = "<group>"; };
+		0E6E8D051B158E5D00F720C7 /* SELVideoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELVideoObject.h; sourceTree = "<group>"; };
+		0E6E8D061B158E5D00F720C7 /* SELVideoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELVideoObject.m; sourceTree = "<group>"; };
+		0E6E8D091B16A99800F720C7 /* SELMoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELMoviePlayerViewController.h; sourceTree = "<group>"; };
+		0E6E8D0A1B16A99800F720C7 /* SELMoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELMoviePlayerViewController.m; sourceTree = "<group>"; };
 		0E765F1F1982157A005E47FC /* SELColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELColorPicker.h; sourceTree = "<group>"; };
 		0E765F201982157A005E47FC /* SELColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELColorPicker.m; sourceTree = "<group>"; };
+		0E76B2E619D0DC0500E6358B /* SELHashtagLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELHashtagLabel.h; sourceTree = "<group>"; };
+		0E76B2E719D0DC0500E6358B /* SELHashtagLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELHashtagLabel.m; sourceTree = "<group>"; };
+		0E7DCF6D1ACF6B6200802D78 /* SELSuggestedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELSuggestedTableViewController.h; sourceTree = "<group>"; };
+		0E7DCF6E1ACF6B6200802D78 /* SELSuggestedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELSuggestedTableViewController.m; sourceTree = "<group>"; };
+		0E7DCF6F1ACF6B6200802D78 /* SELSuggestedTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELSuggestedTableViewController.xib; sourceTree = "<group>"; };
+		0E8166F61A9CE60400C2C546 /* SELMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELMapViewController.h; sourceTree = "<group>"; };
+		0E8166F71A9CE60400C2C546 /* SELMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELMapViewController.m; sourceTree = "<group>"; };
+		0E8166F81A9CE60400C2C546 /* SELMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELMapViewController.xib; sourceTree = "<group>"; };
+		0E86266C1B4E386E0025E1E2 /* SELVotingOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELVotingOverlayViewController.h; sourceTree = "<group>"; };
+		0E86266D1B4E386E0025E1E2 /* SELVotingOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELVotingOverlayViewController.m; sourceTree = "<group>"; };
+		0E86266F1B4E38C50025E1E2 /* SELVotingListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELVotingListTableViewController.h; sourceTree = "<group>"; };
+		0E8626701B4E38C50025E1E2 /* SELVotingListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELVotingListTableViewController.m; sourceTree = "<group>"; };
+		0E8626711B4E38C50025E1E2 /* SELVotingListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELVotingListTableViewController.xib; sourceTree = "<group>"; };
+		0E8C57B91B70E13F004B3FE7 /* SELCurveTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELCurveTextView.h; sourceTree = "<group>"; };
+		0E8C57BA1B70E13F004B3FE7 /* SELCurveTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELCurveTextView.m; sourceTree = "<group>"; };
+		0E8C57BC1B721599004B3FE7 /* SELBadwords_en.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SELBadwords_en.plist; sourceTree = "<group>"; };
+		0E936CA21A669BEB005B6150 /* SELBannedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELBannedViewController.h; sourceTree = "<group>"; };
+		0E936CA31A669BEB005B6150 /* SELBannedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELBannedViewController.m; sourceTree = "<group>"; };
+		0E936CA41A669BEB005B6150 /* SELBannedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELBannedViewController.xib; sourceTree = "<group>"; };
+		0E9AB1C61ABF55CF002AF928 /* SELSecondaryTableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELSecondaryTableTableViewController.h; sourceTree = "<group>"; };
+		0E9AB1C71ABF55CF002AF928 /* SELSecondaryTableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELSecondaryTableTableViewController.m; sourceTree = "<group>"; };
 		0EA15B4619833BDC00A17A27 /* SELUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELUserViewController.h; sourceTree = "<group>"; };
 		0EA15B4719833BDC00A17A27 /* SELUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELUserViewController.m; sourceTree = "<group>"; };
 		0EA15B4819833BDC00A17A27 /* SELUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELUserViewController.xib; sourceTree = "<group>"; };
+		0EA7CCC71AF12919006F3B44 /* SELSuggestedCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELSuggestedCollectionViewCell.xib; sourceTree = "<group>"; };
+		0EB1ECCB1A1D33FF00D30EF6 /* SELGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELGameViewController.h; sourceTree = "<group>"; };
+		0EB1ECCC1A1D33FF00D30EF6 /* SELGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELGameViewController.m; sourceTree = "<group>"; };
+		0EB1ECCD1A1D33FF00D30EF6 /* SELGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELGameViewController.xib; sourceTree = "<group>"; };
+		0EBEDACE1B0BFF350087A01F /* SELCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELCaptureViewController.h; sourceTree = "<group>"; };
+		0EBEDACF1B0BFF350087A01F /* SELCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELCaptureViewController.m; sourceTree = "<group>"; };
+		0EBEDAD11B0C0E4E0087A01F /* PBJFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBJFocusView.h; path = "../../PBJVision-master/Project/Vision/PBJFocusView.h"; sourceTree = "<group>"; };
+		0EBEDAD21B0C0E4E0087A01F /* PBJFocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBJFocusView.m; path = "../../PBJVision-master/Project/Vision/PBJFocusView.m"; sourceTree = "<group>"; };
+		0EC863451B5970A90068A14F /* SELVoteList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SELVoteList.plist; sourceTree = "<group>"; };
+		0ECD548A1A216681001A8D0E /* SELLocationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELLocationTableViewController.h; sourceTree = "<group>"; };
+		0ECD548B1A216681001A8D0E /* SELLocationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELLocationTableViewController.m; sourceTree = "<group>"; };
+		0ECD548C1A216681001A8D0E /* SELLocationTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELLocationTableViewController.xib; sourceTree = "<group>"; };
+		0ECD548F1A21A3E9001A8D0E /* SELAddLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELAddLocationViewController.h; sourceTree = "<group>"; };
+		0ECD54901A21A3E9001A8D0E /* SELAddLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELAddLocationViewController.m; sourceTree = "<group>"; };
+		0ECD54911A21A3E9001A8D0E /* SELAddLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELAddLocationViewController.xib; sourceTree = "<group>"; };
 		0ED0C9FA197AE5B200B181E4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0ED7FAC019B9FEFF00035FBD /* SELSelifeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELSelifeObject.h; sourceTree = "<group>"; };
+		0ED7FAC119B9FEFF00035FBD /* SELSelifeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELSelifeObject.m; sourceTree = "<group>"; };
+		0ED9F14F1B13FD57009839DD /* SELVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELVideoPlayer.h; sourceTree = "<group>"; };
+		0ED9F1501B13FD57009839DD /* SELVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELVideoPlayer.m; sourceTree = "<group>"; };
+		0ED9F1531B141D5C009839DD /* SELOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELOverlayViewController.h; sourceTree = "<group>"; };
+		0ED9F1541B141D5C009839DD /* SELOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELOverlayViewController.m; sourceTree = "<group>"; };
+		0ED9F1561B142926009839DD /* SELLoadContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELLoadContent.h; sourceTree = "<group>"; };
+		0ED9F1571B142926009839DD /* SELLoadContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELLoadContent.m; sourceTree = "<group>"; };
+		0ED9F1591B142CC5009839DD /* SELContentManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELContentManger.h; sourceTree = "<group>"; };
+		0ED9F15A1B142CC5009839DD /* SELContentManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELContentManger.m; sourceTree = "<group>"; };
+		0ED9F15D1B14375F009839DD /* SELPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELPictureViewController.h; sourceTree = "<group>"; };
+		0ED9F15E1B14375F009839DD /* SELPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELPictureViewController.m; sourceTree = "<group>"; };
+		0ED9F15F1B14375F009839DD /* SELPictureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELPictureViewController.xib; sourceTree = "<group>"; };
+		0ED9F1621B143B13009839DD /* SELProgressManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELProgressManger.h; sourceTree = "<group>"; };
+		0ED9F1631B143B13009839DD /* SELProgressManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELProgressManger.m; sourceTree = "<group>"; };
+		0ED9F1651B14469F009839DD /* SELImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELImageLoader.h; sourceTree = "<group>"; };
+		0ED9F1661B14469F009839DD /* SELImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELImageLoader.m; sourceTree = "<group>"; };
+		0EDC2D421ABE808300600CD8 /* SELOnStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELOnStartViewController.h; sourceTree = "<group>"; };
+		0EDC2D431ABE808300600CD8 /* SELOnStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELOnStartViewController.m; sourceTree = "<group>"; };
+		0EDC2D4B1ABE912200600CD8 /* SELBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELBarViewController.h; sourceTree = "<group>"; };
+		0EDC2D4C1ABE912200600CD8 /* SELBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELBarViewController.m; sourceTree = "<group>"; };
+		0EE804081A9E4305001F7B7C /* SELExtraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELExtraViewController.h; sourceTree = "<group>"; };
+		0EE804091A9E4305001F7B7C /* SELExtraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELExtraViewController.m; sourceTree = "<group>"; };
+		0EE8040A1A9E4305001F7B7C /* SELExtraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELExtraViewController.xib; sourceTree = "<group>"; };
 		0EECB8A6197AEAD100995FEB /* SELMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELMainViewController.h; sourceTree = "<group>"; };
 		0EECB8A7197AEAD100995FEB /* SELMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELMainViewController.m; sourceTree = "<group>"; };
 		0EECB8A9197AEAF200995FEB /* SELHashtagTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELHashtagTableViewController.h; sourceTree = "<group>"; };
 		0EECB8AA197AEAF200995FEB /* SELHashtagTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELHashtagTableViewController.m; sourceTree = "<group>"; };
-		3623366145FF4F12BAD04F70 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		0EF636921B12776200323AB1 /* SELVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELVideoView.h; sourceTree = "<group>"; };
+		0EF636931B12776200323AB1 /* SELVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELVideoView.m; sourceTree = "<group>"; };
+		0EF636951B1279DB00323AB1 /* SELVideoPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELVideoPlayerController.h; sourceTree = "<group>"; };
+		0EF636961B1279DB00323AB1 /* SELVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELVideoPlayerController.m; sourceTree = "<group>"; };
+		0EF6AB321AF219540004A449 /* SELSuggestedCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELSuggestedCollectionReusableView.xib; sourceTree = "<group>"; };
+		379E3FA3EB7169FA0201360D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5040A17560AC4EE880761B43 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		601668C29BED4EED4B18252D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,9 +262,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E3D144A197ADF8200F2693F /* CoreGraphics.framework in Frameworks */,
+				0E5132E71AE461AE00679E4D /* Social.framework in Frameworks */,
+				0E5132E51AE461A200679E4D /* Accounts.framework in Frameworks */,
+				0E151A701A1C639F00C147CC /* AssetsLibrary.framework in Frameworks */,
 				0E3D144C197ADF8200F2693F /* UIKit.framework in Frameworks */,
 				0E3D1448197ADF8200F2693F /* Foundation.framework in Frameworks */,
+				0E0FBFAB1AE0D822004C3608 /* CoreData.framework in Frameworks */,
+				0E0FBF991AE0D46C004C3608 /* AudioToolbox.framework in Frameworks */,
+				0E0FBF9B1AE0D496004C3608 /* CFNetwork.framework in Frameworks */,
+				0E3D144A197ADF8200F2693F /* CoreGraphics.framework in Frameworks */,
+				0E0FBF9D1AE0D4C2004C3608 /* CoreLocation.framework in Frameworks */,
+				0E2DF36D19C7C5DF000A3C0A /* MobileCoreServices.framework in Frameworks */,
+				0E0FBF9F1AE0D508004C3608 /* QuartzCore.framework in Frameworks */,
+				0E0FBFA11AE0D518004C3608 /* Security.framework in Frameworks */,
+				0E0FBFA51AE0D53F004C3608 /* SystemConfiguration.framework in Frameworks */,
+				0E0FBFA71AE0D579004C3608 /* libz.dylib in Frameworks */,
+				0E0FBFA91AE0D5A5004C3608 /* libsqlite3.dylib in Frameworks */,
 				E4481ACC44EA40FB8517BBE7 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,6 +295,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E2FD1831ABE59520076D098 /* Selife */ = {
+			isa = PBXGroup;
+			children = (
+				0E2FD1841ABE59760076D098 /* SELSelifeViewController.h */,
+				0E2FD1851ABE59760076D098 /* SELSelifeViewController.m */,
+				0E2FD1861ABE59760076D098 /* SELSelifeViewController.xib */,
+				0E55709D19CFD5E200BD0FAC /* Popup */,
+			);
+			name = Selife;
+			sourceTree = "<group>";
+		};
 		0E3D143B197ADF8200F2693F = {
 			isa = PBXGroup;
 			children = (
@@ -133,7 +313,7 @@
 				0E3D1466197ADF8200F2693F /* selfieTests */,
 				0E3D1446197ADF8200F2693F /* Frameworks */,
 				0E3D1445197ADF8200F2693F /* Products */,
-				3623366145FF4F12BAD04F70 /* Pods.xcconfig */,
+				7A8E54CDDE9EE7C4909FF5E8 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,6 +329,19 @@
 		0E3D1446197ADF8200F2693F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E5132E61AE461AE00679E4D /* Social.framework */,
+				0E5132E41AE461A200679E4D /* Accounts.framework */,
+				0E0FBFAA1AE0D822004C3608 /* CoreData.framework */,
+				0E0FBFA81AE0D5A5004C3608 /* libsqlite3.dylib */,
+				0E0FBFA61AE0D579004C3608 /* libz.dylib */,
+				0E0FBFA41AE0D53F004C3608 /* SystemConfiguration.framework */,
+				0E0FBFA01AE0D518004C3608 /* Security.framework */,
+				0E0FBF9E1AE0D508004C3608 /* QuartzCore.framework */,
+				0E0FBF9C1AE0D4C2004C3608 /* CoreLocation.framework */,
+				0E0FBF9A1AE0D496004C3608 /* CFNetwork.framework */,
+				0E0FBF981AE0D46C004C3608 /* AudioToolbox.framework */,
+				0E151A6F1A1C639F00C147CC /* AssetsLibrary.framework */,
+				0E6DC87E19C7C59F00FEEB8A /* MobileCoreServices.framework */,
 				0E3D1447197ADF8200F2693F /* Foundation.framework */,
 				0E3D1449197ADF8200F2693F /* CoreGraphics.framework */,
 				0E3D144B197ADF8200F2693F /* UIKit.framework */,
@@ -161,38 +354,20 @@
 		0E3D144D197ADF8200F2693F /* selfie */ = {
 			isa = PBXGroup;
 			children = (
+				0E2FD17D1ABE4F350076D098 /* SELPageViewController.h */,
+				0E2FD17E1ABE4F350076D098 /* SELPageViewController.m */,
+				0EDC2D411ABE804000600CD8 /* Init */,
+				0EDC2D4A1ABE902100600CD8 /* Button */,
+				0E2FD1831ABE59520076D098 /* Selife */,
+				0E55709F19CFD66000BD0FAC /* Posting */,
+				0E5570A019CFD66F00BD0FAC /* Main */,
+				0E9AB1C51ABF558B002AF928 /* Secondary */,
+				0ECD54891A2165CB001A8D0E /* Location */,
+				0EB1ECC51A1C8C9E00D30EF6 /* Gaming */,
 				0E3D1456197ADF8200F2693F /* SELAppDelegate.h */,
 				0E3D1457197ADF8200F2693F /* SELAppDelegate.m */,
-				0EECB8A6197AEAD100995FEB /* SELMainViewController.h */,
-				0EECB8A7197AEAD100995FEB /* SELMainViewController.m */,
-				0E5CFB3519A54C18009D2FF5 /* SELFlagObject.h */,
-				0E5CFB3619A54C18009D2FF5 /* SELFlagObject.m */,
-				0E5CFB3819A54C2A009D2FF5 /* SELHeartObject.h */,
-				0E5CFB3919A54C2A009D2FF5 /* SELHeartObject.m */,
-				0E5CFB3B19A554E5009D2FF5 /* SELUserLikesObject.h */,
-				0E5CFB3C19A554E5009D2FF5 /* SELUserLikesObject.m */,
-				0E5CFB4119A55BCD009D2FF5 /* SELCameraObject.h */,
-				0E5CFB4219A55BCD009D2FF5 /* SELCameraObject.m */,
-				0E5B488519A563000017F448 /* SELRandomObject.h */,
-				0E5B488619A563000017F448 /* SELRandomObject.m */,
-				0E5B488819A565240017F448 /* SELImageCountObject.h */,
-				0E5B488919A565240017F448 /* SELImageCountObject.m */,
-				0E5B488B19A5680A0017F448 /* SELLoadSelfiesObject.h */,
-				0E5B488C19A5680A0017F448 /* SELLoadSelfiesObject.m */,
-				0EECB8A9197AEAF200995FEB /* SELHashtagTableViewController.h */,
-				0EECB8AA197AEAF200995FEB /* SELHashtagTableViewController.m */,
-				0E02CB95197B2EB60040F5EB /* SELPostViewController.h */,
-				0E02CB96197B2EB60040F5EB /* SELPostViewController.m */,
-				0E02CB97197B2EB60040F5EB /* SELPostViewController.xib */,
-				0E0B30B7197F77E600FDF2A6 /* SELCameraOverlayView.h */,
-				0E0B30B8197F77E600FDF2A6 /* SELCameraOverlayView.m */,
-				0E0B30BA19806A9E00FDF2A6 /* SELEditImage.h */,
-				0E0B30BB19806A9E00FDF2A6 /* SELEditImage.m */,
 				0E765F1F1982157A005E47FC /* SELColorPicker.h */,
 				0E765F201982157A005E47FC /* SELColorPicker.m */,
-				0EA15B4619833BDC00A17A27 /* SELUserViewController.h */,
-				0EA15B4719833BDC00A17A27 /* SELUserViewController.m */,
-				0EA15B4819833BDC00A17A27 /* SELUserViewController.xib */,
 				0ED0C9FA197AE5B200B181E4 /* Main.storyboard */,
 				0E3D1459197ADF8200F2693F /* Images.xcassets */,
 				0E3D144E197ADF8200F2693F /* Supporting Files */,
@@ -227,6 +402,255 @@
 				0E3D1469197ADF8200F2693F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0E55709D19CFD5E200BD0FAC /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				0E5570A219CFD6CA00BD0FAC /* Loading */,
+				0ED9F15C1B14373F009839DD /* Picture */,
+				0ED9F1521B141D0D009839DD /* Overlay */,
+				0E86266B1B4E37EA0025E1E2 /* VotingOverlay */,
+				0EF6368E1B12721100323AB1 /* Movie */,
+			);
+			name = Popup;
+			sourceTree = "<group>";
+		};
+		0E55709E19CFD61C00BD0FAC /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				0E51163E1AD216500048820B /* SELPhotoViewController.h */,
+				0E51163F1AD216500048820B /* SELPhotoViewController.m */,
+				0E0B30B7197F77E600FDF2A6 /* SELCameraOverlayView.h */,
+				0E0B30B8197F77E600FDF2A6 /* SELCameraOverlayView.m */,
+				0E0C312D1A0C1CB500A76B91 /* SELImagePickerViewController.h */,
+				0E0C312E1A0C1CB500A76B91 /* SELImagePickerViewController.m */,
+				0E0B30BA19806A9E00FDF2A6 /* SELEditImage.h */,
+				0E0B30BB19806A9E00FDF2A6 /* SELEditImage.m */,
+				0E8C57B91B70E13F004B3FE7 /* SELCurveTextView.h */,
+				0E8C57BA1B70E13F004B3FE7 /* SELCurveTextView.m */,
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
+		0E55709F19CFD66000BD0FAC /* Posting */ = {
+			isa = PBXGroup;
+			children = (
+				0EBEDACE1B0BFF350087A01F /* SELCaptureViewController.h */,
+				0EBEDACF1B0BFF350087A01F /* SELCaptureViewController.m */,
+				0EBEDAD11B0C0E4E0087A01F /* PBJFocusView.h */,
+				0EBEDAD21B0C0E4E0087A01F /* PBJFocusView.m */,
+				0E02CB95197B2EB60040F5EB /* SELPostViewController.h */,
+				0E02CB96197B2EB60040F5EB /* SELPostViewController.m */,
+				0E02CB97197B2EB60040F5EB /* SELPostViewController.xib */,
+				0E7DCF6D1ACF6B6200802D78 /* SELSuggestedTableViewController.h */,
+				0E7DCF6E1ACF6B6200802D78 /* SELSuggestedTableViewController.m */,
+				0E7DCF6F1ACF6B6200802D78 /* SELSuggestedTableViewController.xib */,
+				0EA7CCC71AF12919006F3B44 /* SELSuggestedCollectionViewCell.xib */,
+				0EF6AB321AF219540004A449 /* SELSuggestedCollectionReusableView.xib */,
+				0E8C57BC1B721599004B3FE7 /* SELBadwords_en.plist */,
+				0E55709E19CFD61C00BD0FAC /* Camera */,
+			);
+			name = Posting;
+			sourceTree = "<group>";
+		};
+		0E5570A019CFD66F00BD0FAC /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				0EECB8A6197AEAD100995FEB /* SELMainViewController.h */,
+				0EECB8A7197AEAD100995FEB /* SELMainViewController.m */,
+				0EECB8A9197AEAF200995FEB /* SELHashtagTableViewController.h */,
+				0EECB8AA197AEAF200995FEB /* SELHashtagTableViewController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		0E5570A219CFD6CA00BD0FAC /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				0ED9F1591B142CC5009839DD /* SELContentManger.h */,
+				0ED9F15A1B142CC5009839DD /* SELContentManger.m */,
+				0ED9F1621B143B13009839DD /* SELProgressManger.h */,
+				0ED9F1631B143B13009839DD /* SELProgressManger.m */,
+				0ED9F1561B142926009839DD /* SELLoadContent.h */,
+				0ED9F1571B142926009839DD /* SELLoadContent.m */,
+			);
+			name = Loading;
+			sourceTree = "<group>";
+		};
+		0E5570A319CFD70B00BD0FAC /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0EA15B4619833BDC00A17A27 /* SELUserViewController.h */,
+				0EA15B4719833BDC00A17A27 /* SELUserViewController.m */,
+				0EA15B4819833BDC00A17A27 /* SELUserViewController.xib */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		0E6E8D081B1593FE00F720C7 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				0ED9F14F1B13FD57009839DD /* SELVideoPlayer.h */,
+				0ED9F1501B13FD57009839DD /* SELVideoPlayer.m */,
+				0EF636951B1279DB00323AB1 /* SELVideoPlayerController.h */,
+				0EF636961B1279DB00323AB1 /* SELVideoPlayerController.m */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
+		0E86266B1B4E37EA0025E1E2 /* VotingOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				0E86266C1B4E386E0025E1E2 /* SELVotingOverlayViewController.h */,
+				0E86266D1B4E386E0025E1E2 /* SELVotingOverlayViewController.m */,
+				0E86266F1B4E38C50025E1E2 /* SELVotingListTableViewController.h */,
+				0E8626701B4E38C50025E1E2 /* SELVotingListTableViewController.m */,
+				0E8626711B4E38C50025E1E2 /* SELVotingListTableViewController.xib */,
+				0EC863451B5970A90068A14F /* SELVoteList.plist */,
+			);
+			name = VotingOverlay;
+			sourceTree = "<group>";
+		};
+		0E9AB1C51ABF558B002AF928 /* Secondary */ = {
+			isa = PBXGroup;
+			children = (
+				0E2FD1801ABE52E50076D098 /* SELSecondaryViewController.h */,
+				0E2FD1811ABE52E50076D098 /* SELSecondaryViewController.m */,
+				0E9AB1C61ABF55CF002AF928 /* SELSecondaryTableTableViewController.h */,
+				0E9AB1C71ABF55CF002AF928 /* SELSecondaryTableTableViewController.m */,
+			);
+			name = Secondary;
+			sourceTree = "<group>";
+		};
+		0E9AB1C91ABF5631002AF928 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				0E8166F61A9CE60400C2C546 /* SELMapViewController.h */,
+				0E8166F71A9CE60400C2C546 /* SELMapViewController.m */,
+				0E8166F81A9CE60400C2C546 /* SELMapViewController.xib */,
+				0EE804081A9E4305001F7B7C /* SELExtraViewController.h */,
+				0EE804091A9E4305001F7B7C /* SELExtraViewController.m */,
+				0EE8040A1A9E4305001F7B7C /* SELExtraViewController.xib */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
+		0EB1ECC51A1C8C9E00D30EF6 /* Gaming */ = {
+			isa = PBXGroup;
+			children = (
+				0EB1ECCB1A1D33FF00D30EF6 /* SELGameViewController.h */,
+				0EB1ECCC1A1D33FF00D30EF6 /* SELGameViewController.m */,
+				0EB1ECCD1A1D33FF00D30EF6 /* SELGameViewController.xib */,
+			);
+			name = Gaming;
+			sourceTree = "<group>";
+		};
+		0ECD54891A2165CB001A8D0E /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				0ECD548A1A216681001A8D0E /* SELLocationTableViewController.h */,
+				0ECD548B1A216681001A8D0E /* SELLocationTableViewController.m */,
+				0ECD548C1A216681001A8D0E /* SELLocationTableViewController.xib */,
+				0ECD548F1A21A3E9001A8D0E /* SELAddLocationViewController.h */,
+				0ECD54901A21A3E9001A8D0E /* SELAddLocationViewController.m */,
+				0ECD54911A21A3E9001A8D0E /* SELAddLocationViewController.xib */,
+				0E5A88E91A8987C0000402A6 /* SELLocationViewController.h */,
+				0E5A88EA1A8987C0000402A6 /* SELLocationViewController.m */,
+				0E5A88EB1A8987C0000402A6 /* SELLocationViewController.xib */,
+				0E9AB1C91ABF5631002AF928 /* Other */,
+			);
+			name = Location;
+			sourceTree = "<group>";
+		};
+		0ED9F1521B141D0D009839DD /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				0ED9F1531B141D5C009839DD /* SELOverlayViewController.h */,
+				0ED9F1541B141D5C009839DD /* SELOverlayViewController.m */,
+				0E5B488819A565240017F448 /* SELImageCountObject.h */,
+				0E5B488919A565240017F448 /* SELImageCountObject.m */,
+				0E5CFB3519A54C18009D2FF5 /* SELFlagObject.h */,
+				0E5CFB3619A54C18009D2FF5 /* SELFlagObject.m */,
+				0E5CFB3819A54C2A009D2FF5 /* SELHeartObject.h */,
+				0E5CFB3919A54C2A009D2FF5 /* SELHeartObject.m */,
+				0E5570A419CFD85800BD0FAC /* SELHashtagsListObject.h */,
+				0E5570A519CFD85800BD0FAC /* SELHashtagsListObject.m */,
+				0E76B2E619D0DC0500E6358B /* SELHashtagLabel.h */,
+				0E76B2E719D0DC0500E6358B /* SELHashtagLabel.m */,
+				0E48B7F41A11110400DAE782 /* SELClickableObject.h */,
+				0E48B7F51A11110400DAE782 /* SELClickableObject.m */,
+			);
+			name = Overlay;
+			sourceTree = "<group>";
+		};
+		0ED9F15C1B14373F009839DD /* Picture */ = {
+			isa = PBXGroup;
+			children = (
+				0ED9F15D1B14375F009839DD /* SELPictureViewController.h */,
+				0ED9F15E1B14375F009839DD /* SELPictureViewController.m */,
+				0ED9F15F1B14375F009839DD /* SELPictureViewController.xib */,
+				0ED9F1651B14469F009839DD /* SELImageLoader.h */,
+				0ED9F1661B14469F009839DD /* SELImageLoader.m */,
+				0ED7FAC019B9FEFF00035FBD /* SELSelifeObject.h */,
+				0ED7FAC119B9FEFF00035FBD /* SELSelifeObject.m */,
+			);
+			name = Picture;
+			sourceTree = "<group>";
+		};
+		0EDC2D411ABE804000600CD8 /* Init */ = {
+			isa = PBXGroup;
+			children = (
+				0EDC2D421ABE808300600CD8 /* SELOnStartViewController.h */,
+				0EDC2D431ABE808300600CD8 /* SELOnStartViewController.m */,
+				0E5570A319CFD70B00BD0FAC /* Login */,
+				0EDC2D451ABE822300600CD8 /* Banned */,
+			);
+			name = Init;
+			sourceTree = "<group>";
+		};
+		0EDC2D451ABE822300600CD8 /* Banned */ = {
+			isa = PBXGroup;
+			children = (
+				0E936CA21A669BEB005B6150 /* SELBannedViewController.h */,
+				0E936CA31A669BEB005B6150 /* SELBannedViewController.m */,
+				0E936CA41A669BEB005B6150 /* SELBannedViewController.xib */,
+			);
+			name = Banned;
+			sourceTree = "<group>";
+		};
+		0EDC2D4A1ABE902100600CD8 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				0EDC2D4B1ABE912200600CD8 /* SELBarViewController.h */,
+				0EDC2D4C1ABE912200600CD8 /* SELBarViewController.m */,
+			);
+			name = Button;
+			sourceTree = "<group>";
+		};
+		0EF6368E1B12721100323AB1 /* Movie */ = {
+			isa = PBXGroup;
+			children = (
+				0E6E8D021B157F2400F720C7 /* SELMovieViewController.h */,
+				0E6E8D031B157F2400F720C7 /* SELMovieViewController.m */,
+				0E6E8D091B16A99800F720C7 /* SELMoviePlayerViewController.h */,
+				0E6E8D0A1B16A99800F720C7 /* SELMoviePlayerViewController.m */,
+				0E6E8D051B158E5D00F720C7 /* SELVideoObject.h */,
+				0E6E8D061B158E5D00F720C7 /* SELVideoObject.m */,
+				0EF636921B12776200323AB1 /* SELVideoView.h */,
+				0EF636931B12776200323AB1 /* SELVideoView.m */,
+				0E6E8D081B1593FE00F720C7 /* Other */,
+			);
+			name = Movie;
+			sourceTree = "<group>";
+		};
+		7A8E54CDDE9EE7C4909FF5E8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				379E3FA3EB7169FA0201360D /* Pods.debug.xcconfig */,
+				601668C29BED4EED4B18252D /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,6 +705,14 @@
 				TargetAttributes = {
 					0E3D1443197ADF8200F2693F = {
 						DevelopmentTeam = K8VBB568Z3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					0E3D145E197ADF8200F2693F = {
 						TestTargetID = 0E3D1443197ADF8200F2693F;
@@ -310,11 +742,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E5A88ED1A8987C0000402A6 /* SELLocationViewController.xib in Resources */,
 				0ED0C9FB197AE5B200B181E4 /* Main.storyboard in Resources */,
+				0E2FD1881ABE59760076D098 /* SELSelifeViewController.xib in Resources */,
+				0EE8040C1A9E4305001F7B7C /* SELExtraViewController.xib in Resources */,
+				0EC863461B5970A90068A14F /* SELVoteList.plist in Resources */,
+				0EF6AB341AF219540004A449 /* SELSuggestedCollectionReusableView.xib in Resources */,
 				0E3D1452197ADF8200F2693F /* InfoPlist.strings in Resources */,
+				0E8166FA1A9CE60400C2C546 /* SELMapViewController.xib in Resources */,
+				0ECD548E1A216681001A8D0E /* SELLocationTableViewController.xib in Resources */,
+				0E936CA61A669BEB005B6150 /* SELBannedViewController.xib in Resources */,
 				0E3D145A197ADF8200F2693F /* Images.xcassets in Resources */,
+				0ECD54931A21A3E9001A8D0E /* SELAddLocationViewController.xib in Resources */,
+				0EB1ECCF1A1D33FF00D30EF6 /* SELGameViewController.xib in Resources */,
 				0E02CB99197B2EB60040F5EB /* SELPostViewController.xib in Resources */,
+				0E8C57BD1B721599004B3FE7 /* SELBadwords_en.plist in Resources */,
+				0EA7CCC91AF12919006F3B44 /* SELSuggestedCollectionViewCell.xib in Resources */,
+				0ED9F1611B14375F009839DD /* SELPictureViewController.xib in Resources */,
+				0E7DCF711ACF6B6200802D78 /* SELSuggestedTableViewController.xib in Resources */,
 				0EA15B4A19833BDC00A17A27 /* SELUserViewController.xib in Resources */,
+				0E8626731B4E38C50025E1E2 /* SELVotingListTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,7 +788,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EB0CD138FE0D4C0FAB5212A0 /* Check Pods Manifest.lock */ = {
@@ -366,21 +813,54 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EDC2D4D1ABE912200600CD8 /* SELBarViewController.m in Sources */,
+				0ECD548D1A216681001A8D0E /* SELLocationTableViewController.m in Sources */,
+				0ED9F1581B142926009839DD /* SELLoadContent.m in Sources */,
+				0E5570A619CFD85800BD0FAC /* SELHashtagsListObject.m in Sources */,
+				0E2FD1821ABE52E50076D098 /* SELSecondaryViewController.m in Sources */,
+				0E8166F91A9CE60400C2C546 /* SELMapViewController.m in Sources */,
+				0E936CA51A669BEB005B6150 /* SELBannedViewController.m in Sources */,
+				0E8626721B4E38C50025E1E2 /* SELVotingListTableViewController.m in Sources */,
+				0E0C312F1A0C1CB500A76B91 /* SELImagePickerViewController.m in Sources */,
 				0E5CFB3A19A54C2A009D2FF5 /* SELHeartObject.m in Sources */,
+				0E9AB1C81ABF55CF002AF928 /* SELSecondaryTableTableViewController.m in Sources */,
+				0EE8040B1A9E4305001F7B7C /* SELExtraViewController.m in Sources */,
+				0EBEDAD01B0BFF350087A01F /* SELCaptureViewController.m in Sources */,
+				0ED9F1551B141D5C009839DD /* SELOverlayViewController.m in Sources */,
 				0E5B488A19A565240017F448 /* SELImageCountObject.m in Sources */,
-				0E5CFB4319A55BCD009D2FF5 /* SELCameraObject.m in Sources */,
-				0E5B488719A563000017F448 /* SELRandomObject.m in Sources */,
-				0E5CFB3D19A554E5009D2FF5 /* SELUserLikesObject.m in Sources */,
+				0E5A88EC1A8987C0000402A6 /* SELLocationViewController.m in Sources */,
+				0E6E8D0B1B16A99800F720C7 /* SELMoviePlayerViewController.m in Sources */,
+				0E6E8D041B157F2400F720C7 /* SELMovieViewController.m in Sources */,
+				0E76B2E819D0DC0500E6358B /* SELHashtagLabel.m in Sources */,
+				0E6E8D071B158E5D00F720C7 /* SELVideoObject.m in Sources */,
+				0ED9F1601B14375F009839DD /* SELPictureViewController.m in Sources */,
 				0EECB8A8197AEAD100995FEB /* SELMainViewController.m in Sources */,
 				0EECB8AB197AEAF200995FEB /* SELHashtagTableViewController.m in Sources */,
-				0E5B488D19A5680A0017F448 /* SELLoadSelfiesObject.m in Sources */,
+				0E86266E1B4E386E0025E1E2 /* SELVotingOverlayViewController.m in Sources */,
+				0ED9F15B1B142CC5009839DD /* SELContentManger.m in Sources */,
+				0ED9F1671B14469F009839DD /* SELImageLoader.m in Sources */,
+				0ED7FAC219B9FEFF00035FBD /* SELSelifeObject.m in Sources */,
 				0EA15B4919833BDC00A17A27 /* SELUserViewController.m in Sources */,
 				0E5CFB3719A54C18009D2FF5 /* SELFlagObject.m in Sources */,
+				0EF636971B1279DB00323AB1 /* SELVideoPlayerController.m in Sources */,
+				0E2FD17F1ABE4F350076D098 /* SELPageViewController.m in Sources */,
+				0EB1ECCE1A1D33FF00D30EF6 /* SELGameViewController.m in Sources */,
 				0E0B30B9197F77E600FDF2A6 /* SELCameraOverlayView.m in Sources */,
 				0E3D1454197ADF8200F2693F /* main.m in Sources */,
 				0E765F211982157A005E47FC /* SELColorPicker.m in Sources */,
+				0E7DCF701ACF6B6200802D78 /* SELSuggestedTableViewController.m in Sources */,
+				0E2FD1871ABE59760076D098 /* SELSelifeViewController.m in Sources */,
+				0EBEDAD51B0C0E4E0087A01F /* PBJFocusView.m in Sources */,
+				0E48B7F61A11110500DAE782 /* SELClickableObject.m in Sources */,
+				0EF636941B12776200323AB1 /* SELVideoView.m in Sources */,
+				0EDC2D441ABE808300600CD8 /* SELOnStartViewController.m in Sources */,
+				0ECD54921A21A3E9001A8D0E /* SELAddLocationViewController.m in Sources */,
+				0ED9F1511B13FD57009839DD /* SELVideoPlayer.m in Sources */,
+				0E5116411AD216500048820B /* SELPhotoViewController.m in Sources */,
 				0E0B30BC19806A9E00FDF2A6 /* SELEditImage.m in Sources */,
+				0ED9F1641B143B13009839DD /* SELProgressManger.m in Sources */,
 				0E3D1458197ADF8200F2693F /* SELAppDelegate.m in Sources */,
+				0E8C57BB1B70E13F004B3FE7 /* SELCurveTextView.m in Sources */,
 				0E02CB98197B2EB60040F5EB /* SELPostViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,36 +977,37 @@
 		};
 		0E3D1471197ADF8200F2693F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3623366145FF4F12BAD04F70 /* Pods.xcconfig */;
+			baseConfigurationReference = 379E3FA3EB7169FA0201360D /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Griffin Anderson (K8VBB568Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Griffin Anderson (K8VBB568Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "selfie/#life-Prefix.pch";
 				INFOPLIST_FILE = "selfie/#life-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "#life";
-				PROVISIONING_PROFILE = "92AACC03-5046-4ADD-BBE4-0A1FEB8963BA";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		0E3D1472197ADF8200F2693F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3623366145FF4F12BAD04F70 /* Pods.xcconfig */;
+			baseConfigurationReference = 601668C29BED4EED4B18252D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Griffin Anderson (K8VBB568Z3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Griffin Anderson (K8VBB568Z3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Griffin Anderson (7TE2L275TQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "selfie/#life-Prefix.pch";
 				INFOPLIST_FILE = "selfie/#life-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "#life";
-				PROVISIONING_PROFILE = "92AACC03-5046-4ADD-BBE4-0A1FEB8963BA";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

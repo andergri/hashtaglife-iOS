@@ -8,22 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #import "SELColorPicker.h"
+#import "SELSuggestedTableViewController.h"
+#import "PBJVideoPlayerController.h"
 
 @protocol SELPostViewControllerDelegate;
 
-@interface SELPostViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIGestureRecognizerDelegate>
+@interface SELPostViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIGestureRecognizerDelegate,  SELSuggestedViewControllerDelegate, PBJVideoPlayerControllerDelegate>
 
-@property UIImage *image;
+@property (nonatomic, assign) UIImage *image;
+@property NSString *videoURL;
 @property SELColorPicker *color;
 @property NSMutableArray *hashtags;
+@property BOOL clickable;
 - (void) addColor:(SELColorPicker *)acolor;
-
+- (void) showPost;
+- (void) showVideo;
 @property (nonatomic, weak) id <SELPostViewControllerDelegate> delegate;
 @end
 
 @protocol SELPostViewControllerDelegate <NSObject>
 @optional
-
-- (void) openCamera;
 
 @end

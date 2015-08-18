@@ -11,8 +11,9 @@
 
 @interface SELCameraOverlayView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame color:(SELColorPicker*)color;
+- (instancetype)initWithFrame:(CGRect)frame color:(SELColorPicker*)acolor;
 @property UIImagePickerController *pickerRefrenece;
+@property UIImagePickerController *bpickerRefrenece;
 @property (nonatomic) SELColorPicker *color;
 
 @end

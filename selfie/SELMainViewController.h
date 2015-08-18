@@ -7,14 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SELPostViewController.h"
 #import "SELColorPicker.h"
+#import "SELPageViewController.h"
+#import "SELSelifeViewController.h"
 
-@interface SELMainViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SELPostViewControllerDelegate>
+@interface SELMainViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @property SELColorPicker *color;
+@property BOOL CURRENTLOADING;
 -(void)dismissKeyboard;
-- (void)countLikes;
-- (void)showShare:(NSArray *)activityItems;
+- (void)showCameraIcon:(BOOL)show;
+- (void)updateList;
 
 @end
+

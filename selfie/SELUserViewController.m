@@ -21,6 +21,9 @@
 - (IBAction)sendToTerms:(id)sender;
 - (IBAction)sendToPrivacy:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *termsppView;
+@property (weak, nonatomic) IBOutlet UIView *rulesView;
+@property (weak, nonatomic) IBOutlet UIButton *rulesButton;
+- (IBAction)rulesButton:(id)sender;
 
 @end
 
@@ -56,6 +59,9 @@
     [super viewDidLoad];
     
     self.tableView.backgroundColor = [color getPrimaryColor];
+    self.rulesView.backgroundColor = [color getPrimaryColor];
+    NSArray *colers = [color getColorArray];
+    self.rulesButton.backgroundColor = [colers objectAtIndex:1];
     
     intro = [NSArray arrayWithObjects:@"Signup", @"Login", nil];
     signup = [NSArray arrayWithObjects:@"Username", @"Password", @"Signup", @"Back", nil];
@@ -167,6 +173,7 @@
         self.termsppView.hidden = YES;
         if (indexPath.item == 0) {
             current = signup;
+            self.rulesView.hidden = NO;
         }else if (indexPath.item == 1) {
             current = login;
         }else{}
@@ -268,12 +275,15 @@
 //Terms & privacy
 - (IBAction)sendToTerms:(id)sender {
     NSLog(@"Send To Terms of Service");
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.uffda.me/terms"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.hashtaglifeapp.com/terms"]];
 }
 
 - (IBAction)sendToPrivacy:(id)sender {
     NSLog(@"Send To Privacy Policy");
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.uffda.me/privacy"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.hashtaglifeapp.com/privacy"]];
 }
 
+- (IBAction)rulesButton:(id)sender {
+    self.rulesView.hidden = YES;
+}
 @end
