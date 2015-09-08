@@ -24,6 +24,5 @@
 @interface SELCaptureViewController : UIViewController <SELPostViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property SELColorPicker *color;
-- (void)openRoll;
 
 @end

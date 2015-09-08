@@ -90,10 +90,13 @@
 		0ED9F1671B14469F009839DD /* SELImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9F1661B14469F009839DD /* SELImageLoader.m */; };
 		0EDC2D441ABE808300600CD8 /* SELOnStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDC2D431ABE808300600CD8 /* SELOnStartViewController.m */; };
 		0EDC2D4D1ABE912200600CD8 /* SELBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDC2D4C1ABE912200600CD8 /* SELBarViewController.m */; };
+		0EE065711B853710000EB0CB /* SELPremissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0656F1B853710000EB0CB /* SELPremissionViewController.m */; };
+		0EE065721B853710000EB0CB /* SELPremissionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE065701B853710000EB0CB /* SELPremissionViewController.xib */; };
 		0EE8040B1A9E4305001F7B7C /* SELExtraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE804091A9E4305001F7B7C /* SELExtraViewController.m */; };
 		0EE8040C1A9E4305001F7B7C /* SELExtraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE8040A1A9E4305001F7B7C /* SELExtraViewController.xib */; };
 		0EECB8A8197AEAD100995FEB /* SELMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EECB8A7197AEAD100995FEB /* SELMainViewController.m */; };
 		0EECB8AB197AEAF200995FEB /* SELHashtagTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EECB8AA197AEAF200995FEB /* SELHashtagTableViewController.m */; };
+		0EF1E6141B9B8A5D008F8B3A /* SELRollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF1E6131B9B8A5D008F8B3A /* SELRollViewController.m */; };
 		0EF636941B12776200323AB1 /* SELVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF636931B12776200323AB1 /* SELVideoView.m */; };
 		0EF636971B1279DB00323AB1 /* SELVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF636961B1279DB00323AB1 /* SELVideoPlayerController.m */; };
 		0EF6AB341AF219540004A449 /* SELSuggestedCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF6AB321AF219540004A449 /* SELSuggestedCollectionReusableView.xib */; };
@@ -240,6 +243,9 @@
 		0EDC2D431ABE808300600CD8 /* SELOnStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELOnStartViewController.m; sourceTree = "<group>"; };
 		0EDC2D4B1ABE912200600CD8 /* SELBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELBarViewController.h; sourceTree = "<group>"; };
 		0EDC2D4C1ABE912200600CD8 /* SELBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELBarViewController.m; sourceTree = "<group>"; };
+		0EE0656E1B853710000EB0CB /* SELPremissionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELPremissionViewController.h; sourceTree = "<group>"; };
+		0EE0656F1B853710000EB0CB /* SELPremissionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELPremissionViewController.m; sourceTree = "<group>"; };
+		0EE065701B853710000EB0CB /* SELPremissionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELPremissionViewController.xib; sourceTree = "<group>"; };
 		0EE804081A9E4305001F7B7C /* SELExtraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELExtraViewController.h; sourceTree = "<group>"; };
 		0EE804091A9E4305001F7B7C /* SELExtraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELExtraViewController.m; sourceTree = "<group>"; };
 		0EE8040A1A9E4305001F7B7C /* SELExtraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELExtraViewController.xib; sourceTree = "<group>"; };
@@ -247,6 +253,8 @@
 		0EECB8A7197AEAD100995FEB /* SELMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELMainViewController.m; sourceTree = "<group>"; };
 		0EECB8A9197AEAF200995FEB /* SELHashtagTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELHashtagTableViewController.h; sourceTree = "<group>"; };
 		0EECB8AA197AEAF200995FEB /* SELHashtagTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELHashtagTableViewController.m; sourceTree = "<group>"; };
+		0EF1E6121B9B8A5D008F8B3A /* SELRollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELRollViewController.h; sourceTree = "<group>"; };
+		0EF1E6131B9B8A5D008F8B3A /* SELRollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELRollViewController.m; sourceTree = "<group>"; };
 		0EF636921B12776200323AB1 /* SELVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELVideoView.h; sourceTree = "<group>"; };
 		0EF636931B12776200323AB1 /* SELVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELVideoView.m; sourceTree = "<group>"; };
 		0EF636951B1279DB00323AB1 /* SELVideoPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELVideoPlayerController.h; sourceTree = "<group>"; };
@@ -359,6 +367,7 @@
 				0EDC2D411ABE804000600CD8 /* Init */,
 				0EDC2D4A1ABE902100600CD8 /* Button */,
 				0E2FD1831ABE59520076D098 /* Selife */,
+				0EFC69821B8688F400D4086C /* Premission */,
 				0E55709F19CFD66000BD0FAC /* Posting */,
 				0E5570A019CFD66F00BD0FAC /* Main */,
 				0E9AB1C51ABF558B002AF928 /* Secondary */,
@@ -436,6 +445,8 @@
 		0E55709F19CFD66000BD0FAC /* Posting */ = {
 			isa = PBXGroup;
 			children = (
+				0EF1E6121B9B8A5D008F8B3A /* SELRollViewController.h */,
+				0EF1E6131B9B8A5D008F8B3A /* SELRollViewController.m */,
 				0EBEDACE1B0BFF350087A01F /* SELCaptureViewController.h */,
 				0EBEDACF1B0BFF350087A01F /* SELCaptureViewController.m */,
 				0EBEDAD11B0C0E4E0087A01F /* PBJFocusView.h */,
@@ -644,6 +655,16 @@
 			name = Movie;
 			sourceTree = "<group>";
 		};
+		0EFC69821B8688F400D4086C /* Premission */ = {
+			isa = PBXGroup;
+			children = (
+				0EE0656E1B853710000EB0CB /* SELPremissionViewController.h */,
+				0EE0656F1B853710000EB0CB /* SELPremissionViewController.m */,
+				0EE065701B853710000EB0CB /* SELPremissionViewController.xib */,
+			);
+			name = Premission;
+			sourceTree = "<group>";
+		};
 		7A8E54CDDE9EE7C4909FF5E8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -747,6 +768,7 @@
 				0E2FD1881ABE59760076D098 /* SELSelifeViewController.xib in Resources */,
 				0EE8040C1A9E4305001F7B7C /* SELExtraViewController.xib in Resources */,
 				0EC863461B5970A90068A14F /* SELVoteList.plist in Resources */,
+				0EE065721B853710000EB0CB /* SELPremissionViewController.xib in Resources */,
 				0EF6AB341AF219540004A449 /* SELSuggestedCollectionReusableView.xib in Resources */,
 				0E3D1452197ADF8200F2693F /* InfoPlist.strings in Resources */,
 				0E8166FA1A9CE60400C2C546 /* SELMapViewController.xib in Resources */,
@@ -837,6 +859,7 @@
 				0EECB8A8197AEAD100995FEB /* SELMainViewController.m in Sources */,
 				0EECB8AB197AEAF200995FEB /* SELHashtagTableViewController.m in Sources */,
 				0E86266E1B4E386E0025E1E2 /* SELVotingOverlayViewController.m in Sources */,
+				0EE065711B853710000EB0CB /* SELPremissionViewController.m in Sources */,
 				0ED9F15B1B142CC5009839DD /* SELContentManger.m in Sources */,
 				0ED9F1671B14469F009839DD /* SELImageLoader.m in Sources */,
 				0ED7FAC219B9FEFF00035FBD /* SELSelifeObject.m in Sources */,
@@ -854,6 +877,7 @@
 				0E48B7F61A11110500DAE782 /* SELClickableObject.m in Sources */,
 				0EF636941B12776200323AB1 /* SELVideoView.m in Sources */,
 				0EDC2D441ABE808300600CD8 /* SELOnStartViewController.m in Sources */,
+				0EF1E6141B9B8A5D008F8B3A /* SELRollViewController.m in Sources */,
 				0ECD54921A21A3E9001A8D0E /* SELAddLocationViewController.m in Sources */,
 				0ED9F1511B13FD57009839DD /* SELVideoPlayer.m in Sources */,
 				0E5116411AD216500048820B /* SELPhotoViewController.m in Sources */,
@@ -1000,7 +1024,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Griffin Anderson (7TE2L275TQ)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "selfie/#life-Prefix.pch";

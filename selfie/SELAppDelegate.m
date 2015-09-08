@@ -10,6 +10,7 @@
 #import "GAI.h"
 #import "JLNotificationPermission.h"
 #import "SELPageViewController.h"
+#import "Branch.h"
 
 @implementation SELAppDelegate
 
@@ -25,6 +26,12 @@
     [GAI sharedInstance].dispatchInterval = 20;
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-53643197-2"];
+    
+    Branch *branch = [Branch getInstance];
+    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        // params are the deep linked params associated with the link that the user clicked before showing up.
+        NSLog(@"deep link data: %@", [params description]);
+    }];
     
     if (application.applicationState != UIApplicationStateBackground) {
         // Track an app open here if we launch with a push, unless
@@ -160,5 +167,17 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(vo
     NSDictionary* dict = [NSDictionary dictionaryWithObject:
                           selfieId forKey:@"selfieId"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"HAS_PUSH_NOTIFICATION" object:self userInfo:dict];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    [[Branch getInstance] handleDeepLink:url];
+    
+    NSLog(@"Calling Application Bundle ID: %@", sourceApplication);
+    NSLog(@"URL scheme:%@", [url scheme]);
+    NSLog(@"URL query: %@", [url query]);
+    
+    return YES;
 }
 @end

@@ -71,6 +71,7 @@ UIAlertViewDelegate>
     SELPostViewController *_postViewController;
 }
     @property UIImagePickerController *rollPicker;
+@property UIButton *errorbutton;
 
 @end
 
@@ -78,6 +79,7 @@ UIAlertViewDelegate>
 
 @synthesize color;
 @synthesize rollPicker;
+@synthesize errorbutton;
 
 #pragma mark - UIViewController
 
@@ -101,8 +103,20 @@ UIAlertViewDelegate>
 {
     [super viewDidLoad];
     
+    //self.view.hidden = YES;
     self.view.backgroundColor = [UIColor blackColor];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+    // Error Button
+    errorbutton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [errorbutton setTitle:@"Hmm, there seems to be a small glitch. Tap here to reset or exit the app and reopen it." forState:UIControlStateNormal];
+    errorbutton.frame = CGRectMake(0, 0, 200, 100);
+    errorbutton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    errorbutton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    errorbutton.center = self.view.center;
+    [errorbutton addTarget:self action:@selector(resetViewController) forControlEvents:UIControlEventTouchUpInside];
+    errorbutton.tintColor = [UIColor lightGrayColor];
+    [self.view addSubview:errorbutton];
     
     _assetLibrary = [[ALAssetsLibrary alloc] init];
     
@@ -127,7 +141,7 @@ UIAlertViewDelegate>
     labelCenter.y += ((CGRectGetHeight(_previewView.frame) * 0.5f) - 64.0f);
     _instructionLabel.center = labelCenter;
     [_previewView addSubview:_instructionLabel];
-    
+
     // Capture View border
     _captureView = [[UIButton alloc] initWithFrame:CGRectMake(120, self.view.frame.size.height - 85, 80, 80)];
     _captureView.layer.cornerRadius = roundf(_captureView.frame.size.width/2.0);
@@ -141,7 +155,7 @@ UIAlertViewDelegate>
     _captureButton.backgroundColor = [UIColor whiteColor];
     _captureButton.userInteractionEnabled = YES;
     [_previewView addSubview:_captureButton];
-    
+
     // onion skin
     _effectsViewController = [[GLKViewController alloc] init];
     _effectsViewController.preferredFramesPerSecond = 60;
@@ -164,7 +178,7 @@ UIAlertViewDelegate>
     _longPressGestureRecognizer.minimumPressDuration = 0.3;
     _longPressGestureRecognizer.allowableMovement = 10.0f;
     [_captureButton addGestureRecognizer:_longPressGestureRecognizer];
-    
+
     // tap to focus
     _focusTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_handleFocusTapGesterRecognizer:)];
     _focusTapGestureRecognizer.delegate = self;
@@ -217,7 +231,7 @@ UIAlertViewDelegate>
     if ([[PBJVision sharedInstance] supportsVideoFrameRate:120]) {
         // set faster frame rate
     }
-    
+        
     // Setup roll picker
     [self setup];
     
@@ -235,28 +249,49 @@ UIAlertViewDelegate>
         [_postViewController didMoveToParentViewController:self];
     }
     _postViewController.view.hidden = YES;
+        
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
+    NSLog(@"view will appear");
+    
     [self _resetCapture];
     [[PBJVision sharedInstance] startPreview];
+    
+    NSLog(@"preview %@", [PBJVision sharedInstance]);
+    
+    // error button
+    errorbutton.alpha = 0.0f;
+    [UIView animateWithDuration:0.5 delay:1.0 options:0 animations:^{
+        errorbutton.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(volumeChanged:)
+                                                 name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[PBJVision sharedInstance] freezePreview];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+}
+
+- (void)resetViewController{
+    NSLog(@"reset View Controller");
 }
 
 #pragma mark - private start/stop helper methods
@@ -338,12 +373,14 @@ UIAlertViewDelegate>
     vision.captureSessionPreset = AVCaptureSessionPreset1280x720;
     vision.defaultVideoThumbnails = YES;
     vision.maximumCaptureDuration = CMTimeMakeWithSeconds(7.8, 600); // ~ 5 seconds
+    
 }
 
 #pragma mark - UIButton
 
 - (void)_handleFlipButton:(UIButton *)button {
     
+    errorbutton.alpha = 0.0f;
     PBJVision *vision = [PBJVision sharedInstance];
     [UIView transitionWithView:_previewView
                       duration:1.0
@@ -445,10 +482,14 @@ UIAlertViewDelegate>
     //[vision captureVideoFrameAsPhoto];
     if (vision.cameraDevice == PBJCameraDeviceBack){
         vision.flashMode = (_flashButton.selected == YES) ? PBJFlashModeOn : PBJFlashModeOff;
-        vision.flashMode = PBJFlashModeOff;
+        vision.focusMode = PBJFocusModeContinuousAutoFocus;
         [self _startCapture];
-        vision.flashMode = (_flashButton.selected == YES) ? PBJFlashModeOn : PBJFlashModeOff;
-        vision.flashMode = PBJFlashModeOff;
+        
+        int64_t delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            vision.flashMode = PBJFlashModeOff;
+        });
         return;
     }else if(_flashButton.selected == YES){
         
@@ -525,24 +566,20 @@ UIAlertViewDelegate>
 
 - (void)visionSessionDidStop:(PBJVision *)vision
 {
-    [_previewView removeFromSuperview];
+    //[_previewView removeFromSuperview];
 }
 
 - (void)visionSessionWasInterrupted:(PBJVision *)vision{
 }
 - (void)visionSessionInterruptionEnded:(PBJVision *)vision{
-    [self.view setNeedsDisplay];
 }
 
 // preview
 
-- (void)visionSessionDidStartPreview:(PBJVision *)vision
-{
-    
+- (void)visionSessionDidStartPreview:(PBJVision *)vision {
 }
 
-- (void)visionSessionDidStopPreview:(PBJVision *)vision
-{
+- (void)visionSessionDidStopPreview:(PBJVision *)vision {
 }
 
 // device
@@ -905,6 +942,14 @@ UIAlertViewDelegate>
                     action:@"posting"
                     label:@"sent a photo"
                     value:nil] build]];
+}
+
+
+#pragma - mark Volume Change
+- (void)volumeChanged:(NSNotification *)notification{
+    NSLog(@"volume changed");
+    
+    //[self _handleTapPressGestureRecognizer:nil];
 }
 
 @end

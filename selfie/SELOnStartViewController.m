@@ -37,6 +37,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL) checkForPremissions{
+    AVAuthorizationStatus audioAuthorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    AVAuthorizationStatus videoAuthorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if(videoAuthorizationStatus == AVAuthorizationStatusAuthorized &&
+       audioAuthorizationStatus == AVAuthorizationStatusAuthorized){
+        return YES;
+    }
+    return NO;
+}
+
 - (void) runOnStart:(SELColorPicker*)color{
     
     [self checkForUser:color];

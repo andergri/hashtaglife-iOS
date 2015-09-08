@@ -13,5 +13,6 @@
 @interface SELOnStartViewController : UIViewController
 
 - (void) runOnStart:(SELColorPicker*)color;
+- (BOOL) checkForPremissions;
 
 @end

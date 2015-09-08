@@ -17,6 +17,8 @@
 #import "SELGameViewController.h"
 #import "SELCaptureViewController.h"
 #import "SELLocationViewController.h"
+#import "SELPremissionViewController.h"
+#import "SELRollViewController.h"
 
 @interface SELPageViewController : UIPageViewController <UIPageViewControllerDataSource, SELBarViewControllerDelegate>
 

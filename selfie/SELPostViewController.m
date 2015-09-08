@@ -139,9 +139,9 @@
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     
-    suggestedTableViewController = [[SELSuggestedTableViewController alloc] init];
-    suggestedTableViewController.delegate = self;
-    suggestedTableViewController.view.frame = [[UIScreen mainScreen] bounds];
+    //suggestedTableViewController = [[SELSuggestedTableViewController alloc] init];
+    //suggestedTableViewController.delegate = self;
+    //suggestedTableViewController.view.frame = [[UIScreen mainScreen] bounds];
     
     // CUSTOM KEYBOARD
     /**
@@ -418,7 +418,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     if (hashtags.count == 0) {
-        
+        /**
         UIImage *okImage = [[UIImage imageNamed:@"arrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         UIImageView *okImageView = [[UIImageView alloc] initWithImage:okImage];
         okImageView.frame = CGRectMake(282, 6, okImage.size.width, okImage.size.height);
@@ -445,8 +445,10 @@
         [headerView addSubview:doneLabel];
         [headerView addSubview:okImageView];
         [headerView addGestureRecognizer:tapGesture];
-        return headerView;
         
+        return headerView;
+         **/
+        return nil;
     }else {
 
         if ([self showWarning]){
@@ -532,7 +534,7 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (hashtags.count == 0)
-        return 40.0f;
+        return 0.0f; //return 40.0f;
     
     return 60.0f;
 }

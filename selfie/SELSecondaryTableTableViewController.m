@@ -35,8 +35,8 @@
     [super viewDidLoad];
     
     //hashtags = [[NSMutableArray alloc] init];
-    
-    self.tableView.frame = CGRectMake(0, 140, self.tableView.frame.size.width, 261.5);
+    // y = 140
+    self.tableView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 261.5);
     [self.tableView setDelegate:self];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"HashtagTableViewCell"];
     self.tableView.dataSource = self;
@@ -264,9 +264,9 @@
 
  - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
      if (section == 0)
-         return 5.0f;
+         return 0.0f;
      if (section == 1)
-         return 5.0f;
+         return 10.0f;
      //if (section == 2)
      //    return 35.0f;
     return 0.0f;

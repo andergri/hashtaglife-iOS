@@ -17,6 +17,8 @@
 @property SELSecondaryViewController *secondaryViewController;
 
 @property SELCaptureViewController *captureViewController;
+@property SELPremissionViewController *premssionViewController;
+@property SELRollViewController *rollViewController;
 
 @end
 
@@ -29,6 +31,8 @@
 @synthesize captureViewController;
 @synthesize mainViewController;
 @synthesize secondaryViewController;
+@synthesize premssionViewController;
+@synthesize rollViewController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,13 +55,29 @@
     [self addChildViewController:selfieViewController];
     [selfieViewController didMoveToParentViewController:self];
     
-    captureViewController = [[SELCaptureViewController alloc] init];
-    captureViewController.color = color;
+    // Roll Controller
+    rollViewController = [[SELRollViewController alloc] init];
+    rollViewController.color = color;
+    [self.view addSubview:rollViewController.view];
+    [self addChildViewController:rollViewController];
+    [rollViewController didMoveToParentViewController:self];
+    
+    // Premission Controller
+    premssionViewController = [[SELPremissionViewController alloc] init];
+    premssionViewController.color = color;
+    [self.view addSubview:premssionViewController.view];
+    [self addChildViewController:premssionViewController];
+    [premssionViewController didMoveToParentViewController:self];
+    [premssionViewController setBar];
+    
+    // Capture Controller
+    [self canAddCameraViewController];
     
     // Main & Secondary Controller
     mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Main"];
     secondaryViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Secondary"];
-    [self setViewControllers:@[captureViewController] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
+    
+    [self setViewControllers:@[mainViewController] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
     
     // Bar & Photo Controller
     [self isInitlized];
@@ -82,9 +102,6 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     
-    if ([viewController isKindOfClass:[SELCaptureViewController class]])
-        return mainViewController;
-    
     if ([viewController isKindOfClass:[SELMainViewController class]])
         return secondaryViewController;
     
@@ -96,20 +113,13 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     
-    if ([viewController isKindOfClass:[SELCaptureViewController class]])
-        return nil;
-    
     if ([viewController isKindOfClass:[SELMainViewController class]])
-        return captureViewController;
+        return nil;
     
     if ([viewController isKindOfClass:[SELSecondaryViewController class]])
         return mainViewController;
     
     return nil;
-}
-
-- (void) switchToCameraClicked{
-    [self setViewControllers:@[captureViewController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
 - (void) switchToPrimaryClicked{
@@ -154,6 +164,7 @@
     [barViewController createBarOptionSecondary:view];
 }
 - (void) setCameraBar:(UIView *)view{
+    NSLog(@"set Camera Bar");
     [self isInitlized];
     [barViewController createBarOptionCamera:view];
 }
@@ -169,14 +180,19 @@
 }
 
 #pragma mark - Bar Delegeate Methods
+
 - (void) cameraClicked{
     [self isInitlized];
-    //OPEN
-    //[photoViewController openCamera];
+    if (![onStartViewController checkForPremissions]) {
+        premssionViewController.view.hidden = NO;
+    }else{
+        if(captureViewController)
+            captureViewController.view.hidden = NO;
+    }
 }
 - (void) rollClicked{
     [self isInitlized];
-    [captureViewController openRoll];
+    [rollViewController openRoll];
 }
 - (void) gameClicked{
     SELGameViewController *gameVC = [[SELGameViewController alloc] init];
@@ -191,6 +207,15 @@
                         label:@""
                         value:nil] build]];
     }];
+}
+
+- (void) exitClicked{
+    if (premssionViewController)
+        premssionViewController.view.hidden = YES;
+    if (captureViewController)
+        captureViewController.view.hidden = YES;
+    if (rollViewController)
+        rollViewController.view.hidden = YES;
 }
 
 #pragma mark - Change Location
@@ -259,5 +284,17 @@
     }
 }
 
+#pragma mark - PremssionsSettingsViewController
+
+- (void) canAddCameraViewController{
+    
+    if ([onStartViewController checkForPremissions]) {
+        captureViewController = [[SELCaptureViewController alloc] init];
+        captureViewController.color = color;
+        [self addChildViewController:captureViewController];
+        [self.view addSubview:captureViewController.view];
+        [captureViewController didMoveToParentViewController:self];
+    }
+}
 
 @end

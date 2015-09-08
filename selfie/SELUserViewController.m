@@ -76,6 +76,7 @@
     usernameTextField.returnKeyType = UIReturnKeyNext;
     usernameTextField.autocorrectionType = FALSE;
     usernameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    usernameTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     
     passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 320, 70)];
     passwordTextField.backgroundColor = [UIColor clearColor];
@@ -85,6 +86,7 @@
     passwordTextField.returnKeyType = UIReturnKeyDone;
     passwordTextField.autocorrectionType = FALSE;
     passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    passwordTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     
     passwordTextField.secureTextEntry = YES;
     

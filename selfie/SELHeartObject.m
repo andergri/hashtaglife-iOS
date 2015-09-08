@@ -286,6 +286,7 @@
     acountLabel.textColor = [acolor getPrimaryColor];
     
     if (selfie && ![clickableObject canVote:[selfie objectId]]) {
+        acountLabel.textColor = [UIColor whiteColor];
         if ([clickableObject isPostiveVote:[selfie objectId]]) {
             [upvoteImageView setTintColor:[UIColor colorWithWhite:1 alpha:1]];
             [upvoteImage setAccessibilityIdentifier:@"tapped"];

@@ -62,6 +62,7 @@
     self.view.layer.mask = maskLayer;
     
     // Gaming Section
+    /**
     UIImage *upvote = [[UIImage imageNamed:@"upvote"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.gamingImageView.image = upvote;
     self.gamingImageView.transform = CGAffineTransformMakeScale(.8, .8);
@@ -73,6 +74,7 @@
     [self.gamingStatus addGestureRecognizer:gamingTapRecognizer];
     
     [self getNumberUserLikes];
+     **/
 
 }
 

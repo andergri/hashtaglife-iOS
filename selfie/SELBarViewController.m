@@ -16,6 +16,7 @@
 @property UIButton *rollButton;
 @property UIButton *locationButton;
 @property UIButton *listButton;
+@property UIButton *exitButton;
 @property UIButton *gameButton;
 @property UIView *footer;
 
@@ -30,6 +31,7 @@
 @synthesize rollButton;
 @synthesize locationButton;
 @synthesize listButton;
+@synthesize exitButton;
 @synthesize gameButton;
 @synthesize footer;
 
@@ -100,15 +102,16 @@
 }
 - (void) createBarOptionPrimary:(UIView *)view{
     [self createProfile:view placement:CGRectMake(21, view.frame.size.height - 70, 64, 64)];
-    [self createCamera:view placement:CGRectMake(235, view.frame.size.height - 70, 64, 64)];
+    [self createLargeCamera:view placement:CGRectMake((view.frame.size.width / 2.0) - (88.0 / 2.0), view.frame.size.height - 88, 88, 88)];
+    [self createRoll:view placement:CGRectMake(235, view.frame.size.height - 70, 64, 64) background:YES];
 }
 - (void) createBarOptionSecondary:(UIView *)view{
     //[self createGame:view placement:CGRectMake(21, view.frame.size.height - 70, 64, 64)];
     [self createList:view placement:CGRectMake(235, view.frame.size.height - 70, 64, 64)background:YES];
 }
 - (void) createBarOptionCamera:(UIView *)view{
-    [self createList:view placement:CGRectMake(21, view.frame.size.height - 70, 64, 64)background:NO];
-    [self createRoll:view placement:CGRectMake(235, view.frame.size.height - 70, 64, 64) background:NO];
+    [self createExit:view placement:CGRectMake(21, view.frame.size.height - 70, 62, 62)background:NO];
+    //[self createRoll:view placement:CGRectMake(235, view.frame.size.height - 70, 64, 64) background:NO];
 }
 - (void) createCameraButton:(UIView *)view{
     [self createLargeCamera:view placement:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)];
@@ -121,7 +124,7 @@
     
     cameraButton = [[UIButton alloc] initWithFrame:placement];
     [self addBackground:cameraButton placement:placement];
-    [self addForeGround:cameraButton padding:6.0];
+    [self addForeGround:cameraButton padding:6];
     [self addGraphic:[UIImage imageNamed:@"camera"] button:cameraButton inset:CGSizeMake(24, 24) scale:0];
     [cameraButton addTarget:self action:@selector(tappedLargeCamera) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:cameraButton];
@@ -184,6 +187,18 @@
     [view addSubview:listButton];
 }
 
+// Button List
+- (void) createExit:(UIView *)view placement:(CGRect)placement background:(BOOL)background{
+    
+    exitButton = [[UIButton alloc] initWithFrame:placement];
+    if (background)
+        [self addBackground:exitButton placement:placement];
+    [self addForeGround:exitButton padding:5.0];
+    [self addGraphic:[UIImage imageNamed:@"exit"] button:exitButton inset:CGSizeMake(15, 15) scale:2.0];
+    [exitButton addTarget:self action:@selector(tappedExit) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:exitButton];
+}
+
 // Button Game
 - (void) createGame:(UIView *)view placement:(CGRect)placement{
     
@@ -199,7 +214,7 @@
     [self.delegate cameraClicked];
 }
 - (void) tappedCamera{
-    [self.delegate switchToCameraClicked];
+    [self.delegate cameraClicked];
 }
 - (void) tappedRoll{
     [self.delegate rollClicked];
@@ -212,6 +227,9 @@
 }
 - (void) tappedGame{
     [self.delegate gameClicked];
+}
+- (void) tappedExit{
+    [self.delegate exitClicked];
 }
 
 #pragma - mark helper methods

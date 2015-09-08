@@ -32,6 +32,6 @@
 - (void) gameClicked;
 - (void) switchToPrimaryClicked;
 - (void) switchToSecondaryClicked;
-- (void) switchToCameraClicked;
+- (void) exitClicked;
 @optional
 @end
