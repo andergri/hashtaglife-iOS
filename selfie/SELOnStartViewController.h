@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "SELColorPicker.h"
-#import "JLNotificationPermission.h"
 
 @interface SELOnStartViewController : UIViewController
 

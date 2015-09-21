@@ -16,6 +16,7 @@
 @property SELMainViewController *mainViewController;
 @property SELSecondaryViewController *secondaryViewController;
 
+@property UIViewController *captureOrPremssionViewController;
 @property SELCaptureViewController *captureViewController;
 @property SELPremissionViewController *premssionViewController;
 @property SELRollViewController *rollViewController;
@@ -32,6 +33,7 @@
 @synthesize mainViewController;
 @synthesize secondaryViewController;
 @synthesize premssionViewController;
+@synthesize captureOrPremssionViewController;
 @synthesize rollViewController;
 
 - (void)viewDidLoad {
@@ -55,6 +57,7 @@
     [self addChildViewController:selfieViewController];
     [selfieViewController didMoveToParentViewController:self];
     
+    
     // Roll Controller
     rollViewController = [[SELRollViewController alloc] init];
     rollViewController.color = color;
@@ -62,16 +65,9 @@
     [self addChildViewController:rollViewController];
     [rollViewController didMoveToParentViewController:self];
     
-    // Premission Controller
-    premssionViewController = [[SELPremissionViewController alloc] init];
-    premssionViewController.color = color;
-    [self.view addSubview:premssionViewController.view];
-    [self addChildViewController:premssionViewController];
-    [premssionViewController didMoveToParentViewController:self];
-    [premssionViewController setBar];
     
     // Capture Controller
-    [self canAddCameraViewController];
+    [self checkCameraOrPremssionViewController];
     
     // Main & Secondary Controller
     mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Main"];
@@ -183,12 +179,7 @@
 
 - (void) cameraClicked{
     [self isInitlized];
-    if (![onStartViewController checkForPremissions]) {
-        premssionViewController.view.hidden = NO;
-    }else{
-        if(captureViewController)
-            captureViewController.view.hidden = NO;
-    }
+    [self setViewControllers:@[captureOrPremssionViewController] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
 }
 - (void) rollClicked{
     [self isInitlized];
@@ -210,10 +201,8 @@
 }
 
 - (void) exitClicked{
-    if (premssionViewController)
-        premssionViewController.view.hidden = YES;
-    if (captureViewController)
-        captureViewController.view.hidden = YES;
+    
+    [self setViewControllers:@[mainViewController] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
     if (rollViewController)
         rollViewController.view.hidden = YES;
 }
@@ -286,15 +275,23 @@
 
 #pragma mark - PremssionsSettingsViewController
 
-- (void) canAddCameraViewController{
+- (void) checkCameraOrPremssionViewController{
     
     if ([onStartViewController checkForPremissions]) {
-        captureViewController = [[SELCaptureViewController alloc] init];
-        captureViewController.color = color;
-        [self addChildViewController:captureViewController];
-        [self.view addSubview:captureViewController.view];
-        [captureViewController didMoveToParentViewController:self];
+        if (captureViewController == nil) {
+            captureViewController = [[SELCaptureViewController alloc] init];
+            captureViewController.color = color;
+        }
+        captureOrPremssionViewController = captureViewController;
+    }else{
+        if (premssionViewController == nil) {
+            premssionViewController = [[SELPremissionViewController alloc] init];
+            premssionViewController.color = color;
+        }
+        captureOrPremssionViewController = premssionViewController;
     }
+    //[self setViewControllers:@[captureOrPremssionViewController] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
+    
 }
 
 @end

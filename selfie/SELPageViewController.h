@@ -33,5 +33,7 @@
 - (void) changeLocation;
 - (void) updateLocation;
 - (void) lockSideSwipe:(BOOL)lock;
+- (void) checkCameraOrPremssionViewController;
+- (void) exitClicked;
 
 @end

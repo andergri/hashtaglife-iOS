@@ -11,7 +11,6 @@
 
 @interface SELRollViewController ()<
 UIGestureRecognizerDelegate,
-PBJVisionDelegate,
 UIAlertViewDelegate> {
     SELPostViewController *_postViewController;
     UIImagePickerController *rollPicker;
@@ -33,7 +32,7 @@ UIAlertViewDelegate> {
     // Setup roll picker
     [self setup];
     
-    self.view.backgroundColor = [UIColor greenColor];
+    //self.view.backgroundColor = [UIColor greenColor];
     
     
     // Post View Controller
@@ -42,6 +41,7 @@ UIAlertViewDelegate> {
     BOOL doesContainPost = [self.view.subviews containsObject:_postViewController.view];
     if (!doesContainPost) {
         _postViewController.view.frame = self.view.frame;
+        [self.view addSubview:_postViewController.view];
         [self addChildViewController:_postViewController];
         [_postViewController didMoveToParentViewController:self];
     }
@@ -89,6 +89,8 @@ UIAlertViewDelegate> {
 
 - (void)openRoll{
     
+    @try {
+    
     self.view.hidden = NO;
     
     if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)) {
@@ -120,6 +122,15 @@ UIAlertViewDelegate> {
                             label:@"roll camera"
                             value:nil] build]];
         }];
+    }
+        
+        
+    }
+    @catch (NSException *exception) {
+        NSLog(@"exception %@", exception);
+    }
+    @finally {
+        
     }
 }
 
@@ -169,6 +180,7 @@ UIAlertViewDelegate> {
 /** Send Methods **/
 - (void) sendPhoto:(UIImage *)aimage videoURL:(NSString*)videoUrl{
     
+    NSLog(@"sendPhoto %@ %@", aimage, videoUrl);
     [(SELPageViewController*)self.parentViewController lockSideSwipe:YES];
     _postViewController.image = nil;
     _postViewController.videoURL = nil;
@@ -189,13 +201,17 @@ UIAlertViewDelegate> {
     if(videoUrl != nil){
         [_postViewController showVideo];
     }
-    
+    NSLog(@"post view controlelr");
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker send:[[GAIDictionaryBuilder
                     createEventWithCategory:@"UX"
                     action:@"posting"
                     label:@"sent a photo"
                     value:nil] build]];
+}
+
+- (void) didCancelPost{
+    [self openRoll];
 }
 
 

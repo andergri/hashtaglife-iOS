@@ -774,6 +774,8 @@
     self.chooseImageView.hidden = NO;
     self.view.hidden = YES;
     [(SELPageViewController*)self.parentViewController.parentViewController lockSideSwipe:NO];
+    [(SELPageViewController*)self.parentViewController.parentViewController exitClicked];
+    
     // problem 1 parent
     
     [UIView animateWithDuration:2.0f
@@ -844,6 +846,10 @@
     NSLog(@"picker class %@", [self.parentViewController class]);
     self.view.hidden = YES;
     [(SELPageViewController*)self.parentViewController.parentViewController lockSideSwipe:NO];
+    
+    if ([self.delegate respondsToSelector:@selector(didCancelPost)]) {
+        [self.delegate didCancelPost];
+    }
     
     //[self dismissViewControllerAnimated:NO completion:^{
     //    [self.delegate openCamera];

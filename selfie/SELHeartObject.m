@@ -82,7 +82,7 @@
     upvoteButton.clipsToBounds = YES;
     
     // count
-    acountLabel = [[UILabel alloc] initWithFrame:CGRectMake(236, 0, 50, 40)];
+    acountLabel = [[UILabel alloc] initWithFrame:CGRectMake(229, 0, 54, 40)];
     acountLabel.textColor = [acolor getPrimaryColor];
     acountLabel.font = [UIFont boldSystemFontOfSize:19];
     acountLabel.backgroundColor = [UIColor yellowColor];
@@ -119,13 +119,13 @@
     [downvoteImage setAccessibilityIdentifier:@"untapped"];
     
     UIImageView * shadowdownvoteImageView = [[UIImageView alloc] initWithImage:downvoteImage];
-    shadowdownvoteImageView.frame = CGRectMake(214, 3, downvoteImage.size.width, downvoteImage.size.height);
+    shadowdownvoteImageView.frame = CGRectMake(208, 3, downvoteImage.size.width, downvoteImage.size.height);
     shadowdownvoteImageView.contentMode = UIViewContentModeCenter;
     [shadowdownvoteImageView setTintColor:[UIColor colorWithWhite:0 alpha:.1]];
     [downvoteButton addSubview:shadowdownvoteImageView];
     
     downvoteImageView = [[UIImageView alloc] initWithImage:downvoteImage];
-    downvoteImageView.frame = CGRectMake(214, 2, downvoteImage.size.width, downvoteImage.size.height);
+    downvoteImageView.frame = CGRectMake(208, 2, downvoteImage.size.width, downvoteImage.size.height);
     downvoteImageView.contentMode = UIViewContentModeCenter;
     [downvoteImageView setTintColor:[acolor getPrimaryColor]];
     [downvoteButton addSubview:downvoteImageView];
@@ -142,12 +142,12 @@
     clickableObject = [[SELClickableObject alloc] initClickable];
     
     // Background Image
-    backgroundUpvote = [[UIView alloc] initWithFrame:CGRectMake(upvoteImageView.frame.origin.x - 35, upvoteImageView.frame.origin.y - 5.0, 70, 33)];
+    backgroundUpvote = [[UIView alloc] initWithFrame:CGRectMake(upvoteImageView.frame.origin.x - 41, upvoteImageView.frame.origin.y - 5.0, 76, 33)];
     backgroundUpvote.backgroundColor = [[acolor getColorArray]objectAtIndex:1];
     backgroundUpvote.layer.cornerRadius = 5.0f;
     [upvoteButton insertSubview:backgroundUpvote belowSubview:acountLabel];
     
-    backgroundDownvote = [[UIView alloc] initWithFrame:CGRectMake(downvoteImageView.frame.origin.x - 5.0, downvoteImageView.frame.origin.y + 1, 70, 33)];
+    backgroundDownvote = [[UIView alloc] initWithFrame:CGRectMake(downvoteImageView.frame.origin.x - 5.0, downvoteImageView.frame.origin.y + 1, 76, 33)];
     backgroundDownvote.backgroundColor = [[acolor getColorArray]objectAtIndex:2];
     backgroundDownvote.layer.cornerRadius = 5.0f;
     [upvoteButton insertSubview:backgroundDownvote belowSubview:acountLabel];
@@ -392,7 +392,11 @@
 
 - (void) setCount:(PFObject *) selfie{
     NSNumber *count = [selfie objectForKey:@"likes"];
-    acountLabel.text = [count stringValue];
+    if (count > 0) {
+        acountLabel.text = [@"+" stringByAppendingString:[count stringValue]];
+    }else{
+        acountLabel.text = [count stringValue];
+    }
 }
 
 - (BOOL) isHidden{

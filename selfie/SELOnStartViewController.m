@@ -14,7 +14,6 @@
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 #include <net/if.h>
-#import <Foundation/Foundation.h>
 
 #define IOS_CELLULAR    @"pdp_ip0"
 #define IOS_WIFI        @"en0"
@@ -53,7 +52,6 @@
     [self checkBannedData];
     [self checkIPAddress];
     [self checkLocationData:color];
-    //[self checkPushNotification];
     
     self.view.hidden = YES;
 }
@@ -191,58 +189,4 @@
     }
     return [addresses count] ? addresses : nil;
 }
-
-
-#pragma mark - Push Notifications
-
-// Set push notification
-- (void) checkPushNotification{
-    JLAuthorizationStatus status = [[JLNotificationPermission sharedInstance] authorizationStatus];
-    [self pushNotificationResult];
-    switch (status) {
-        case JLPermissionNotDetermined:
-            NSLog(@"not dertetmined");
-            [self pushNotificationPremission];
-            break;
-        default:
-            // @"";
-            break;
-    }
-}
-
-// ask for push notificaiton premission
-- (void) pushNotificationPremission {
-      [[JLNotificationPermission sharedInstance] unauthorize];
-     NSLog(@"pushNotificationPremission =%@", [[JLNotificationPermission sharedInstance] deviceID]);
-    // authorizeWithTitle:@"Get your messages" message:@"Turn on push notifications so you know when you have been upvoted" cancelTitle:@"Not now" grantTitle:@"Turn On"
-    [[JLNotificationPermission sharedInstance] authorize:^(NSString *deviceID, NSError *error) {
-        NSLog(@"pushNotifications returned %@ with error %@", deviceID, error);
-        if (!error) {
-            NSLog(@"pushNotifications returned with errorA.");
-            [self pushNotificationResult];
-        }else{
-            NSLog(@"pushNotifications returned with error.");
-        }
-    }];
-}
-
-// push notificaiton result
-- (void) pushNotificationResult{
-    JLAuthorizationStatus status = [[JLNotificationPermission sharedInstance] authorizationStatus];
-    switch (status) {
-        case JLPermissionNotDetermined:
-            NSLog(@"NotificationPermission Unknown");
-            break;
-        case JLPermissionDenied:
-             NSLog(@"NotificationPermission Denied");
-            break;
-        case JLPermissionAuthorized:
-             NSLog(@"NotificationPermission Authorized");
-            break;
-        default:
-            // @"";
-            break;
-    }
-}
-
 @end

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SELPremissionViewController">
             <connections>
                 <outlet property="audioButton" destination="g5E-3I-WEi" id="ebM-L1-tLe"/>
                 <outlet property="backgroundView" destination="KK7-re-NhF" id="3RD-bQ-kHL"/>
+                <outlet property="notificationButton" destination="P5a-qN-znE" id="CLx-fH-KXm"/>
                 <outlet property="videoButton" destination="rWc-8T-hd5" id="iNE-RR-Bgi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -19,10 +20,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KK7-re-NhF">
-                    <rect key="frame" x="20" y="150" width="280" height="200"/>
+                    <rect key="frame" x="20" y="150" width="280" height="250"/>
                     <subviews>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rWc-8T-hd5">
-                            <rect key="frame" x="10" y="80" width="260" height="48"/>
+                            <rect key="frame" x="10" y="138" width="260" height="48"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <state key="normal" title="Allow Camera">
@@ -48,7 +49,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5E-3I-WEi">
-                            <rect key="frame" x="10" y="138" width="260" height="48"/>
+                            <rect key="frame" x="10" y="194" width="260" height="48"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <state key="normal" title="Allow Microphone">
@@ -59,6 +60,21 @@
                             <state key="selected" title="Enable Audio"/>
                             <connections>
                                 <action selector="audioAction:" destination="-1" eventType="touchUpInside" id="1et-UY-WQx"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P5a-qN-znE">
+                            <rect key="frame" x="10" y="82" width="260" height="48"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Allow Notifications">
+                                <color key="titleColor" red="0.3382353353" green="0.49525115139999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" title="Allowed Notifications"/>
+                            <state key="selected" title="Enable Notifications"/>
+                            <connections>
+                                <action selector="audioAction:" destination="-1" eventType="touchUpInside" id="aFd-k9-qc2"/>
+                                <action selector="notificationAction:" destination="-1" eventType="touchUpInside" id="dIM-rT-Cvf"/>
                             </connections>
                         </button>
                     </subviews>

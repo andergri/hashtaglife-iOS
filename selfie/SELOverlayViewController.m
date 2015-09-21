@@ -80,6 +80,8 @@
     arrowLabel.textAlignment = NSTextAlignmentCenter;
     arrowLabel.textColor = [UIColor colorWithWhite:1.0 alpha:.9];
     [arrowImageView addSubview:arrowLabel];
+    arrowImageView.alpha = 0.0;
+    arrowLabel.alpha = 0.0;
     
     // Swipe Gesture Recogniser
     UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tapForwardButton)];
@@ -90,11 +92,11 @@
     [lrecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
     [self.view addGestureRecognizer:lrecognizer];
     lrecognizer.delegate = self;
-    UISwipeGestureRecognizer *trecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tapPullUp:)];
+    UISwipeGestureRecognizer *trecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tapForwardButton)];//tapPullUp:
     [trecognizer setDirection:(UISwipeGestureRecognizerDirectionUp)];
     [self.view addGestureRecognizer:trecognizer];
     trecognizer.delegate = self;
-    UISwipeGestureRecognizer *drecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tapPullDown)];
+    UISwipeGestureRecognizer *drecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tapForwardButton)];//tapPullDown
     [drecognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
     [self.view addGestureRecognizer:drecognizer];
     drecognizer.delegate = self;
@@ -109,7 +111,7 @@
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self setArrowDown:YES];
+    //[self setArrowDown:YES];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -132,7 +134,7 @@
     [heartButton setCount:currentObject];
     [imageCount countImageTally:currentObject];
     [hashtagsList setHashtags:currentObject searched:nil];
-    [self setArrowDown:YES];
+    //[self setArrowDown:YES];
     self.view.hidden = NO;
     
 }
@@ -169,6 +171,7 @@
 }
 
 // tap pull up
+/**
 - (void) tapPullUp:(UIGestureRecognizer *)recognizer{
     if ([self isTrayOpen] && [self isUserCreated]){
         CGPoint point = [recognizer locationInView:[self view]];
@@ -191,7 +194,7 @@
     [self.delegate pullDown:YES];
     [self recordIconPressed:@"pull down" value:nil];
 }
-
+**/
 // tap flag
 - (void) tapFlag{
     if ([self isTrayOpen])
@@ -241,9 +244,9 @@
     } else if ((self.view.frame.size.width - 90) < point.x && (self.view.frame.size.width - 40) > point.x && 55 > point.y) {
         [self tapBackButton];
     }else if(140 < point.x && point.x < 180 && 40 < point.y && point.y < 80 && [self isUserCreated]){
-        [self tapPullDown];
+        //[self tapPullDown];
     }else if(140 < point.x && point.x < 180 && (self.view.frame.size.height - (kExposedHeight + 20)) < point.y && point.y < (self.view.frame.size.height - (kExposedHeight - 20)) && [self isUserCreated]){
-        [self tapPullUp:gestureRecognizer];
+        //[self tapPullUp:gestureRecognizer];
     }else if((self.view.frame.size.height - 70) > point.y){
         [self tapForwardButton];
     }

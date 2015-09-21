@@ -14,7 +14,6 @@
 @interface SELPremissionViewController : UIViewController
 
 @property SELColorPicker* color;
-- (void) setBar;
 - (void) shakePremssions;
 
 @end

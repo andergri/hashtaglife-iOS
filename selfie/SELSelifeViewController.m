@@ -25,7 +25,7 @@
 @property SELPictureViewController *pictureViewController;
 @property SELOverlayViewController *overlayViewController;
 @property SELMovieViewController *movieViewController;
-@property SELVotingOverlayViewController *votingOverlayViewController;
+//@property SELVotingOverlayViewController *votingOverlayViewController;
 @property UIActivityIndicatorView *activityIndicator;
 
 @end
@@ -40,7 +40,7 @@
 @synthesize pictureViewController;
 @synthesize overlayViewController;
 @synthesize movieViewController;
-@synthesize votingOverlayViewController;
+//@synthesize votingOverlayViewController;
 @synthesize activityIndicator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -120,13 +120,14 @@
     [overlayViewController hideOverlay];
     
     // Load Voting Overlay View
+    /**
     votingOverlayViewController = [[SELVotingOverlayViewController alloc] init];
     votingOverlayViewController.color = color;
     [self.view addSubview:votingOverlayViewController.view];
     [self addChildViewController:votingOverlayViewController];
     [votingOverlayViewController didMoveToParentViewController:self];
     votingOverlayViewController.view.hidden = YES;
-    
+    **/
     [self.view bringSubviewToFront:self.exitButton];
     
     // Activity Indicator
@@ -151,7 +152,7 @@
     activityIndicator.hidden = YES;
     movieViewController.view.hidden = YES;
     pictureViewController.view.hidden = YES;
-    votingOverlayViewController.view.hidden = YES;
+    //votingOverlayViewController.view.hidden = YES;
     [pictureViewController setImage:nil];
     [movieViewController cancel];
     [overlayViewController hideOverlay];
@@ -243,7 +244,7 @@
     activityIndicator.hidden = YES;
     movieViewController.view.hidden = YES;
     pictureViewController.view.hidden = YES;
-    votingOverlayViewController.view.hidden = YES;
+    //votingOverlayViewController.view.hidden = YES;
     [pictureViewController setImage:nil];
     [movieViewController cancel];
     [overlayViewController hideOverlay];
@@ -347,8 +348,9 @@
 - (void) goBackward{
     [contentManger moveToDirection:SELSelfieDirectionBackward];
 }
-
 - (void) pullDown:(BOOL)isUsernameListVisible{
+    
+    /**
     if (isUsernameListVisible) {
         [votingOverlayViewController setSelfie:[contentManger getCurrentSelfie]];
         [UIView animateWithDuration:0.4 animations:^{
@@ -374,7 +376,7 @@
             self.hashtagLabel.hidden = NO;
         }];
     }
-
+ **/
 }
 
 #pragma - Exit Button

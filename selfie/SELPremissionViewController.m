@@ -10,10 +10,12 @@
 
 @interface SELPremissionViewController ()
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
+@property (weak, nonatomic) IBOutlet UIButton *notificationButton;
 @property (weak, nonatomic) IBOutlet UIButton *audioButton;
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
 - (IBAction)audioAction:(id)sender;
 - (IBAction)videoAction:(id)sender;
+- (IBAction)notificationAction:(id)sender;
 
 @end
 
@@ -24,17 +26,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.hidden = YES;
     [self.backgroundView.layer setCornerRadius:5.0f];
     self.backgroundView.center = self.view.center;
     
     [self addFakeOverlay];
-    [self checkForPremissions];
 }
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    [self checkForPremissions];
     [self.view setNeedsDisplay];
 }
 
@@ -43,18 +44,56 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+// Check for premissions
 - (void) checkForPremissions{
     
     AVAuthorizationStatus audioAuthorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     AVAuthorizationStatus videoAuthorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if(videoAuthorizationStatus == AVAuthorizationStatusAuthorized &&
        audioAuthorizationStatus == AVAuthorizationStatusAuthorized){
-        //[(SELPageViewController *)self.parentViewController  getCameraOrPremissionViewController];
+        [(SELPageViewController *)self.parentViewController checkCameraOrPremssionViewController];
     }
+    [self checkNotification:self.notificationButton title:@"Notifications"];
     [self setPremssionValue:self.audioButton status:audioAuthorizationStatus title:@"Microphone"];
     [self setPremssionValue:self.videoButton status:videoAuthorizationStatus title:@"Camera"];
 }
 
+// check premission notification
+- (void) checkNotification:(UIButton *)statusButton title:(NSString*)title{
+
+    UIApplication *application = [UIApplication sharedApplication];
+    BOOL enabled;
+    
+    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)]){
+        enabled = [application isRegisteredForRemoteNotifications];
+    }else{
+        UIRemoteNotificationType types = [application enabledRemoteNotificationTypes];
+        enabled = types & UIRemoteNotificationTypeAlert;
+    }
+    //[[NSUserDefaults standardUserDefaults] boolForKey:@"SELPromptedForUserNotification"];
+    //[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ABHasPromptedForUserNotification"];
+
+    [statusButton.layer setBorderColor:color.getPrimaryColor.CGColor];
+    [statusButton.layer setBorderWidth:2.0f];
+    [statusButton.layer setCornerRadius:5.0f];
+
+    if (!enabled) {
+        [statusButton setTitle:[@"Allow " stringByAppendingString:title] forState:UIControlStateNormal];
+        [statusButton setTitleColor:color.getPrimaryColor forState:UIControlStateNormal];
+        statusButton.backgroundColor = [UIColor whiteColor];
+        [statusButton setSelected:NO];
+        [statusButton setEnabled:YES];
+    }else{
+        [statusButton setTitle:[@"Allowed " stringByAppendingString:title] forState:UIControlStateDisabled];
+        [statusButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+        statusButton.backgroundColor = color.getPrimaryColor;
+        [statusButton setSelected:NO];
+        [statusButton setEnabled:NO];
+    }
+}
+
+// set premission value
 - (void) setPremssionValue:(UIButton *)statusButton status:(AVAuthorizationStatus)status title:(NSString*)title{
     [statusButton.layer setBorderColor:color.getPrimaryColor.CGColor];
     [statusButton.layer setBorderWidth:2.0f];
@@ -103,9 +142,12 @@
     }else if (sender.enabled) {
         switch (sender.tag) {
             case 0:
-                [self askForPremission:AVMediaTypeAudio];
+                [self askForNotificationPremission];
                 break;
             case 1:
+                [self askForPremission:AVMediaTypeAudio];
+                break;
+            case 2:
                 [self askForPremission:AVMediaTypeVideo];
                 break;
             default:
@@ -123,11 +165,27 @@
     }];
 }
 
+- (void) askForNotificationPremission {
+    [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"AskedForNotificationPermission"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+}
+
 - (IBAction)audioAction:(id)sender {
     [self clickedAction:sender];
 }
 
 - (IBAction)videoAction:(id)sender {
+    [self clickedAction:sender];
+}
+
+- (IBAction)notificationAction:(id)sender {
     [self clickedAction:sender];
 }
 
@@ -180,12 +238,7 @@
     flipFrame.size = flipImage.size;
     _flipButton.frame = flipFrame;
     [self.view addSubview:_flipButton];
-}
-
-- (void) setBar{
-    NSLog(@"parente vc %@", [self.parentViewController class]);
     
-    // Set Bar
     [(SELPageViewController*)self.parentViewController setCameraBar:self.view];
 }
 

@@ -8,9 +8,7 @@
 
 #import "SELAppDelegate.h"
 #import "GAI.h"
-#import "JLNotificationPermission.h"
 #import "SELPageViewController.h"
-#import "Branch.h"
 
 @implementation SELAppDelegate
 
@@ -26,12 +24,6 @@
     [GAI sharedInstance].dispatchInterval = 20;
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-53643197-2"];
-    
-    Branch *branch = [Branch getInstance];
-    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-        // params are the deep linked params associated with the link that the user clicked before showing up.
-        NSLog(@"deep link data: %@", [params description]);
-    }];
     
     if (application.applicationState != UIApplicationStateBackground) {
         // Track an app open here if we launch with a push, unless
@@ -100,16 +92,12 @@
 didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
     
-    [[JLNotificationPermission sharedInstance] notificationResult:nil error:error];
 }
 
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     
     NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken %@", [deviceToken description]);
-    [[JLNotificationPermission sharedInstance] notificationResult:deviceToken error:nil];
-    
-    // Store the deviceToken in the current installation and save it to Parse.
-    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken");
+
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     currentInstallation.channels = @[ @"global" ];
@@ -171,8 +159,6 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(vo
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
-    [[Branch getInstance] handleDeepLink:url];
     
     NSLog(@"Calling Application Bundle ID: %@", sourceApplication);
     NSLog(@"URL scheme:%@", [url scheme]);

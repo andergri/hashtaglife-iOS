@@ -28,5 +28,5 @@
 
 @protocol SELPostViewControllerDelegate <NSObject>
 @optional
-
+- (void) didCancelPost;
 @end
