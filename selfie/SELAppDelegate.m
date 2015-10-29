@@ -60,7 +60,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     
-    /**
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     if (currentInstallation.badge != 0) {
         currentInstallation.badge = 0;
@@ -78,7 +77,7 @@
             }
             [currentInstallation saveEventually];
         }
-    }**/
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -92,6 +91,8 @@
 didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
     
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:@NO forKey:@"accept"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Register_PUSH_NOTIFICATION" object:self userInfo:dict];
 }
 
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
@@ -113,13 +114,16 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     
     [currentInstallation saveInBackground];
     
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:@YES forKey:@"accept"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Register_PUSH_NOTIFICATION" object:self userInfo:dict];
+    
 }
 
 
 /** HANDLE PUSH NOTIFICATIONS **/
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    //[PFPush handlePush:userInfo];
+    [PFPush handlePush:userInfo];
     
     if (application.applicationState == UIApplicationStateInactive) {
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
@@ -138,14 +142,18 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(vo
                        withObject:selfieId afterDelay:.5f];
         }
         
+        [self performSelector:@selector(postNotificationRefresh)
+                   withObject:nil afterDelay:.5f];
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
     }else{
+        [self performSelector:@selector(postNotificationRefresh)
+                   withObject:nil afterDelay:.5f];
         [PFPush handlePush:userInfo];
-        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-        if (currentInstallation.badge != 0) {
-            currentInstallation.badge = 0;
-            [currentInstallation saveEventually];
-        }
+    }
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (currentInstallation.badge != 0) {
+        currentInstallation.badge = 0;
+        [currentInstallation saveEventually];
     }
     handler(UIBackgroundFetchResultNoData);
 }
@@ -156,6 +164,14 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(vo
                           selfieId forKey:@"selfieId"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"HAS_PUSH_NOTIFICATION" object:self userInfo:dict];
 }
+
+-(void)postNotificationRefresh {
+    
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          @"yes" forKey:@"refresh"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HAS_PUSH_NOTIFICATION" object:self userInfo:dict];
+}
+
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

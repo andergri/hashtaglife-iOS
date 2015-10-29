@@ -18,6 +18,7 @@
 
 @property UILabel *headingLabel;
 @property UITapGestureRecognizer *alerttpgr;
+@property UITapGestureRecognizer *doublealerttpgr;
 
 @end
 
@@ -27,6 +28,7 @@
 @synthesize color;
 @synthesize CURRENTLOADING;
 @synthesize headingLabel;
+@synthesize doublealerttpgr;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -101,7 +103,6 @@
     alerttpgr.delegate = self;
     alerttpgr.enabled = YES;
     [self.view addGestureRecognizer:alerttpgr];
-
 }
 
 
@@ -209,6 +210,7 @@
             CGPoint p = [gestureRecognizer locationInView:htc.tableView];
             NSIndexPath *indexPath = [htc.tableView indexPathForRowAtPoint:p];
             UITableViewCell *cell = [htc.tableView cellForRowAtIndexPath:indexPath];
+            NSIndexPath *tempLastTapped = htc.lastTapped;
             
             if (indexPath != nil) {
                     
@@ -224,11 +226,14 @@
                     [self dismissKeyboard];
                 
                     NSString *hashtag;
-                    if(self.textField.text.length == 0) {
+                    if(self.textField.text.length == 0 && indexPath.section == 1) {
                         
                         if (indexPath.item == 0) {
                             NSLog(@"hit popular");
                             [(SELPageViewController*)self.parentViewController  showSelfies:0 hashtag:@"" color:cell.backgroundColor global:NO objectId:nil];
+                            htc.lastTapped = 0;
+                            [htc.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, tempLastTapped, nil] withRowAnimation:UITableViewRowAnimationNone];
+
                             id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
                             [tracker send:[[GAIDictionaryBuilder
                                             createEventWithCategory:@"UX"
@@ -238,6 +243,9 @@
                             return;
                         }else if (indexPath.item == 1) {
                             [(SELPageViewController*)self.parentViewController showSelfies:1 hashtag:@"" color:cell.backgroundColor global:NO objectId:nil];
+                            htc.lastTapped = 0;
+                            [htc.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, tempLastTapped, nil] withRowAnimation:UITableViewRowAnimationNone];
+
                             id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
                             [tracker send:[[GAIDictionaryBuilder
                                             createEventWithCategory:@"UX"
@@ -245,23 +253,41 @@
                                             label:@"fresh"
                                             value:nil] build]];
                             return;
-                        /** }else if (indexPath.item == 2) {
-                            [(SELPageViewController*)self.parentViewController showSelfies:3 hashtag:@"" color:cell.backgroundColor];
-                            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-                            [tracker send:[[GAIDictionaryBuilder
-                                            createEventWithCategory:@"UX"
-                                            action:@"taped suggested"
-                                            label:@"my photos"
-                                            value:nil] build]];
-                            return; **/
                         }else{
                             hashtag = [htc.hashtags objectAtIndex:(indexPath.item - 2)];
                         }
                     }else{
-                       hashtag = [htc.hashtags objectAtIndex:indexPath.item];
+                        if(indexPath.section == 0){
+                            hashtag = [htc.inbox objectAtIndex:indexPath.item];
+                            [htc markInbox:hashtag];
+                        }else{
+                            hashtag = [htc.hashtags objectAtIndex:indexPath.item];
+                        }
                     }
-                [(SELPageViewController*)self.parentViewController showSelfies:2 hashtag:hashtag color:cell.backgroundColor global:NO objectId:nil];
                 
+                    CGPoint eP = [gestureRecognizer locationInView:cell];
+                    if([indexPath isEqual:htc.lastTapped] && eP.y > 65){
+                        if (eP.x < 160 && ![htc.inbox containsObject:hashtag]) {
+                            if ([htc.subscribed containsObject:hashtag]) {
+                                [htc.subscribed removeObjectIdenticalTo:hashtag];
+                                [(SELPageViewController*)self.parentViewController subscribeToAHashtag:hashtag subscribe:NO];
+                            }else{
+                                [htc.subscribed addObject:hashtag];
+                                [(SELPageViewController*)self.parentViewController subscribeToAHashtag:hashtag subscribe:YES];
+                            }
+                            [htc.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, tempLastTapped, nil] withRowAnimation:UITableViewRowAnimationNone];
+                        }else{
+                            [(SELPageViewController*)self.parentViewController quickPostHashtag:hashtag];
+                        }
+                        NSLog(@"Bottom Cell tapped %f %f", eP.x, eP.y);
+                        return;
+                    }
+                    htc.lastTapped = indexPath;
+                    NSLog(@"index path %@", indexPath);
+                
+                    [(SELPageViewController*)self.parentViewController showSelfies:2 hashtag:hashtag color:cell.backgroundColor global:NO objectId:nil];
+                    [htc.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, tempLastTapped, nil] withRowAnimation:UITableViewRowAnimationNone];
+
                     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
                     [tracker send:[[GAIDictionaryBuilder
                                 createEventWithCategory:@"UX"
@@ -272,8 +298,7 @@
         }
     }
     
-}
-    @catch (NSException *exception) {
+}@catch (NSException *exception) {
     //[loadSelifes hidePopup];
 }
 @finally {

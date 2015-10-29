@@ -21,8 +21,13 @@
 @implementation SELHashtagTableViewController
 
 @synthesize hashtags;
+@synthesize objectsH;
+@synthesize inbox;
+@synthesize inboxSeen;
 @synthesize lastQuery;
 @synthesize trendingHashtags;
+@synthesize lastTapped;
+@synthesize subscribed;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -48,17 +53,22 @@
     [self setRefreshControl:refreshControl];
     
     hashtags = [[NSMutableArray alloc] init];
+    objectsH = [[NSMutableArray alloc] init];
+    inbox = [[NSMutableArray alloc] init];
+    inboxSeen = [[NSMutableArray alloc] init];
+    subscribed = [[NSMutableArray alloc] init];
     trendingHashtags = [[NSMutableArray alloc] init];
     //[self popularHashtags];
+    
+    lastTapped = 0;
     
     [self.tableView setContentInset:UIEdgeInsetsMake(0,0,0,0)];
    
 }
 
 - (void) viewDidAppear:(BOOL)animated{
-    
     [super viewDidAppear:animated];
-    
+    [self getSubscribedHashtagsList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,83 +80,110 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (lastQuery.length == 0) {
-        if(hashtags.count == 0) {
-            return 0;
+    
+    if (section == 0) {
+        if (lastQuery.length == 0) {
+            return inbox.count;
         }
-        return hashtags.count + 2;
+        return 0;
+    }else{
+        if (lastQuery.length == 0) {
+            if(hashtags.count == 0) {
+                return 0;
+            }
+            return hashtags.count + 2;
+        }
+        return hashtags.count;
     }
-    return hashtags.count;
 }
 
+/** }else if (indexPath.item == 2) {
+ attributedString = [[NSMutableAttributedString alloc] initWithString:@"my photos"]; **/
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HashtagTableViewCell" forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSArray *colorArray = [[((SELMainViewController *) self.parentViewController) color] getColorArray];
+    int i = indexPath.item % 10;
     
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"HashtagTableViewCell"];
-    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"HashtagTableViewCell"];
     }
     
+    UILabel *tagLabel = [[UILabel alloc] initWithFrame:CGRectMake(14, 0, 270, 72.0f)];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    
-    //cell.textLabel.text = [@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item]];
+    tagLabel.font = [UIFont systemFontOfSize:28];
+    tagLabel.textColor = [UIColor whiteColor];
+    for (UIView *subView in cell.subviews) {
+        [subView removeFromSuperview];
+    }
+    cell.backgroundColor = [colorArray objectAtIndex:i];
     
     NSMutableAttributedString *attributedString;
+    
+    if (indexPath.section == 1) {
     
     if (lastQuery.length == 0) {
         if (indexPath.item == 0) {
             attributedString = [[NSMutableAttributedString alloc] initWithString:@"popular"];
+            [cell insertSubview:[self starLabel] aboveSubview:cell.textLabel];
         }else if (indexPath.item == 1) {
             attributedString = [[NSMutableAttributedString alloc] initWithString:@"recent"];
-       /** }else if (indexPath.item == 2) {
-            attributedString = [[NSMutableAttributedString alloc] initWithString:@"my photos"]; **/
+            [cell insertSubview:[self clockLabel] aboveSubview:cell.textLabel];
+        }else if(indexPath.item < 3){
+            attributedString = [[NSMutableAttributedString alloc] initWithString:[@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item - 2]]];
+            [attributedString addAttribute:NSKernAttributeName value:@(1.5) range:NSMakeRange(0, 1)];
+            [cell insertSubview:[self arrowLabel] aboveSubview:cell.textLabel];
+            if ([indexPath isEqual:lastTapped]) {
+                int followCount = [[[objectsH objectAtIndex:indexPath.item - 2] objectForKey:@"followers"] intValue];
+                [cell insertSubview:[self joinGroupLabel:[hashtags objectAtIndex:indexPath.item - 2] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
+            }
         }else if (indexPath.item == (hashtags.count + 2)) {
             attributedString = [[NSMutableAttributedString alloc] initWithString:@"     "];
         }else{
             attributedString = [[NSMutableAttributedString alloc] initWithString:[@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item - 2]]];
+            [attributedString addAttribute:NSKernAttributeName value:@(1.5) range:NSMakeRange(0, 1)];
+            
+            if ([indexPath isEqual:lastTapped]) {
+                int followCount = [[[objectsH objectAtIndex:indexPath.item - 2] objectForKey:@"followers"] intValue];
+                [cell insertSubview:[self joinGroupLabel:[hashtags objectAtIndex:indexPath.item - 2] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
+            }
         }
         
     }else{
         attributedString = [[NSMutableAttributedString alloc] initWithString:[@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item]]];
-    }
-    
-    cell.textLabel.font = [UIFont systemFontOfSize:28];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    
-    [cell.textLabel.subviews.firstObject removeFromSuperview];
-    
-    if(lastQuery.length == 0 && indexPath.item < 5){
-        [attributedString addAttribute:NSKernAttributeName
-                                 value:@(1.5)
-                                 range:NSMakeRange(0, 1)];
-        cell.textLabel.attributedText = attributedString;
-        if (indexPath.item == 0) {
-            [cell.textLabel insertSubview:[self starLabel] aboveSubview:cell.textLabel];
-        }else if(indexPath.item == 1){
-            [cell.textLabel insertSubview:[self clockLabel] aboveSubview:cell.textLabel];
-       /** }else if(indexPath.item == 2){
-            [cell.textLabel insertSubview:[self profileLabel] aboveSubview:cell.textLabel];**/
-        }else{
-            [cell.textLabel insertSubview:[self arrowLabel] aboveSubview:cell.textLabel];
+        [attributedString addAttribute:NSKernAttributeName value:@(1.5) range:NSMakeRange(0, 1)];
+        if ([indexPath isEqual:lastTapped]) {
+            int followCount = [[[objectsH objectAtIndex:indexPath.item] objectForKey:@"followers"] intValue];
+            [cell insertSubview:[self joinGroupLabel:[hashtags objectAtIndex:indexPath.item] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
         }
-    }else{
-        [attributedString addAttribute:NSKernAttributeName
-                                 value:@(1.5)
-                                 range:NSMakeRange(0, 1)];
-        cell.textLabel.attributedText = attributedString;
     }
-    
-    NSArray *colorArray = [[((SELMainViewController *) self.parentViewController) color] getColorArray];
-    int i = indexPath.item % 10;
-    cell.backgroundColor = [colorArray objectAtIndex:i];
+
+    // section 0
+    }else{
+        
+        UIView *bg;
+        if ([indexPath isEqual:lastTapped]) {
+            int followCount = [[[objectsH objectAtIndex:indexPath.item] objectForKey:@"followers"] intValue];
+            [cell insertSubview:[self joinGroupLabel:[inbox objectAtIndex:indexPath.item] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
+            bg = [self backgroundView:120 color:[colorArray objectAtIndex:i]];
+        }else{
+            bg = [self backgroundView:72 color:[colorArray objectAtIndex:i]];
+        }
+        [cell insertSubview:bg atIndex:0];
+        attributedString = [[NSMutableAttributedString alloc] initWithString:[@"#" stringByAppendingString:[inbox objectAtIndex:indexPath.item]]];
+        [attributedString addAttribute:NSKernAttributeName value:@(1.5) range:NSMakeRange(0, 1)];
+        if (![inboxSeen containsObject:[inbox objectAtIndex:indexPath.item]]) {
+            [cell insertSubview:[self countLabel:1 color:[colorArray objectAtIndex:i]] aboveSubview:cell.textLabel];
+        }
+    }
+
+    tagLabel.attributedText = attributedString;
+    [cell addSubview:tagLabel];
     
     return cell;
 }
@@ -154,7 +191,7 @@
 - (UIView *)arrowLabel{
     UIView *arrowLabel = [[UIView alloc]init];
     arrowLabel.backgroundColor = [UIColor clearColor];
-    arrowLabel.frame = CGRectMake(self.view.frame.size.width - 94, 1, 120, 76);
+    arrowLabel.frame = CGRectMake(self.view.frame.size.width - 79, 1, 120, 76);
     arrowLabel.transform= CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-10));
     
     /**arrowLabel.text = [NSString stringWithUTF8String:"\u0362"];
@@ -178,7 +215,7 @@
     
     UIImage *clockImage = [[UIImage imageNamed:@"clock"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImageView *clockImageView = [[UIImageView alloc] initWithImage:clockImage];
-    clockImageView.frame = CGRectMake(258.5, 23, clockImage.size.width, clockImage.size.height);
+    clockImageView.frame = CGRectMake(272.5, 23, clockImage.size.width, clockImage.size.height);
     clockImageView.contentMode = UIViewContentModeCenter;
     [clockImageView setTintColor:[UIColor colorWithWhite:1. alpha:1]];
     return clockImageView;
@@ -187,7 +224,7 @@
 - (UIView *)starLabel{
     UIImage *starImage = [[UIImage imageNamed:@"star"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImageView *starImageView = [[UIImageView alloc] initWithImage:starImage];
-    starImageView.frame = CGRectMake(260, 22, starImage.size.width, starImage.size.height);
+    starImageView.frame = CGRectMake(275, 22, starImage.size.width, starImage.size.height);
     starImageView.contentMode = UIViewContentModeCenter;
     [starImageView setTintColor:[UIColor colorWithWhite:1. alpha:1]];
     return starImageView;
@@ -196,10 +233,127 @@
 - (UIView *)profileLabel{
     UIImage *starImage = [[UIImage imageNamed:@"profile"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImageView *starImageView = [[UIImageView alloc] initWithImage:starImage];
-    starImageView.frame = CGRectMake(262.5, 23, starImage.size.width, starImage.size.height);
+    starImageView.frame = CGRectMake(277.5, 23, starImage.size.width, starImage.size.height);
     starImageView.contentMode = UIViewContentModeCenter;
     [starImageView setTintColor:[UIColor colorWithWhite:1. alpha:1]];
     return starImageView;
+}
+
+- (UIView *)joinGroupLabel:(NSString*)hashtag color:(UIColor *)color count:(int)count{
+
+    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(10, 56, 300, 60)];
+    
+    UIImage *groupImage = [[UIImage imageNamed:@"group"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImageView *groupImageView = [[UIImageView alloc] initWithImage:groupImage];
+    groupImageView.frame = CGRectMake(25, 8, groupImage.size.width, groupImage.size.height);
+    groupImageView.contentMode = UIViewContentModeCenter;
+    [groupImageView setTintColor:[UIColor whiteColor]];
+    UILabel *groupLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 80, 40)];
+    groupLabel.text = @"Follow";
+    groupLabel.textColor = [UIColor whiteColor];
+    groupLabel.font = [UIFont systemFontOfSize:14.0f];
+    UIButton *groupButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 10, 145, 40)];
+    groupButton.backgroundColor = [UIColor clearColor];
+    groupButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    groupButton.layer.borderWidth = 1.5f;
+    groupButton.layer.cornerRadius = 5.0f;
+    [groupButton addSubview:groupImageView];
+    [groupButton addSubview:groupLabel];
+    
+    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(115, 0, 30, 40)];
+    countLabel.text = [NSString stringWithFormat:@"%d", count];
+    countLabel.textAlignment = NSTextAlignmentCenter;
+    countLabel.textColor = [UIColor whiteColor];
+    countLabel.font = [UIFont systemFontOfSize:15.0f];
+    CALayer *upperBorder = [CALayer layer];
+    upperBorder.backgroundColor = [[UIColor whiteColor] CGColor];
+    upperBorder.frame = CGRectMake(0, 0, 1.0f, CGRectGetHeight(countLabel.frame));
+    [countLabel.layer addSublayer:upperBorder];
+    
+    if ([subscribed containsObject:hashtag]) {
+        groupLabel.textColor = color;
+        [groupImageView setTintColor:color];
+        groupLabel.text = @"Following";
+        groupButton.backgroundColor = [UIColor whiteColor];
+        groupImageView.frame = CGRectMake(15, 8, groupImage.size.width, groupImage.size.height);
+        groupLabel.frame = CGRectMake(45, 0, 80, 40);
+        countLabel.textColor = color;
+        upperBorder.backgroundColor = [color CGColor];
+        countLabel.text = [NSString stringWithFormat:@"%d", count + 1];
+    }
+    
+    UIImage *exitImage = [[UIImage imageNamed:@"reply"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImageView *exitImageView = [[UIImageView alloc] initWithImage:exitImage];
+    exitImageView.frame = CGRectMake(10, 8, exitImage.size.width, exitImage.size.height);
+    exitImageView.contentMode = UIViewContentModeCenter;
+    exitImageView.transform = CGAffineTransformScale(exitImageView.transform, 0.7, 0.7);
+    [exitImageView setTintColor:[UIColor whiteColor]];
+    UILabel *exitLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 0, 80, 40)];
+    exitLabel.text = @"Contribute";
+    exitLabel.textColor = [UIColor whiteColor];
+    exitLabel.font = [UIFont systemFontOfSize:14.0f];
+    UIButton *exitButton = [[UIButton alloc] initWithFrame:CGRectMake(170, 10, 125, 40)];
+    exitButton.backgroundColor = [UIColor clearColor];
+    exitButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    exitButton.layer.borderWidth = 1.5f;
+    exitButton.layer.cornerRadius = 5.0f;
+    [exitButton addSubview:exitImageView];
+    [exitButton addSubview:exitLabel];
+    
+    
+    if ([inbox containsObject:hashtag]) {
+        groupButton.hidden = YES;
+        exitButton.frame = CGRectMake(10, 10, 280, 40);
+        exitLabel.frame = CGRectMake(135, 0, 80, 40);
+        exitImageView.frame = CGRectMake(107, 8, exitImage.size.width, exitImage.size.height);
+        exitLabel.text = @"Reply";
+    }
+    
+    groupButton.enabled = NO;
+    exitButton.enabled = NO;
+    
+    //countLabel.
+    //countLabel.backgroundColor = [UIColor yellowColor];
+    
+    [container addSubview:groupButton];
+    [container addSubview:exitButton];
+    [groupButton addSubview:countLabel];
+    return container;
+}
+
+- (UIView *)countLabel:(int)count color:(UIColor*)color{
+
+    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    countLabel.text = [NSString stringWithFormat:@"%d", count];
+    countLabel.textAlignment = NSTextAlignmentCenter;
+    countLabel.textColor = color;
+    countLabel.font = [UIFont systemFontOfSize:22];
+    countLabel.backgroundColor = [UIColor clearColor];
+    
+    UIView *countView = [[UIView alloc] initWithFrame:CGRectMake(271, 20, 40, 40)];
+    countView.backgroundColor = [UIColor whiteColor];
+    countView.layer.cornerRadius = countView.frame.size.width / 2.0;
+    [countView addSubview:countLabel];
+    
+    return countView;
+}
+
+- (UIView *)backgroundView:(int)height color:(UIColor*)color{
+    
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, height)];
+    bgView.backgroundColor = color;
+    bgView.alpha = .75;
+    bgView.clipsToBounds = YES;
+    
+    UIImageView *bgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, height)];
+    bgImage.contentMode = UIViewContentModeScaleAspectFill;
+    bgImage.image = [UIImage imageNamed:@"pttrnbackground"];
+    bgImage.clipsToBounds = true;
+    [bgImage addSubview:bgView];
+    bgImage.alpha = .92;
+    bgImage.clipsToBounds = YES;
+    
+    return bgImage;
 }
 
 /**
@@ -321,7 +475,12 @@
     }
 }
 
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([indexPath isEqual:lastTapped]) {
+        return 120.0f;
+    }
+    return 72.0f;
+}
 
 /*
 // Override to support editing the table view.
@@ -363,10 +522,60 @@
 }
 */
 
+
+#pragma - mark inbox
+
+- (void) getInbox{
+
+    if([PFUser currentUser]){
+    
+    PFQuery *queryInbox = [PFQuery queryWithClassName:@"Inbox"];
+    [queryInbox whereKey:@"user"  equalTo:[PFUser currentUser]];
+    [queryInbox whereKey:@"has_seen" equalTo:@NO];
+    [queryInbox findObjectsInBackgroundWithBlock:^(NSArray *hashtagsResults, NSError *error) {
+        
+        if (!error) {
+            NSLog(@"Inbox %lu #'s", (unsigned long)hashtagsResults.count);
+            [inbox removeAllObjects];
+            for (PFObject * tag in hashtagsResults) {
+                if (![inbox containsObject:tag[@"hashtag"]]) {
+                    [inbox addObject:tag[@"hashtag"]];
+                }
+            }
+            [self.tableView reloadData];
+        }else{
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    }
+}
+
+- (void) markInbox:(NSString *)hashtag{
+    [inboxSeen addObject:hashtag];
+    PFQuery *queryInbox = [PFQuery queryWithClassName:@"Inbox"];
+    [queryInbox whereKey:@"user"  equalTo:[PFUser currentUser]];
+    [queryInbox whereKey:@"has_seen" equalTo:@NO];
+    [queryInbox whereKey:@"hashtag" equalTo:hashtag];
+    [queryInbox findObjectsInBackgroundWithBlock:^(NSArray *hashtagsResults, NSError *error) {
+        if (!error) {
+            NSLog(@"Inbox Mark %lu #'s", (unsigned long)hashtagsResults.count);
+            for (PFObject * inboxMark in hashtagsResults) {
+                inboxMark[@"has_seen"] = @YES;
+                [inboxMark saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                }];
+            }
+        }else{
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+
+}
+
 #pragma - mark Parse Methods
 
 - (void) searchForHashtag:(NSString *)query{
-    
+    lastTapped = 0;
+    [inboxSeen removeAllObjects];
     //query = [query lowercaseString];
     query = [query stringByReplacingOccurrencesOfString:@"#" withString:@""];
     query = [query stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -375,6 +584,7 @@
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     NSLog(@"hashtag serach %@", query);
     if (query.length == 0) {
+        [self getInbox];
         [self popularHashtags];
         return;
     }
@@ -395,8 +605,10 @@
         if (!error) {
             NSLog(@"SR %lu #'s", (unsigned long)hashtagsResults.count);
             [hashtags removeAllObjects];
+            [objectsH removeAllObjects];
             for (PFObject * tag in hashtagsResults) {
                 [hashtags addObject:tag[@"name"]];
+                [objectsH addObject:tag];
             }
             NSLog(@"count %lu", (unsigned long)hashtags.count);
             [self.tableView reloadData];
@@ -424,8 +636,10 @@
         if (!error) {
             NSLog(@"SR %lu #'s", (unsigned long)hashtagsResults.count);
             [hashtags removeAllObjects];
+            [objectsH removeAllObjects];
             for (PFObject * tag in hashtagsResults) {
                 [hashtags addObject:tag[@"name"]];
+                [objectsH addObject:tag];
             }
             [self.tableView reloadData];
         }else{
@@ -485,10 +699,28 @@
     **/
 }
 
+- (void) getSubscribedHashtagsList{
+
+    if ([PFUser currentUser]) {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Subscribe"];
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [subscribed removeAllObjects];
+            for (PFObject * tag in objects) {
+                [subscribed addObject:tag[@"hashtag"]];
+            }
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    }
+}
+
 // Refresh
 - (void)refresh:(id)sender {
     [(UIRefreshControl *)sender endRefreshing];
     [self searchForHashtag:lastQuery];
 }
-
 @end

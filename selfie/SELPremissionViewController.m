@@ -26,10 +26,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.view.frame = self.parentViewController.view.frame;
     [self.backgroundView.layer setCornerRadius:5.0f];
     self.backgroundView.center = self.view.center;
     
     [self addFakeOverlay];
+    
+    // Push Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receivedNotificationPremission:)
+                                                 name:@"Register_PUSH_NOTIFICATION"
+                                               object:nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated{
@@ -52,7 +59,7 @@
     AVAuthorizationStatus videoAuthorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if(videoAuthorizationStatus == AVAuthorizationStatusAuthorized &&
        audioAuthorizationStatus == AVAuthorizationStatusAuthorized){
-        [(SELPageViewController *)self.parentViewController checkCameraOrPremssionViewController];
+        [(SELPageViewController *)self.parentViewController checkCameraOrPremssionViewController:YES];
     }
     [self checkNotification:self.notificationButton title:@"Notifications"];
     [self setPremssionValue:self.audioButton status:audioAuthorizationStatus title:@"Microphone"];
@@ -62,27 +69,55 @@
 // check premission notification
 - (void) checkNotification:(UIButton *)statusButton title:(NSString*)title{
 
-    UIApplication *application = [UIApplication sharedApplication];
-    BOOL enabled;
+    BOOL remoteNotificationsEnabled = false, noneEnabled,alertsEnabled, badgesEnabled, soundsEnabled;
     
-    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)]){
-        enabled = [application isRegisteredForRemoteNotifications];
-    }else{
-        UIRemoteNotificationType types = [application enabledRemoteNotificationTypes];
-        enabled = types & UIRemoteNotificationTypeAlert;
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        // iOS8+
+        remoteNotificationsEnabled = [UIApplication sharedApplication].isRegisteredForRemoteNotifications;
+        
+        UIUserNotificationSettings *userNotificationSettings = [UIApplication sharedApplication].currentUserNotificationSettings;
+        
+        noneEnabled = userNotificationSettings.types == UIUserNotificationTypeNone;
+        alertsEnabled = userNotificationSettings.types & UIUserNotificationTypeAlert;
+        badgesEnabled = userNotificationSettings.types & UIUserNotificationTypeBadge;
+        soundsEnabled = userNotificationSettings.types & UIUserNotificationTypeSound;
+        
+    } else {
+        // iOS7 and below
+        UIRemoteNotificationType enabledRemoteNotificationTypes = [UIApplication sharedApplication].enabledRemoteNotificationTypes;
+        
+        noneEnabled = enabledRemoteNotificationTypes == UIRemoteNotificationTypeNone;
+        alertsEnabled = enabledRemoteNotificationTypes & UIRemoteNotificationTypeAlert;
+        badgesEnabled = enabledRemoteNotificationTypes & UIRemoteNotificationTypeBadge;
+        soundsEnabled = enabledRemoteNotificationTypes & UIRemoteNotificationTypeSound;
     }
-    //[[NSUserDefaults standardUserDefaults] boolForKey:@"SELPromptedForUserNotification"];
-    //[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ABHasPromptedForUserNotification"];
+    
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        NSLog(@"Remote notifications enabled: %@", remoteNotificationsEnabled ? @"YES" : @"NO");
+    }
+    
+    NSLog(@"Notification type status:");
+    NSLog(@"  None: %@", noneEnabled ? @"enabled" : @"disabled");
+    NSLog(@"  Alerts: %@", alertsEnabled ? @"enabled" : @"disabled");
+    NSLog(@"  Badges: %@", badgesEnabled ? @"enabled" : @"disabled");
+    NSLog(@"  Sounds: %@", soundsEnabled ? @"enabled" : @"disabled");
 
+    
     [statusButton.layer setBorderColor:color.getPrimaryColor.CGColor];
     [statusButton.layer setBorderWidth:2.0f];
     [statusButton.layer setCornerRadius:5.0f];
 
-    if (!enabled) {
+    if (!remoteNotificationsEnabled) {
         [statusButton setTitle:[@"Allow " stringByAppendingString:title] forState:UIControlStateNormal];
         [statusButton setTitleColor:color.getPrimaryColor forState:UIControlStateNormal];
         statusButton.backgroundColor = [UIColor whiteColor];
         [statusButton setSelected:NO];
+        [statusButton setEnabled:YES];
+    }else if(noneEnabled){
+        [statusButton setTitle:[@"Enable " stringByAppendingString:title] forState:UIControlStateSelected];
+        [statusButton setTitleColor:color.getPrimaryColor forState:UIControlStateSelected];
+        statusButton.backgroundColor = [UIColor whiteColor];
+        [statusButton setSelected:YES];
         [statusButton setEnabled:YES];
     }else{
         [statusButton setTitle:[@"Allowed " stringByAppendingString:title] forState:UIControlStateDisabled];
@@ -145,10 +180,10 @@
                 [self askForNotificationPremission];
                 break;
             case 1:
-                [self askForPremission:AVMediaTypeAudio];
+                [self askForPremission:AVMediaTypeVideo];
                 break;
             case 2:
-                [self askForPremission:AVMediaTypeVideo];
+                [self askForPremission:AVMediaTypeAudio];
                 break;
             default:
                 break;
@@ -166,6 +201,7 @@
 }
 
 - (void) askForNotificationPremission {
+    NSLog(@"Asked for notificatin ");
     [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"AskedForNotificationPermission"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
@@ -175,6 +211,15 @@
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     [[UIApplication sharedApplication] registerForRemoteNotifications];
+}
+
+- (void)receivedNotificationPremission:(NSNotification *)notification {
+    
+    NSDictionary *dict = [notification userInfo];
+    BOOL result = [dict objectForKey:@"accept"];
+    NSLog(@"receivedNotification %d", result);
+    
+    [self checkForPremissions];
 }
 
 - (IBAction)audioAction:(id)sender {

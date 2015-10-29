@@ -71,8 +71,15 @@
 		0EA7CCC91AF12919006F3B44 /* SELSuggestedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EA7CCC71AF12919006F3B44 /* SELSuggestedCollectionViewCell.xib */; };
 		0EB1ECCE1A1D33FF00D30EF6 /* SELGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB1ECCC1A1D33FF00D30EF6 /* SELGameViewController.m */; };
 		0EB1ECCF1A1D33FF00D30EF6 /* SELGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EB1ECCD1A1D33FF00D30EF6 /* SELGameViewController.xib */; };
+		0EB4D0F71BC31FB3007A4D35 /* SELPushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB4D0F51BC31FB3007A4D35 /* SELPushNotificationViewController.m */; };
+		0EB4D0F81BC31FB3007A4D35 /* SELPushNotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EB4D0F61BC31FB3007A4D35 /* SELPushNotificationViewController.xib */; };
 		0EBEDAD01B0BFF350087A01F /* SELCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBEDACF1B0BFF350087A01F /* SELCaptureViewController.m */; };
 		0EBEDAD51B0C0E4E0087A01F /* PBJFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBEDAD21B0C0E4E0087A01F /* PBJFocusView.m */; };
+		0EBEF6371BD82C48000804FA /* SELPopularTagTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBEF6361BD82C48000804FA /* SELPopularTagTableViewController.m */; };
+		0EC7192A1BCB786D00671600 /* SELReplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC719281BCB786D00671600 /* SELReplyViewController.m */; };
+		0EC7192B1BCB786D00671600 /* SELReplyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EC719291BCB786D00671600 /* SELReplyViewController.xib */; };
+		0EC7192F1BCB87F800671600 /* SELReplyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7192D1BCB87F800671600 /* SELReplyCollectionViewCell.m */; };
+		0EC719301BCB87F800671600 /* SELReplyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EC7192E1BCB87F800671600 /* SELReplyCollectionViewCell.xib */; };
 		0EC863461B5970A90068A14F /* SELVoteList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0EC863451B5970A90068A14F /* SELVoteList.plist */; };
 		0ECD548D1A216681001A8D0E /* SELLocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD548B1A216681001A8D0E /* SELLocationTableViewController.m */; };
 		0ECD548E1A216681001A8D0E /* SELLocationTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD548C1A216681001A8D0E /* SELLocationTableViewController.xib */; };
@@ -210,10 +217,21 @@
 		0EB1ECCB1A1D33FF00D30EF6 /* SELGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELGameViewController.h; sourceTree = "<group>"; };
 		0EB1ECCC1A1D33FF00D30EF6 /* SELGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELGameViewController.m; sourceTree = "<group>"; };
 		0EB1ECCD1A1D33FF00D30EF6 /* SELGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELGameViewController.xib; sourceTree = "<group>"; };
+		0EB4D0F41BC31FB3007A4D35 /* SELPushNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELPushNotificationViewController.h; sourceTree = "<group>"; };
+		0EB4D0F51BC31FB3007A4D35 /* SELPushNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELPushNotificationViewController.m; sourceTree = "<group>"; };
+		0EB4D0F61BC31FB3007A4D35 /* SELPushNotificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELPushNotificationViewController.xib; sourceTree = "<group>"; };
 		0EBEDACE1B0BFF350087A01F /* SELCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELCaptureViewController.h; sourceTree = "<group>"; };
 		0EBEDACF1B0BFF350087A01F /* SELCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELCaptureViewController.m; sourceTree = "<group>"; };
 		0EBEDAD11B0C0E4E0087A01F /* PBJFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBJFocusView.h; path = "../../PBJVision-master/Project/Vision/PBJFocusView.h"; sourceTree = "<group>"; };
 		0EBEDAD21B0C0E4E0087A01F /* PBJFocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBJFocusView.m; path = "../../PBJVision-master/Project/Vision/PBJFocusView.m"; sourceTree = "<group>"; };
+		0EBEF6351BD82C48000804FA /* SELPopularTagTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELPopularTagTableViewController.h; sourceTree = "<group>"; };
+		0EBEF6361BD82C48000804FA /* SELPopularTagTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELPopularTagTableViewController.m; sourceTree = "<group>"; };
+		0EC719271BCB786D00671600 /* SELReplyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELReplyViewController.h; sourceTree = "<group>"; };
+		0EC719281BCB786D00671600 /* SELReplyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELReplyViewController.m; sourceTree = "<group>"; };
+		0EC719291BCB786D00671600 /* SELReplyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELReplyViewController.xib; sourceTree = "<group>"; };
+		0EC7192C1BCB87F800671600 /* SELReplyCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELReplyCollectionViewCell.h; sourceTree = "<group>"; };
+		0EC7192D1BCB87F800671600 /* SELReplyCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELReplyCollectionViewCell.m; sourceTree = "<group>"; };
+		0EC7192E1BCB87F800671600 /* SELReplyCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SELReplyCollectionViewCell.xib; sourceTree = "<group>"; };
 		0EC863451B5970A90068A14F /* SELVoteList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SELVoteList.plist; sourceTree = "<group>"; };
 		0ECD548A1A216681001A8D0E /* SELLocationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SELLocationTableViewController.h; sourceTree = "<group>"; };
 		0ECD548B1A216681001A8D0E /* SELLocationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SELLocationTableViewController.m; sourceTree = "<group>"; };
@@ -445,6 +463,9 @@
 		0E55709F19CFD66000BD0FAC /* Posting */ = {
 			isa = PBXGroup;
 			children = (
+				0EC719271BCB786D00671600 /* SELReplyViewController.h */,
+				0EC719281BCB786D00671600 /* SELReplyViewController.m */,
+				0EC719291BCB786D00671600 /* SELReplyViewController.xib */,
 				0EF1E6121B9B8A5D008F8B3A /* SELRollViewController.h */,
 				0EF1E6131B9B8A5D008F8B3A /* SELRollViewController.m */,
 				0EBEDACE1B0BFF350087A01F /* SELCaptureViewController.h */,
@@ -460,6 +481,9 @@
 				0EA7CCC71AF12919006F3B44 /* SELSuggestedCollectionViewCell.xib */,
 				0EF6AB321AF219540004A449 /* SELSuggestedCollectionReusableView.xib */,
 				0E8C57BC1B721599004B3FE7 /* SELBadwords_en.plist */,
+				0EC7192C1BCB87F800671600 /* SELReplyCollectionViewCell.h */,
+				0EC7192D1BCB87F800671600 /* SELReplyCollectionViewCell.m */,
+				0EC7192E1BCB87F800671600 /* SELReplyCollectionViewCell.xib */,
 				0E55709E19CFD61C00BD0FAC /* Camera */,
 			);
 			name = Posting;
@@ -530,6 +554,8 @@
 				0E2FD1811ABE52E50076D098 /* SELSecondaryViewController.m */,
 				0E9AB1C61ABF55CF002AF928 /* SELSecondaryTableTableViewController.h */,
 				0E9AB1C71ABF55CF002AF928 /* SELSecondaryTableTableViewController.m */,
+				0EBEF6351BD82C48000804FA /* SELPopularTagTableViewController.h */,
+				0EBEF6361BD82C48000804FA /* SELPopularTagTableViewController.m */,
 			);
 			name = Secondary;
 			sourceTree = "<group>";
@@ -661,6 +687,9 @@
 				0EE0656E1B853710000EB0CB /* SELPremissionViewController.h */,
 				0EE0656F1B853710000EB0CB /* SELPremissionViewController.m */,
 				0EE065701B853710000EB0CB /* SELPremissionViewController.xib */,
+				0EB4D0F41BC31FB3007A4D35 /* SELPushNotificationViewController.h */,
+				0EB4D0F51BC31FB3007A4D35 /* SELPushNotificationViewController.m */,
+				0EB4D0F61BC31FB3007A4D35 /* SELPushNotificationViewController.xib */,
 			);
 			name = Premission;
 			sourceTree = "<group>";
@@ -725,7 +754,7 @@
 				ORGANIZATIONNAME = "Griffin Anderson";
 				TargetAttributes = {
 					0E3D1443197ADF8200F2693F = {
-						DevelopmentTeam = K8VBB568Z3;
+						DevelopmentTeam = V38ND5JLCE;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -769,14 +798,17 @@
 				0EE8040C1A9E4305001F7B7C /* SELExtraViewController.xib in Resources */,
 				0EC863461B5970A90068A14F /* SELVoteList.plist in Resources */,
 				0EE065721B853710000EB0CB /* SELPremissionViewController.xib in Resources */,
+				0EC719301BCB87F800671600 /* SELReplyCollectionViewCell.xib in Resources */,
 				0EF6AB341AF219540004A449 /* SELSuggestedCollectionReusableView.xib in Resources */,
 				0E3D1452197ADF8200F2693F /* InfoPlist.strings in Resources */,
 				0E8166FA1A9CE60400C2C546 /* SELMapViewController.xib in Resources */,
 				0ECD548E1A216681001A8D0E /* SELLocationTableViewController.xib in Resources */,
 				0E936CA61A669BEB005B6150 /* SELBannedViewController.xib in Resources */,
 				0E3D145A197ADF8200F2693F /* Images.xcassets in Resources */,
+				0EB4D0F81BC31FB3007A4D35 /* SELPushNotificationViewController.xib in Resources */,
 				0ECD54931A21A3E9001A8D0E /* SELAddLocationViewController.xib in Resources */,
 				0EB1ECCF1A1D33FF00D30EF6 /* SELGameViewController.xib in Resources */,
+				0EC7192B1BCB786D00671600 /* SELReplyViewController.xib in Resources */,
 				0E02CB99197B2EB60040F5EB /* SELPostViewController.xib in Resources */,
 				0E8C57BD1B721599004B3FE7 /* SELBadwords_en.plist in Resources */,
 				0EA7CCC91AF12919006F3B44 /* SELSuggestedCollectionViewCell.xib in Resources */,
@@ -837,6 +869,7 @@
 			files = (
 				0EDC2D4D1ABE912200600CD8 /* SELBarViewController.m in Sources */,
 				0ECD548D1A216681001A8D0E /* SELLocationTableViewController.m in Sources */,
+				0EC7192F1BCB87F800671600 /* SELReplyCollectionViewCell.m in Sources */,
 				0ED9F1581B142926009839DD /* SELLoadContent.m in Sources */,
 				0E5570A619CFD85800BD0FAC /* SELHashtagsListObject.m in Sources */,
 				0E2FD1821ABE52E50076D098 /* SELSecondaryViewController.m in Sources */,
@@ -851,6 +884,7 @@
 				0ED9F1551B141D5C009839DD /* SELOverlayViewController.m in Sources */,
 				0E5B488A19A565240017F448 /* SELImageCountObject.m in Sources */,
 				0E5A88EC1A8987C0000402A6 /* SELLocationViewController.m in Sources */,
+				0EB4D0F71BC31FB3007A4D35 /* SELPushNotificationViewController.m in Sources */,
 				0E6E8D0B1B16A99800F720C7 /* SELMoviePlayerViewController.m in Sources */,
 				0E6E8D041B157F2400F720C7 /* SELMovieViewController.m in Sources */,
 				0E76B2E819D0DC0500E6358B /* SELHashtagLabel.m in Sources */,
@@ -867,6 +901,8 @@
 				0E5CFB3719A54C18009D2FF5 /* SELFlagObject.m in Sources */,
 				0EF636971B1279DB00323AB1 /* SELVideoPlayerController.m in Sources */,
 				0E2FD17F1ABE4F350076D098 /* SELPageViewController.m in Sources */,
+				0EBEF6371BD82C48000804FA /* SELPopularTagTableViewController.m in Sources */,
+				0EC7192A1BCB786D00671600 /* SELReplyViewController.m in Sources */,
 				0EB1ECCE1A1D33FF00D30EF6 /* SELGameViewController.m in Sources */,
 				0E0B30B9197F77E600FDF2A6 /* SELCameraOverlayView.m in Sources */,
 				0E3D1454197ADF8200F2693F /* main.m in Sources */,
@@ -961,7 +997,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -994,7 +1030,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1006,13 +1042,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Griffin Anderson (7TE2L275TQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Griffin Anderson (7TE2L275TQ)";
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "selfie/#life-Prefix.pch";
 				INFOPLIST_FILE = "selfie/#life-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				ONLY_ACTIVE_ARCH = NO;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ios.-life";
 				PRODUCT_NAME = "#life";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -1025,14 +1064,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Griffin Anderson (7TE2L275TQ)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Griffin Anderson (7TE2L275TQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Griffin Anderson (7TE2L275TQ)";
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "selfie/#life-Prefix.pch";
 				INFOPLIST_FILE = "selfie/#life-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ios.-life";
 				PRODUCT_NAME = "#life";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

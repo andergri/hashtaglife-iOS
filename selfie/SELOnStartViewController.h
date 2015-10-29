@@ -13,5 +13,6 @@
 
 - (void) runOnStart:(SELColorPicker*)color;
 - (BOOL) checkForPremissions;
+- (void) checkNotificationData:(SELColorPicker*)color;
 
 @end

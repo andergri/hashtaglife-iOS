@@ -30,10 +30,12 @@
 - (void) setCamera:(UIView *)view;
 - (void) fadeBar:(BOOL)fade;
 - (void) showSelfies:(NSUInteger)type hashtag:(NSString *)hashtag color:(UIColor*)color global:(BOOL)global objectId:(NSString*)objectId;
+- (void) quickPostHashtag:(NSString *)hashtag;
 - (void) changeLocation;
 - (void) updateLocation;
 - (void) lockSideSwipe:(BOOL)lock;
-- (void) checkCameraOrPremssionViewController;
+- (void) checkCameraOrPremssionViewController:(BOOL)refresh;
 - (void) exitClicked;
+- (void) subscribeToAHashtag:(NSString*)hashtag subscribe:(BOOL)subscribe;
 
 @end

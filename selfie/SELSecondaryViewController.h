@@ -10,6 +10,7 @@
 #import "SELColorPicker.h"
 #import "SELPageViewController.h"
 #import "SELSecondaryTableTableViewController.h"
+//#import "SELPopularTagTableViewController.h"
 
 @interface SELSecondaryViewController : UIViewController
 

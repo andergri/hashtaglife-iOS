@@ -8,6 +8,8 @@
 
 #import "SELPageViewController.h"
 
+#import "SELReplyViewController.h"
+
 @interface SELPageViewController ()
 
 @property SELOnStartViewController *onStartViewController;
@@ -61,13 +63,14 @@
     // Roll Controller
     rollViewController = [[SELRollViewController alloc] init];
     rollViewController.color = color;
+    rollViewController.view.frame = self.view.frame;
     [self.view addSubview:rollViewController.view];
     [self addChildViewController:rollViewController];
     [rollViewController didMoveToParentViewController:self];
     
     
     // Capture Controller
-    [self checkCameraOrPremssionViewController];
+    [self checkCameraOrPremssionViewController:NO];
     
     // Main & Secondary Controller
     mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Main"];
@@ -175,6 +178,15 @@
     [selfieViewController showSelfies:type hashtag:hashtag color:acolor location:global objectId:objectId];
 }
 
+- (void) quickPostHashtag:(NSString *)hashtag{
+    SELReplyViewController *replyViewController = [[SELReplyViewController alloc] init];
+    replyViewController.hashtag = hashtag;
+    replyViewController.color = color;
+    replyViewController.view.frame = self.view.frame;
+    [self presentViewController:replyViewController animated:YES completion:^{
+    }];
+}
+
 #pragma mark - Bar Delegeate Methods
 
 - (void) cameraClicked{
@@ -256,12 +268,16 @@
 -(void)presentMyViewOnPushNotification:(NSNotification *)notification {
     NSDictionary *dict = [notification userInfo];
     NSString *selfieId = [dict objectForKey:@"selfieId"];
+    NSString *refresh = [dict objectForKey:@"refresh"];
     NSLog(@"Push Selfie %@", selfieId);
     
     @try {
         if (selfieId) {
             [self switchToSecondaryClicked];
             [self showSelfies:4 hashtag:nil color:nil global:NO objectId:selfieId];
+        }
+        if (refresh) {
+            [mainViewController updateList];
         }
     }@catch (NSException *exception) {
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error"
@@ -275,8 +291,8 @@
 
 #pragma mark - PremssionsSettingsViewController
 
-- (void) checkCameraOrPremssionViewController{
-    
+- (void) checkCameraOrPremssionViewController:(BOOL)refresh{
+
     if ([onStartViewController checkForPremissions]) {
         if (captureViewController == nil) {
             captureViewController = [[SELCaptureViewController alloc] init];
@@ -290,7 +306,62 @@
         }
         captureOrPremssionViewController = premssionViewController;
     }
-    //[self setViewControllers:@[captureOrPremssionViewController] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
+    
+    if(refresh){
+      [self setViewControllers:@[captureOrPremssionViewController] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
+    }
+    
+}
+
+#pragma mark - Subscribe and Unsubscribe from a hashtag
+
+// Subscribe to a hashtag
+- (void) subscribeToAHashtag:(NSString*)hashtag subscribe:(BOOL)subscribe{
+    
+    [onStartViewController checkNotificationData:color];
+    
+    if (subscribe) {
+        PFObject *subscribeObject  = [PFObject objectWithClassName:@"Subscribe"];
+        if([[PFUser currentUser] objectForKey:@"location"]){
+            subscribeObject[@"location"] = [[PFUser currentUser] objectForKey:@"location"];
+        }
+        subscribeObject[@"hashtag"] = hashtag;
+        subscribeObject[@"user"] = [PFUser currentUser];
+        subscribeObject[@"muted"] = @NO;
+        [subscribeObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+            PFQuery *hashtagItem = [PFQuery queryWithClassName:@"Tag"];
+            [[[PFUser currentUser] objectForKey:@"location" ] fetchIfNeeded];
+            if ([[PFUser currentUser] objectForKey:@"location"]) {
+                [hashtagItem whereKey:@"location" equalTo:[[PFUser currentUser] objectForKey:@"location"]];
+            }
+            [hashtagItem whereKey:@"name" equalTo:hashtag];
+            [hashtagItem findObjectsInBackgroundWithBlock:^(NSArray *hashtagsResults, NSError *error) {
+                if (!error && hashtagsResults.count > 0) {
+                    PFObject *hash = hashtagsResults[0];
+                    [hash incrementKey:@"followers" byAmount:@1];
+                    [hash saveInBackground];
+                }else{
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
+            
+        }];
+    }else{
+        PFQuery *query = [PFQuery queryWithClassName:@"Subscribe"];
+        [query whereKey:@"hashtag" equalTo:hashtag];
+        [query whereKey:@"user" equalTo:[PFUser currentUser]];
+        if([[PFUser currentUser] objectForKey:@"location"]){
+            [query whereKey:@"location" equalTo:[[PFUser currentUser] objectForKey:@"location"]];
+        }
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                [PFObject deleteAllInBackground:objects];
+            } else {
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }
+        }];
+    }
     
 }
 

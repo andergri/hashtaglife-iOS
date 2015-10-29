@@ -36,7 +36,7 @@
     
     //hashtags = [[NSMutableArray alloc] init];
     // y = 140
-    self.tableView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 261.5);
+    self.tableView.frame = CGRectMake(0, 72, self.tableView.frame.size.width, 261.5);
     [self.tableView setDelegate:self];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"HashtagTableViewCell"];
     self.tableView.dataSource = self;

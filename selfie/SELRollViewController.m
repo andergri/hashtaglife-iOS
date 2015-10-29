@@ -32,7 +32,7 @@ UIAlertViewDelegate> {
     // Setup roll picker
     [self setup];
     
-    //self.view.backgroundColor = [UIColor greenColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     
     // Post View Controller

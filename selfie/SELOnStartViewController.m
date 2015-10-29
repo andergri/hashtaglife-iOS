@@ -11,6 +11,7 @@
 #import "SELBannedViewController.h"
 #import "SELLocationViewController.h"
 #import "SELExtraViewController.h"
+#import "SELPushNotificationViewController.h"
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 #include <net/if.h>
@@ -108,6 +109,25 @@
         }
     }
 }
+
+// Check for Notification Data
+- (void) checkNotificationData:(SELColorPicker*)color {
+    
+    if ([PFUser currentUser]) {
+            
+        SELPushNotificationViewController *notification = [[SELPushNotificationViewController alloc] init];
+        notification.color = color;
+        
+        notification.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        notification.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        
+        if(notification.shouldAskForNotifications){
+            [self presentViewController:notification animated:YES completion:^{
+            }];
+        }
+    }
+}
+
 
 - (void) checkBannedData{
     

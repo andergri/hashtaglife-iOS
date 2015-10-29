@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SELPostViewController">
@@ -31,10 +31,12 @@
                     <subviews>
                         <imageView hidden="YES" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="xOS-Co-QwB">
                             <rect key="frame" x="105" y="10" width="100" height="100"/>
+                            <animations/>
                             <color key="backgroundColor" red="0.76454878829999995" green="0.040911477359999997" blue="0.070476709530000001" alpha="1" colorSpace="calibratedRGB"/>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Boom! Sharing is cool!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zz-4F-NVl">
                             <rect key="frame" x="9" y="145" width="300" height="45"/>
+                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -44,6 +46,7 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iIB-AZ-gZn">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                    <animations/>
                                     <color key="backgroundColor" red="0.47506677860000002" green="0.42496126760000003" blue="0.81570870539999996" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                     <state key="normal" title="Share with Others">
@@ -56,6 +59,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X1E-Xl-1cS">
                                     <rect key="frame" x="0.0" y="70" width="320" height="70"/>
+                                    <animations/>
                                     <color key="backgroundColor" red="0.66666666669999997" green="0.01176470588" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                     <state key="normal" title="Finish">
@@ -67,9 +71,11 @@
                                     </connections>
                                 </button>
                             </subviews>
+                            <animations/>
                             <color key="backgroundColor" red="0.76454878829999995" green="0.040911477359999997" blue="0.070476709530000001" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" red="0.68594868360000005" green="0.70447550839999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pAF-fL-iaU">
@@ -80,11 +86,13 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Be nice! No harassment, spam, or anything inappropriate." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozW-8R-peL">
                                     <rect key="frame" x="40" y="80" width="240" height="42"/>
+                                    <animations/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.83412247470505052" green="0.83412247470505052" blue="0.83412247470505052" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
+                            <animations/>
                             <color key="backgroundColor" red="0.98905066287878785" green="0.98905066287878785" blue="0.98905066287878785" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Emf-at-3hQ">
@@ -92,21 +100,25 @@
                             <subviews>
                                 <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add a few hashtags" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="30s-VI-sbF">
                                     <rect key="frame" x="12" y="20.5" width="296" height="49"/>
+                                    <animations/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 </textField>
                             </subviews>
+                            <animations/>
                             <color key="backgroundColor" red="0.66666666669999997" green="0.01176470588" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <tableView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="76" sectionHeaderHeight="70" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="GLF-2V-0hx">
                             <rect key="frame" x="0.0" y="80" width="320" height="488"/>
+                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <inset key="separatorInset" minX="1" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </tableView>
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G8E-s9-nBo">
                             <rect key="frame" x="0.0" y="498" width="320" height="70"/>
+                            <animations/>
                             <color key="backgroundColor" red="0.76454878829999995" green="0.040911477359999997" blue="0.070476709530000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="320" id="777-lC-UeB"/>
@@ -121,6 +133,7 @@
                             </connections>
                         </button>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="G8E-s9-nBo" firstAttribute="bottom" secondItem="GLF-2V-0hx" secondAttribute="bottom" id="57Y-j0-Bco"/>
@@ -142,12 +155,14 @@
                     <subviews>
                         <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v5h-Dp-0FT">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <animations/>
                         </imageView>
                         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pDv-9I-j87">
                             <rect key="frame" x="0.0" y="370" width="320" height="76"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XrG-Ts-NTU">
                                     <rect key="frame" x="245" y="30" width="50" height="50"/>
+                                    <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <state key="normal">
                                         <color key="titleColor" red="0.47506677860000002" green="0.42496126760000003" blue="0.81570870539999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -159,6 +174,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0fG-la-DXS">
                                     <rect key="frame" x="30" y="30" width="50" height="50"/>
+                                    <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <state key="normal">
                                         <color key="titleColor" red="0.47506677860000002" green="0.42496126760000003" blue="0.81570870539999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -169,11 +185,14 @@
                                     </connections>
                                 </button>
                             </subviews>
+                            <animations/>
                         </view>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -190,9 +209,4 @@
     <resources>
         <image name="checkmark" width="64" height="64"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

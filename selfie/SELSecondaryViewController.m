@@ -14,6 +14,7 @@
 @interface SELSecondaryViewController ()
 
 @property SELSecondaryTableTableViewController *tableViewController;
+//@property SELPopularTagTableViewController *tagtableViewController;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIImageView *gamingImageView;
@@ -22,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIView *gamingStatus;
 - (IBAction)gamingQ:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *gamingQ;
+@property (weak, nonatomic) IBOutlet UILabel *gamingLabel;
 
 @end
 
@@ -29,6 +31,7 @@
 
 @synthesize color;
 @synthesize tableViewController;
+//@synthesize tagtableViewController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,6 +46,13 @@
     [self addChildViewController:tableViewController];
     [tableViewController didMoveToParentViewController:self];
 
+    // Suggested Popular Tags
+    //tagtableViewController = [[SELPopularTagTableViewController alloc] init];
+    //tagtableViewController.color = color;
+    //[self.view addSubview:tagtableViewController.view];
+    //[self addChildViewController:tagtableViewController];
+    //[tagtableViewController didMoveToParentViewController:self];
+    
     // footer view
     [(SELPageViewController*)self.parentViewController setFooterBar:self.footerView disapear:NO];
     
@@ -69,12 +79,11 @@
     self.gamingImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.gamingImageView setTintColor:[color getPrimaryColor]];
     self.gamingImageView.clipsToBounds = YES;
-    
+    **/
     UITapGestureRecognizer *gamingTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gamingQ:)];
-    [self.gamingStatus addGestureRecognizer:gamingTapRecognizer];
+    [self.topView addGestureRecognizer:gamingTapRecognizer];
     
     [self getNumberUserLikes];
-     **/
 
 }
 
@@ -102,6 +111,7 @@
 */
 
 - (IBAction)gamingQ:(id)sender {
+    NSLog(@"tapped");
     self.gamingQ.hidden = !self.gamingQ.hidden;
     self.gamingQ.alpha = 1.0;
     
@@ -116,10 +126,12 @@
 
 - (void) setGamingData:(float)status{
     
-    [self getLevels:(int)status];
+    //[self getLevels:(int)status];
     self.gamingPts.text = [NSString stringWithFormat:@"%d",(int)status];
-    [self drawHalfCircle];
-    [self drawHalfCircleColor:status];
+    self.gamingPts.textColor = [color getPrimaryColor];
+    self.gamingLabel.textColor = [color getPrimaryColor];
+    //[self drawHalfCircle];
+    //[self drawHalfCircleColor:status];
 }
 
 - (void) drawHalfCircle{
