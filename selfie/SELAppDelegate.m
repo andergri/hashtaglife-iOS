@@ -9,6 +9,8 @@
 #import "SELAppDelegate.h"
 #import "GAI.h"
 #import "SELPageViewController.h"
+#import <Fabric/Fabric.h>
+#import <TwitterKit/TwitterKit.h>
 
 @implementation SELAppDelegate
 
