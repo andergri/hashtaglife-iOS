@@ -633,7 +633,7 @@
     
     // Save Selfie
     pendingObject = nil;
-    pendingObject = [PFObject objectWithClassName:@"Queue"];
+    pendingObject = [PFObject objectWithClassName:@"Selfie"];
     pendingObject[@"likes"] = @0;
     pendingObject[@"flags"] = @0;
     pendingObject[@"visits"] = @1;
@@ -657,7 +657,7 @@
         if(!error){
             // Add or incrment hashtag count
             
-            /**
+            
             for (NSString *cleanHashtag in cleanHashtags) {
                 
                 PFQuery *queryHashtag = [PFQuery queryWithClassName:@"Hashtag"];
@@ -687,7 +687,7 @@
                     }
                 }];
             }
-             **/
+             
             id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
             [tracker send:[[GAIDictionaryBuilder
                             createEventWithCategory:@"Data"
