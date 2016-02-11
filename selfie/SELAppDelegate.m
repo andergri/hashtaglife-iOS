@@ -17,15 +17,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     // Parse Setup
-    [Parse setApplicationId:@"####"
-                  clientKey:@"####"];
+    [Parse setApplicationId:@"###"
+                  clientKey:@"###"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // Optional: automatically send uncaught exceptions to Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     [GAI sharedInstance].dispatchInterval = 20;
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
-    [[GAI sharedInstance] trackerWithTrackingId:@"####"];
+    [[GAI sharedInstance] trackerWithTrackingId:@"###"];
     
     // Twitter Fabric
     [Fabric with:@[[Twitter class]]];
