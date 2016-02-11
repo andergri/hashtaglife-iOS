@@ -56,8 +56,10 @@
     self.imageView.image = image;
     [self.imageView setNeedsDisplay];
     [self.imageView setFrame:CGRectMake(0, 25.0, self.imageView.frame.size.width, self.imageView.frame.size.height)];
+}
 
-   
+- (UIImage *) getImage{
+    return self.imageView.image;
 }
 
 - (BOOL)prefersStatusBarHidden {

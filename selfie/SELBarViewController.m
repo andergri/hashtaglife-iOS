@@ -106,7 +106,7 @@
     [self createRoll:view placement:CGRectMake(235, view.frame.size.height - 70, 64, 64) background:YES];
 }
 - (void) createBarOptionSecondary:(UIView *)view{
-    //[self createGame:view placement:CGRectMake(21, view.frame.size.height - 70, 64, 64)];
+    //[self createGame:view placement:CGRectMake(21, view.frame.size.height - 70, 20, 64)];
     [self createList:view placement:CGRectMake(235, view.frame.size.height - 70, 64, 64)background:YES];
 }
 - (void) createBarOptionCamera:(UIView *)view{
@@ -203,8 +203,8 @@
 - (void) createGame:(UIView *)view placement:(CGRect)placement{
     
     gameButton = [[UIButton alloc] initWithFrame:placement];
-    [self addBackground:gameButton placement:placement];
-    [self getNumberUserLikes:[self addForeGround:gameButton padding:5.0]];
+    //[self addBackground:gameButton placement:placement];
+    [self getNumberUserLikes:gameButton];
     [gameButton addTarget:self action:@selector(tappedGame) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:gameButton];
 }
@@ -347,13 +347,13 @@
 //private method
 - (void) showLikeCount:(int)count view:(UIView*)view{
     
-    UILabel *likes = [[UILabel alloc] initWithFrame:CGRectMake(7.8, 7, 50, 50)];
+    UILabel *likes = [[UILabel alloc] initWithFrame:CGRectMake(7.8, 7, 200, 50)];
     likes.layer.cornerRadius = roundf(likes.frame.size.width/2.0);
     likes.layer.masksToBounds = YES;
-    likes.text = [NSString stringWithFormat:@"%d", count];
-    likes.textColor = [color getPrimaryColor];
+    likes.text = [NSString stringWithFormat:@"%d votes", count];
+    likes.textColor = [UIColor whiteColor];//[color getPrimaryColor];
     likes.font = [UIFont boldSystemFontOfSize:20];
-    likes.textAlignment = NSTextAlignmentCenter;
+    likes.textAlignment = NSTextAlignmentLeft;
     
     for (UIView* sub in view.subviews) {
         [sub removeFromSuperview];

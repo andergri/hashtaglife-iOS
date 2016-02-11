@@ -26,7 +26,6 @@
 @synthesize inboxSeen;
 @synthesize lastQuery;
 @synthesize trendingHashtags;
-@synthesize lastTapped;
 @synthesize subscribed;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -59,8 +58,6 @@
     subscribed = [[NSMutableArray alloc] init];
     trendingHashtags = [[NSMutableArray alloc] init];
     //[self popularHashtags];
-    
-    lastTapped = 0;
     
     [self.tableView setContentInset:UIEdgeInsetsMake(0,0,0,0)];
    
@@ -134,46 +131,35 @@
         }else if (indexPath.item == 1) {
             attributedString = [[NSMutableAttributedString alloc] initWithString:@"recent"];
             [cell insertSubview:[self clockLabel] aboveSubview:cell.textLabel];
-        }else if(indexPath.item < 3){
+        }else if(indexPath.item < 5){
             attributedString = [[NSMutableAttributedString alloc] initWithString:[@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item - 2]]];
             [attributedString addAttribute:NSKernAttributeName value:@(1.5) range:NSMakeRange(0, 1)];
-            [cell insertSubview:[self arrowLabel] aboveSubview:cell.textLabel];
-            if ([indexPath isEqual:lastTapped]) {
-                int followCount = [[[objectsH objectAtIndex:indexPath.item - 2] objectForKey:@"followers"] intValue];
-                [cell insertSubview:[self joinGroupLabel:[hashtags objectAtIndex:indexPath.item - 2] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
-            }
+            [cell insertSubview:[self arrowLabel:[attributedString size].width color:[colorArray objectAtIndex:i]] aboveSubview:cell.textLabel];
+            int followCount = [[[objectsH objectAtIndex:indexPath.item - 2] objectForKey:@"followers"] intValue];
+            [cell insertSubview:[self joinGroupLabel:[hashtags objectAtIndex:indexPath.item - 2] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
         }else if (indexPath.item == (hashtags.count + 2)) {
             attributedString = [[NSMutableAttributedString alloc] initWithString:@"     "];
         }else{
             attributedString = [[NSMutableAttributedString alloc] initWithString:[@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item - 2]]];
             [attributedString addAttribute:NSKernAttributeName value:@(1.5) range:NSMakeRange(0, 1)];
-            
-            if ([indexPath isEqual:lastTapped]) {
-                int followCount = [[[objectsH objectAtIndex:indexPath.item - 2] objectForKey:@"followers"] intValue];
-                [cell insertSubview:[self joinGroupLabel:[hashtags objectAtIndex:indexPath.item - 2] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
-            }
+            int followCount = [[[objectsH objectAtIndex:indexPath.item - 2] objectForKey:@"followers"] intValue];
+            [cell insertSubview:[self joinGroupLabel:[hashtags objectAtIndex:indexPath.item - 2] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
         }
         
     }else{
         attributedString = [[NSMutableAttributedString alloc] initWithString:[@"#" stringByAppendingString:[hashtags objectAtIndex:indexPath.item]]];
         [attributedString addAttribute:NSKernAttributeName value:@(1.5) range:NSMakeRange(0, 1)];
-        if ([indexPath isEqual:lastTapped]) {
-            int followCount = [[[objectsH objectAtIndex:indexPath.item] objectForKey:@"followers"] intValue];
-            [cell insertSubview:[self joinGroupLabel:[hashtags objectAtIndex:indexPath.item] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
-        }
+        int followCount = [[[objectsH objectAtIndex:indexPath.item] objectForKey:@"followers"] intValue];
+        [cell insertSubview:[self joinGroupLabel:[hashtags objectAtIndex:indexPath.item] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
     }
 
     // section 0
     }else{
         
         UIView *bg;
-        if ([indexPath isEqual:lastTapped]) {
-            int followCount = [[[objectsH objectAtIndex:indexPath.item] objectForKey:@"followers"] intValue];
-            [cell insertSubview:[self joinGroupLabel:[inbox objectAtIndex:indexPath.item] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
-            bg = [self backgroundView:120 color:[colorArray objectAtIndex:i]];
-        }else{
-            bg = [self backgroundView:72 color:[colorArray objectAtIndex:i]];
-        }
+        //int followCount = [[[objectsH objectAtIndex:indexPath.item] objectForKey:@"followers"] intValue];
+        //[cell insertSubview:[self joinGroupLabel:[inbox objectAtIndex:indexPath.item] color:[colorArray objectAtIndex:i] count:followCount] aboveSubview:cell.textLabel];
+        bg = [self backgroundView:72 color:[colorArray objectAtIndex:i]];
         [cell insertSubview:bg atIndex:0];
         attributedString = [[NSMutableAttributedString alloc] initWithString:[@"#" stringByAppendingString:[inbox objectAtIndex:indexPath.item]]];
         [attributedString addAttribute:NSKernAttributeName value:@(1.5) range:NSMakeRange(0, 1)];
@@ -188,12 +174,13 @@
     return cell;
 }
 
-- (UIView *)arrowLabel{
+- (UIView *)arrowLabel:(int)distance color:(UIColor*)color{
     UIView *arrowLabel = [[UIView alloc]init];
     arrowLabel.backgroundColor = [UIColor clearColor];
-    arrowLabel.frame = CGRectMake(self.view.frame.size.width - 79, 1, 120, 76);
-    arrowLabel.transform= CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-10));
-    
+    NSLog(@"distance %d", distance);
+    arrowLabel.frame = CGRectMake( (distance * 2.3) + 9, 19.5, 40, 40);
+    arrowLabel.transform= CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-5));
+    //self.view.frame.size.width - 79
     /**arrowLabel.text = [NSString stringWithUTF8String:"\u0362"];
     arrowLabel.textColor = [UIColor whiteColor];
     arrowLabel.font = [UIFont systemFontOfSize:31];
@@ -203,10 +190,18 @@
     
     UIImage *trendingImage = [[UIImage imageNamed:@"trending"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImageView *trendingImageView = [[UIImageView alloc] initWithImage:trendingImage];
-    trendingImageView.frame = CGRectMake(20, 20, trendingImage.size.width, trendingImage.size.height);
+    trendingImageView.frame = CGRectMake(0, 0, 40, 40);
+    trendingImageView.transform = CGAffineTransformScale(trendingImageView.transform, 0.37, 0.37);
+    trendingImageView.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    trendingImageView.layer.cornerRadius = 20;
+    //trendingImageView.layer.borderColor = [UIColor colorWithWhite:0 alpha:0].CGColor;
+    //trendingImageView.layer.borderWidth = 2.0f;
     trendingImageView.contentMode = UIViewContentModeCenter;
-    [trendingImageView setTintColor:[UIColor colorWithWhite:1. alpha:1]];
-    [arrowLabel addSubview:trendingImageView];
+    [trendingImageView setTintColor:color];
+    
+    if (distance < 100) {
+        [arrowLabel addSubview:trendingImageView];
+    }
     
     return arrowLabel;
 }
@@ -241,47 +236,50 @@
 
 - (UIView *)joinGroupLabel:(NSString*)hashtag color:(UIColor *)color count:(int)count{
 
-    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(10, 56, 300, 60)];
+    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 6, 320, 60)];
     
+    /**
     UIImage *groupImage = [[UIImage imageNamed:@"group"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImageView *groupImageView = [[UIImageView alloc] initWithImage:groupImage];
     groupImageView.frame = CGRectMake(25, 8, groupImage.size.width, groupImage.size.height);
     groupImageView.contentMode = UIViewContentModeCenter;
     [groupImageView setTintColor:[UIColor whiteColor]];
-    UILabel *groupLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 80, 40)];
-    groupLabel.text = @"Follow";
-    groupLabel.textColor = [UIColor whiteColor];
-    groupLabel.font = [UIFont systemFontOfSize:14.0f];
-    UIButton *groupButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 10, 145, 40)];
-    groupButton.backgroundColor = [UIColor clearColor];
-    groupButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    groupButton.layer.borderWidth = 1.5f;
-    groupButton.layer.cornerRadius = 5.0f;
-    [groupButton addSubview:groupImageView];
+     [groupButton addSubview:groupImageView];
+    **/
+    
+    UILabel *groupLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 18)];
+    groupLabel.text = @"follow";
+    groupLabel.textColor = [UIColor colorWithWhite:0 alpha:.3];
+    groupLabel.font = [UIFont systemFontOfSize:12.0f];
+    groupLabel.textAlignment = NSTextAlignmentCenter;
+    UIButton *groupButton = [[UIButton alloc] initWithFrame:CGRectMake(264.5, 15, 50, 40)];
     [groupButton addSubview:groupLabel];
     
-    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(115, 0, 30, 40)];
+    //groupButton.backgroundColor = [UIColor redColor];
+    //groupButton.layer.borderColor = [UIColor colorWithWhite:0 alpha:.3].CGColor;
+    //groupButton.layer.borderWidth = .7f;
+    //groupButton.layer.cornerRadius = 3.0f;
+
+    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 18, 50, 17)];
     countLabel.text = [NSString stringWithFormat:@"%d", count];
     countLabel.textAlignment = NSTextAlignmentCenter;
-    countLabel.textColor = [UIColor whiteColor];
-    countLabel.font = [UIFont systemFontOfSize:15.0f];
+    countLabel.textColor = [UIColor colorWithWhite:0 alpha:.3];
+    countLabel.font = [UIFont systemFontOfSize:9.0f];
     CALayer *upperBorder = [CALayer layer];
-    upperBorder.backgroundColor = [[UIColor whiteColor] CGColor];
-    upperBorder.frame = CGRectMake(0, 0, 1.0f, CGRectGetHeight(countLabel.frame));
+    upperBorder.backgroundColor = [[UIColor colorWithWhite:0 alpha:.3] CGColor];
+    upperBorder.frame = CGRectMake(20, 0, 10, .5f);
     [countLabel.layer addSublayer:upperBorder];
-    
+     
     if ([subscribed containsObject:hashtag]) {
-        groupLabel.textColor = color;
-        [groupImageView setTintColor:color];
-        groupLabel.text = @"Following";
-        groupButton.backgroundColor = [UIColor whiteColor];
-        groupImageView.frame = CGRectMake(15, 8, groupImage.size.width, groupImage.size.height);
-        groupLabel.frame = CGRectMake(45, 0, 80, 40);
-        countLabel.textColor = color;
-        upperBorder.backgroundColor = [color CGColor];
+
+        groupLabel.text = @"following";
+        groupLabel.textColor = [UIColor whiteColor];
+        groupLabel.font = [UIFont systemFontOfSize:10.5f];
+        countLabel.textColor = [UIColor whiteColor];
         countLabel.text = [NSString stringWithFormat:@"%d", count + 1];
+        upperBorder.backgroundColor = [UIColor whiteColor].CGColor;
     }
-    
+    /**
     UIImage *exitImage = [[UIImage imageNamed:@"reply"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImageView *exitImageView = [[UIImageView alloc] initWithImage:exitImage];
     exitImageView.frame = CGRectMake(10, 8, exitImage.size.width, exitImage.size.height);
@@ -308,15 +306,15 @@
         exitImageView.frame = CGRectMake(107, 8, exitImage.size.width, exitImage.size.height);
         exitLabel.text = @"Reply";
     }
-    
+    **/
     groupButton.enabled = NO;
-    exitButton.enabled = NO;
+    //exitButton.enabled = NO;
     
     //countLabel.
     //countLabel.backgroundColor = [UIColor yellowColor];
     
     [container addSubview:groupButton];
-    [container addSubview:exitButton];
+    //[container addSubview:exitButton];
     [groupButton addSubview:countLabel];
     return container;
 }
@@ -476,9 +474,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([indexPath isEqual:lastTapped]) {
-        return 120.0f;
-    }
     return 72.0f;
 }
 
@@ -574,7 +569,6 @@
 #pragma - mark Parse Methods
 
 - (void) searchForHashtag:(NSString *)query{
-    lastTapped = 0;
     [inboxSeen removeAllObjects];
     //query = [query lowercaseString];
     query = [query stringByReplacingOccurrencesOfString:@"#" withString:@""];

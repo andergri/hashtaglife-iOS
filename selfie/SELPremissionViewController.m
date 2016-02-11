@@ -29,6 +29,7 @@
     self.view.frame = self.parentViewController.view.frame;
     [self.backgroundView.layer setCornerRadius:5.0f];
     self.backgroundView.center = self.view.center;
+    self.backgroundView.hidden = YES;
     
     [self addFakeOverlay];
     
@@ -52,14 +53,53 @@
 }
 
 
+- (void) askForNotDeterminedPremission{
+    AVAuthorizationStatus audioAuthorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    AVAuthorizationStatus videoAuthorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    
+    // middle
+    if (audioAuthorizationStatus == AVAuthorizationStatusNotDetermined){
+        if ([AVCaptureDevice respondsToSelector:@selector(requestAccessForMediaType: completionHandler:)]) {
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+                if (granted) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self checkForPremissions];
+                    });
+                }
+            }];
+        }
+    }
+    
+    if (videoAuthorizationStatus == AVAuthorizationStatusNotDetermined){
+        if ([AVCaptureDevice respondsToSelector:@selector(requestAccessForMediaType: completionHandler:)]) {
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                if (granted) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self checkForPremissions];
+                    });
+                }
+            }];
+        }
+    }
+    
+}
+
+
 // Check for premissions
 - (void) checkForPremissions{
+    
+    [self askForNotDeterminedPremission];
     
     AVAuthorizationStatus audioAuthorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     AVAuthorizationStatus videoAuthorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if(videoAuthorizationStatus == AVAuthorizationStatusAuthorized &&
        audioAuthorizationStatus == AVAuthorizationStatusAuthorized){
         [(SELPageViewController *)self.parentViewController checkCameraOrPremssionViewController:YES];
+    }
+    self.backgroundView.hidden = NO;
+    if(videoAuthorizationStatus == AVAuthorizationStatusNotDetermined ||
+       audioAuthorizationStatus == AVAuthorizationStatusNotDetermined){
+        self.backgroundView.hidden = YES;
     }
     [self checkNotification:self.notificationButton title:@"Notifications"];
     [self setPremssionValue:self.audioButton status:audioAuthorizationStatus title:@"Microphone"];
@@ -125,6 +165,7 @@
         statusButton.backgroundColor = color.getPrimaryColor;
         [statusButton setSelected:NO];
         [statusButton setEnabled:NO];
+        statusButton.hidden = YES;
     }
 }
 
@@ -163,6 +204,7 @@
             statusButton.backgroundColor = color.getPrimaryColor;
             [statusButton setSelected:NO];
             [statusButton setEnabled:NO];
+            statusButton.hidden = YES;
             break;
         default:
             break;

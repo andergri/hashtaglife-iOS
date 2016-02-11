@@ -16,5 +16,6 @@
 
 @property (nonatomic) id<SELPictureViewControllerDelegate> delegate;
 - (void) setImage:(UIImage*)image;
+- (UIImage *) getImage;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @end

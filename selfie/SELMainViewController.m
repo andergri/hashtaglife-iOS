@@ -210,86 +210,77 @@
             CGPoint p = [gestureRecognizer locationInView:htc.tableView];
             NSIndexPath *indexPath = [htc.tableView indexPathForRowAtPoint:p];
             UITableViewCell *cell = [htc.tableView cellForRowAtIndexPath:indexPath];
-            NSIndexPath *tempLastTapped = htc.lastTapped;
             
             if (indexPath != nil) {
+                
+                // kill if point is at bottom screen
+                CGFloat distanceFromBottom = ([htc.tableView contentOffset].y + self.view.frame.size.height) - 150;
+                if(p.y > distanceFromBottom && p.x > 0){
+                    return;
+                }
+                if(p.y < [htc.tableView contentOffset].y){
+                    return;
+                }
+                
+                [self dismissKeyboard];
+                
+                NSString *hashtag;
+                if(self.textField.text.length == 0 && indexPath.section == 1) {
                     
-                    // kill if point is at bottom screen
-                    CGFloat distanceFromBottom = ([htc.tableView contentOffset].y + self.view.frame.size.height) - 150;
-                    if(p.y > distanceFromBottom && p.x > 0){
+                    if (indexPath.item == 0) {
+                        NSLog(@"hit popular");
+                        [(SELPageViewController*)self.parentViewController  showSelfies:0 hashtag:@"" color:cell.backgroundColor global:NO objectId:nil];
+                        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                        [tracker send:[[GAIDictionaryBuilder
+                                        createEventWithCategory:@"UX"
+                                        action:@"taped suggested"
+                                        label:@"popular"
+                                        value:nil] build]];
                         return;
-                    }
-                    if(p.y < [htc.tableView contentOffset].y){
+                    }else if (indexPath.item == 1) {
+                        [(SELPageViewController*)self.parentViewController showSelfies:1 hashtag:@"" color:cell.backgroundColor global:NO objectId:nil];
+                        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                        [tracker send:[[GAIDictionaryBuilder
+                                        createEventWithCategory:@"UX"
+                                        action:@"taped suggested"
+                                        label:@"fresh"
+                                        value:nil] build]];
                         return;
-                    }
-                
-                    [self dismissKeyboard];
-                
-                    NSString *hashtag;
-                    if(self.textField.text.length == 0 && indexPath.section == 1) {
-                        
-                        if (indexPath.item == 0) {
-                            NSLog(@"hit popular");
-                            [(SELPageViewController*)self.parentViewController  showSelfies:0 hashtag:@"" color:cell.backgroundColor global:NO objectId:nil];
-                            htc.lastTapped = 0;
-                            [htc.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, tempLastTapped, nil] withRowAnimation:UITableViewRowAnimationNone];
-
-                            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-                            [tracker send:[[GAIDictionaryBuilder
-                                            createEventWithCategory:@"UX"
-                                            action:@"taped suggested"
-                                            label:@"popular"
-                                            value:nil] build]];
-                            return;
-                        }else if (indexPath.item == 1) {
-                            [(SELPageViewController*)self.parentViewController showSelfies:1 hashtag:@"" color:cell.backgroundColor global:NO objectId:nil];
-                            htc.lastTapped = 0;
-                            [htc.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, tempLastTapped, nil] withRowAnimation:UITableViewRowAnimationNone];
-
-                            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-                            [tracker send:[[GAIDictionaryBuilder
-                                            createEventWithCategory:@"UX"
-                                            action:@"taped suggested"
-                                            label:@"fresh"
-                                            value:nil] build]];
-                            return;
-                        }else{
-                            hashtag = [htc.hashtags objectAtIndex:(indexPath.item - 2)];
-                        }
                     }else{
-                        if(indexPath.section == 0){
-                            hashtag = [htc.inbox objectAtIndex:indexPath.item];
-                            [htc markInbox:hashtag];
-                        }else{
-                            hashtag = [htc.hashtags objectAtIndex:indexPath.item];
-                        }
+                        hashtag = [htc.hashtags objectAtIndex:(indexPath.item - 2)];
                     }
-                
-                    CGPoint eP = [gestureRecognizer locationInView:cell];
-                    if([indexPath isEqual:htc.lastTapped] && eP.y > 65){
-                        if (eP.x < 160 && ![htc.inbox containsObject:hashtag]) {
-                            if ([htc.subscribed containsObject:hashtag]) {
-                                [htc.subscribed removeObjectIdenticalTo:hashtag];
-                                [(SELPageViewController*)self.parentViewController subscribeToAHashtag:hashtag subscribe:NO];
-                            }else{
-                                [htc.subscribed addObject:hashtag];
-                                [(SELPageViewController*)self.parentViewController subscribeToAHashtag:hashtag subscribe:YES];
-                            }
-                            [htc.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, tempLastTapped, nil] withRowAnimation:UITableViewRowAnimationNone];
-                        }else{
-                            [(SELPageViewController*)self.parentViewController quickPostHashtag:hashtag];
-                        }
-                        NSLog(@"Bottom Cell tapped %f %f", eP.x, eP.y);
-                        return;
+                }else{
+                    if(indexPath.section == 0){
+                        hashtag = [htc.inbox objectAtIndex:indexPath.item];
+                        [htc markInbox:hashtag];
+                        [htc.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+                    }else{
+                        hashtag = [htc.hashtags objectAtIndex:indexPath.item];
                     }
-                    htc.lastTapped = indexPath;
-                    NSLog(@"index path %@", indexPath);
+                }
                 
-                    [(SELPageViewController*)self.parentViewController showSelfies:2 hashtag:hashtag color:cell.backgroundColor global:NO objectId:nil];
-                    [htc.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, tempLastTapped, nil] withRowAnimation:UITableViewRowAnimationNone];
-
-                    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-                    [tracker send:[[GAIDictionaryBuilder
+                CGPoint eP = [gestureRecognizer locationInView:cell];
+                if(eP.x > 265){
+                    if ([htc.subscribed containsObject:hashtag]) {
+                        [htc.subscribed removeObjectIdenticalTo:hashtag];
+                        [htc.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+                        [(SELPageViewController*)self.parentViewController subscribeToAHashtag:hashtag subscribe:NO];
+                    }else{
+                        [htc.subscribed addObject:hashtag];
+                        [htc.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+                        [(SELPageViewController*)self.parentViewController subscribeToAHashtag:hashtag subscribe:YES];
+                    }
+                    
+                    NSLog(@"Bottom Cell tapped %f %f", eP.x, eP.y);
+                    return;
+                }
+                
+                //[(SELPageViewController*)self.parentViewController quickPostHashtag:hashtag];
+                
+                [(SELPageViewController*)self.parentViewController showSelfies:2 hashtag:hashtag color:cell.backgroundColor global:NO objectId:nil];
+                
+                id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                [tracker send:[[GAIDictionaryBuilder
                                 createEventWithCategory:@"UX"
                                 action:@"taped hashtag"
                                 label:hashtag

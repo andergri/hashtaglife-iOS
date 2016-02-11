@@ -16,6 +16,7 @@
 #import "SELPictureViewController.h"
 #import "SELMovieViewController.h"
 #import "SELVotingOverlayViewController.h"
+#import <TwitterKit/TwitterKit.h>
 
 /**
 typedef NS_ENUM(NSInteger, SELSelfieContent) {
@@ -34,7 +35,7 @@ typedef NS_ENUM(NSInteger, SELSelfieLoadContent) {
 };
 
 @interface SELSelifeViewController : UIViewController <UIGestureRecognizerDelegate, SELLoadContentDelegate, SELContentMangerDelegate, SELProgressMangerDelegate,
-    SELOverlayViewControllerDelegate, SELPictureViewControllerDelegate, SELImageLoaderDelegate, SELMovieViewControllerDelegate>
+    SELOverlayViewControllerDelegate, SELPictureViewControllerDelegate, SELImageLoaderDelegate, SELMovieViewControllerDelegate, TWTRComposerViewControllerDelegate>
 
 
 // Init

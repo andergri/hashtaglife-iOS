@@ -318,8 +318,6 @@
 // Subscribe to a hashtag
 - (void) subscribeToAHashtag:(NSString*)hashtag subscribe:(BOOL)subscribe{
     
-    [onStartViewController checkNotificationData:color];
-    
     if (subscribe) {
         PFObject *subscribeObject  = [PFObject objectWithClassName:@"Subscribe"];
         if([[PFUser currentUser] objectForKey:@"location"]){
@@ -341,6 +339,8 @@
                     PFObject *hash = hashtagsResults[0];
                     [hash incrementKey:@"followers" byAmount:@1];
                     [hash saveInBackground];
+                    
+                    [onStartViewController checkNotificationData:color];
                 }else{
                     NSLog(@"Error: %@ %@", error, [error userInfo]);
                 }
@@ -362,7 +362,6 @@
             }
         }];
     }
-    
 }
 
 @end

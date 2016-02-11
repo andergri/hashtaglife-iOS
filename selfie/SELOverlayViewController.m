@@ -215,6 +215,11 @@
     [self recordIconPressed:@"tap heart" value:[NSNumber numberWithInt:-1]];
 }
 
+// tap twitter
+- (void) tapTwitter{
+    [self.delegate showTweetView];
+}
+
 /** Handle Tray Checking **/
 
 - (BOOL) isTrayOpen{
@@ -234,10 +239,12 @@
     NSLog(@"point %f %f %f", point.y, self.view.frame.size.height - (kExposedHeight + 20), (self.view.frame.size.height - (kExposedHeight - 20)));
     if(((self.view.frame.size.width - 110) < point.x) && ((self.view.frame.size.height - 70) < point.y)){
             if((self.view.frame.size.width - 60) < point.x){
-                [self tapUpvote];
-            }else{
                 [self tapDownvote];
+            }else{
+                [self tapUpvote];
             }
+    } else if(((self.view.frame.size.width - 110) > point.x) && ((self.view.frame.size.height - 70) < point.y)){
+        //[self tapTwitter];
     } else if ((self.view.frame.size.width - 40) < point.x && 55 > point.y) {
         [self tapFlag];
         
@@ -341,4 +348,5 @@
     [arrowImageView.layer setValue:[NSNumber numberWithInt:160] forKeyPath:animation.keyPath];
     [self.arrowImageView.layer addAnimation:animation forKey:@"animateArrow"];
 }
+
 @end

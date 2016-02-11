@@ -23,13 +23,18 @@
 
 @interface SELOnStartViewController ()
 
+@property SELPushNotificationViewController *notification;
+
 @end
 
 @implementation SELOnStartViewController
 
+@synthesize notification;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    notification = [[SELPushNotificationViewController alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,10 +119,8 @@
 - (void) checkNotificationData:(SELColorPicker*)color {
     
     if ([PFUser currentUser]) {
-            
-        SELPushNotificationViewController *notification = [[SELPushNotificationViewController alloc] init];
+    
         notification.color = color;
-        
         notification.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         notification.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         

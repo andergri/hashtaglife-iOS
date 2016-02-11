@@ -27,6 +27,9 @@
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-53643197-2"];
     
+    // Twitter Fabric
+    [Fabric with:@[[Twitter class]]];
+    
     if (application.applicationState != UIApplicationStateBackground) {
         // Track an app open here if we launch with a push, unless
         // "content_available" was used to trigger a background push (introduced

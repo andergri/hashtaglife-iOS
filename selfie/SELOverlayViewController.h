@@ -16,6 +16,8 @@
 - (void) goForward;
 - (void) pullDown:(BOOL)isUsernameListVisible;
 - (void) showSelfies:(NSUInteger)selectingType hashtag:(NSString*)hashtag color:(UIColor*)acolor location:(BOOL)filtered objectId:(NSString*)objectId;
+- (void) showTweetView;
+
 @end
 
 @interface SELOverlayViewController : UIViewController <SELHashtagsListObjectDelegate>

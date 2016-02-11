@@ -379,6 +379,43 @@
  **/
 }
 
+// Twitter Test //
+- (void) showTweetView{
+    
+    NSLog(@"show Tweet View");
+    
+    
+    TWTRSession *session = [Twitter sharedInstance].sessionStore.session;
+    
+    if (session == nil) {
+    
+        [[Twitter sharedInstance] logInWithCompletion:^(TWTRSession *session, NSError *error) {
+            if (session) {
+                NSLog(@"signed in as %@", [session userName]);
+                [self showTweet];
+            } else {
+                NSLog(@"error: %@", [error localizedDescription]);
+            }
+        }];
+    }else{
+        [self showTweet];
+    }
+
+}
+
+- (void) showTweet{
+    TWTRSession *session = [Twitter sharedInstance].sessionStore.session;
+    UIImage *image = [pictureViewController getImage];
+    
+    TWTRCardConfiguration *card = [TWTRCardConfiguration appCardConfigurationWithPromoImage:image iPhoneAppID:@"904884186" iPadAppID:nil googlePlayAppID:@"com.hashtaglife.hashtaglife"];
+    TWTRComposerViewController *composer = [[TWTRComposerViewController alloc] initWithUserID:session.userID cardConfiguration:card];
+    
+    // Optionally set yourself as the delegate
+    composer.delegate = self;
+    
+    [self presentViewController:composer animated:YES completion:nil];
+}
+
 #pragma - Exit Button
 
 - (IBAction)exitImage:(id)sender{

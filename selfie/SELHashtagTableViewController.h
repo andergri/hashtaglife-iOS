@@ -16,7 +16,6 @@
 @property (nonatomic, strong) NSMutableArray *inbox;
 @property (nonatomic, strong) NSMutableArray *inboxSeen;
 @property (nonatomic, strong) NSMutableArray *subscribed;
-@property NSIndexPath *lastTapped;
 - (void) markInbox:(NSString *)hashtag;
 
 @end
